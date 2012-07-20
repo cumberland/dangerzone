@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% block head %}
+<script type="text/javascript">  
+function startClick() {
+    console.log("Worked");
+    $.post("/start", { 
+      csrfmiddlewaretoken: "JrkuoR0qq80jwyav4wI2131atmlncyQY"},
+    function(data) {
+        $('#baby').append(data);
+        $('#baby').append("<br>");
+      });
+  }
+</script>
+
+<script type='text/javascript'> 
+$(window).load(function(){
+$('select[name="FieldType"]').change(function(){
+  if ($('select[name="FieldType"]').val() == "CharField") {
+    $('#divid_VarMaxLength').show();
+    $('#divid_VarMaxDigits').hide();
+    $('#divid_VarMaxDecimalPlaces').hide();
+    $('#divid_VarBlank').show();
+    $('#divid_VarNull').show();
+        }
+  else if ($('select[name="FieldType"]').val() == "DecimalField") {
+    $('#divid_VarMaxLength').hide();
+    $('#divid_VarMaxDigits').show();
+    $('#divid_VarMaxDecimalPlaces').show();
+    $('#divid_VarBlank').show();
+    $('#divid_VarNull').show();
+  }
+  else if ($('select[name="FieldType"]').val() == "BooleanField") {
+    $('#divid_VarMaxLength').hide();
+    $('#divid_VarMaxDigits').hide();
+    $('#divid_VarMaxDecimalPlaces').hide();
+    $('#divid_VarBlank').hide();
+    $('#divid_VarNull').hide();
+  }
+  else if ($('select[name="FieldType"]').val() == "NullBooleanField") {
+    $('#divid_VarMaxLength').hide();
+    $('#divid_VarMaxDigits').hide();
+    $('#divid_VarMaxDecimalPlaces').hide();
+    $('#divid_VarBlank').hide();
+    $('#divid_VarNull').hide();
+  }
+  else {
+    $('#divid_VarMaxLength').hide();
+    $('#divid_VarMaxDigits').hide();
+    $('#divid_VarMaxDecimalPlaces').hide();
+    $('#divid_VarBlank').show();
+    $('#divid_VarNull').show();
+  }
+})
+});
+</script>
+
+<script type='text/javascript'> 
+$(document).ready(function(){
+  if ($('select[name="FieldType"]').val() == "CharField") {
+    $('#divid_VarMaxLength').show();
+    $('#divid_VarMaxDigits').hide();
+    $('#divid_VarMaxDecimalPlaces').hide();
+        }
+  else if ($('select[name="FieldType"]').val() == "DecimalField") {
+    $('#divid_VarMaxLength').hide();
+    $('#divid_VarMaxDigits').show();
+    $('#divid_VarMaxDecimalPlaces').show();
+  }
+  else {
+    $('#divid_VarMaxLength').hide();
+    $('#divid_VarMaxDigits').hide();
+    $('#divid_VarMaxDecimalPlaces').hide();
+  }
+});
+</script>
+
+<script type='text/javascript'> 
+$(document).ready(function(){
+ {% for Var in VarList %}
+$('#Project_{{ Var }}').popover();
+{% endfor %}
+});
+</script>
+
+{% endblock %}
+
+{% block sidebar %}
+<ul class="nav nav-list">
+  <li class="nav-header">Variables</li>
+  {% if VarList %}
+ {% for Var in VarList %}
+    <li><a id="Project_{{ Var }}" href="#" rel="popover" onClick="ProjectForm({{ Var }})" title="{{ Var }}" data-content="{{ Var.VarDescription }}">{{ Var }}</a></li>
+  {% endfor %}
+  {% else %}
+  <li>No variables.</li>
+  {% endif %}
+</ul>
+{% endblock %}
+
+    {% block body %}
+  <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>VarLabel</th>
+          <th>VarName</th>
+          <th>VarDescription</th>
+          <th>FieldType</th>
+          <th>VarBlank</th>
+          <th>VarNull</th>
+          <th>VarMaxDigits</th>
+          <th>VarMaxDecimalPlaces</th>
+          <th>VarMaxLength</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for Var in VarList %}
+        <tr>
+          <td>{{ Var.VarLabel }}</td>
+          <td>{{ Var.VarName }}</td>
+          <td>{{ Var.VarDescription }}</td>
+          <td>{{ Var.FieldType }}</td>
+          <td>{{ Var.VarBlank }}</td>
+          <td>{{ Var.VarNull }}</td>
+          <td>{{ Var.VarMaxDigits }}</td>
+          <td>{{ Var.VarMaxDecimalPlaces }}</td>
+          <td>{{ Var.VarMaxLength }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% load bootstrap %}
+    <form id="VarForm" action="." method='post'>
+  {% csrf_token %}
+      {{ newForm|bootstrap2 }}
+      <div class="form-actions">
+    <input type="submit" class="btn btn-primary" value="Save Variable">&nbsp;<button type="reset" class="btn">Reset</button>
+    </div>
+</form>    
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<script type='text/javascript'> 
+$(document).ready(function(){
+{% for Project in ProjectList %}
+$('#Project_{{ Project.id }}').popover();
+{% endfor %}
+});
+</script>
+
+<script type='text/javascript'> 
+function ProjectForm(ProjectID){
+      $('input:hidden[name=ProjectID]').val(ProjectID);
+      $('#ProjectForm').submit();
+   }
+</script>
+{% endblock %}
+
+{% block sidebar %}
+<ul class="nav nav-list">
+  <li class="nav-header">Projects</li>
+  {% if ProjectList %}
+  {% for Project in ProjectList %}
+    <li><a id="Project_{{ Project.id }}" href="#" rel="popover" onClick="ProjectForm({{ Project.id }})" title="{{ Project }}" data-content="{{ Project.ProjectDescription }}">{{ Project }}</a></li>
+  {% endfor %}
+  {% else %}
+  <li>No projects.</li>
+  {% endif %}
+</ul>
+{% endblock %}
+
+{% block body %}
+<form id="ProjectForm" action="/project/" method='post'>
+  {% csrf_token %}
+<input type="hidden" name="ProjectID">
+</form>
+{% load bootstrap %}
+  <div class="hero-unit">
+    <h4>Create a new project.</h4><br><br>
+   <form id="VarForm" action="." method='post'>
+  {% csrf_token %}
+    {{ newForm|bootstrap2 }}
+   <div class="form-actions">
+    <input type="submit" class="btn btn-primary" value="Save Project">&nbsp;<button type="reset" class="btn">Reset</button>
+    </div>
+</form>
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% load bootstrap %}
+<div class="control-group{% if field.errors %} error{% endif %}">
+    {% if field|is_radio %}
+                <div class="controls">
+                    
+                       <span><h5>{{ field.label }}&nbsp;<a href="#" onClick="testClick('{{ field.name }}')"><i class="icon-search"></i></a></h5></span><br>
+                    
+                        {% for option in field %}
+                        {{ option.tag }} {{ option.choice_label }}<br>
+                        {% endfor %}
+                   
+
+                    {% for error in field.errors %}
+                        <span class="help-inline">{{ error }}</span>
+                    {% endfor %}
+
+                    {% if field.help_text %}
+                    <p class="help-block">
+                        {{ field.help_text }}
+                    </p>
+                    {% endif %}
+                </div>
+
+    {% elif field|is_checkbox %}
+                <div class="controls">
+                    <label class="checkbox">
+                        {{ field }} <span>{{ field }}&nbsp;<a href="#" onClick="testClick('{{ field.name }}')"><i class="icon-search"></i></a></span>
+                    </label>
+
+                    {% for error in field.errors %}
+                        <span class="help-inline">{{ error }}</span>
+                    {% endfor %}
+
+                    {% if field.help_text %}
+                    <p class="help-block">
+                        {{ field.help_text }}
+                    </p>
+                    {% endif %}
+                </div>
+    {% else %}
+        <div class="control-label"><h5>{{ field.label }}&nbsp;<a href="#" onClick="testClick('{{ field.name }}')"><i class="icon-search"></i></a></h5></div>
+
+        <div class="controls">
+            {{ field }}
+
+            {% for error in field.errors %}
+                <span class="help-inline">{{ error }}</span>
+            {% endfor %}
+
+            {% if field.help_text %}
+            <p class="help-block">
+                {{ field.help_text }}
+            </p>
+            {% endif %}
+
+        </div>
+    {% endif %}
+</div>
