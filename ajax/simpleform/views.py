@@ -34,23 +34,37 @@ def project(request):
 
 def start(request):
 	if request.method == "POST":
-		newForm = mfVariableDescription(request.POST)
-		getProject = ProjectName.objects.get(id=request.session['ProjectID'])
-		if newForm.is_valid():
-			instance = newForm.save(commit=False)
-			instance.ProjectID = getProject
-			instance.save()
-			return HttpResponseRedirect("/start/")
+		try:
+			ProjectID = request.session['ProjectID']
+			VarList = VariableDescription.objects.filter(ProjectID=ProjectID)
+		except:
+			return HttpResponseRedirect('/main/')
+		try:
+			VarID = request.POST['VarID']
+		except:
+			VarID = []
+		if VarID == "New":
+			newForm = mfVariableDescription()
+		elif not VarID:
+			newForm = mfVariableDescription(request.POST)
+			getProject = ProjectName.objects.get(id=request.session['ProjectID'])
+			if newForm.is_valid():
+				instance = newForm.save(commit=False)
+				instance.ProjectID = getProject
+				instance.save()
+				return HttpResponseRedirect("/start/")
 		else:
-			return render_to_response('start.html', {'newForm': newForm}, RequestContext(request))
+			newForm = mfVariableDescription(instance=VariableDescription.objects.filter(ProjectID=request.session['ProjectID'], VarName=VarID))
+		return render_to_response('start.html', {'newForm': newForm, 'VarList': VarList}, RequestContext(request))
 	else:
 		try:
 			ProjectID = request.session['ProjectID']
 			VarList = VariableDescription.objects.filter(ProjectID=ProjectID)
-			newForm = mfVariableDescription()
-			return render_to_response('start.html', {'newForm': newForm, 'VarList': VarList}, RequestContext(request))
 		except:
 			return HttpResponseRedirect('/main/')
+		newForm = mfVariableDescription()
+		return render_to_response('start.html', {'newForm': newForm, 'VarList': VarList}, RequestContext(request))
+			
 
 def main(request):
 	if request.method == "POST":

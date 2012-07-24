@@ -79,7 +79,15 @@ $(document).ready(function(){
  {% for Var in VarList %}
 $('#Project_{{ Var }}').popover();
 {% endfor %}
+$('#NewVar').popover();
 });
+</script>
+
+<script type='text/javascript'> 
+function ActiveVar(VarID){
+      $('input:hidden[name=VarID]').val(VarID);
+      $('#ActiveVar').submit();
+   }
 </script>
 
 {% endblock %}
@@ -87,17 +95,18 @@ $('#Project_{{ Var }}').popover();
 {% block sidebar %}
 <ul class="nav nav-list">
   <li class="nav-header">Variables</li>
-  {% if VarList %}
  {% for Var in VarList %}
-    <li><a id="Project_{{ Var }}" href="#" rel="popover" onClick="ProjectForm({{ Var }})" title="{{ Var }}" data-content="{{ Var.VarDescription }}">{{ Var }}</a></li>
+    <li><a id="Project_{{ Var }}" href="#" rel="popover" onClick="ActiveVar({{ Var }})" title="{{ Var }}" data-content="{{ Var.VarDescription }}">{{ Var }}</a></li>
   {% endfor %}
-  {% else %}
-  <li>No variables.</li>
-  {% endif %}
+  <li><a id="NewVar" href="#" rel="popover" onClick="ActiveVar(New)" title="Create Variable" data-content="Create a new variable for this project.">Create...</a></li>
 </ul>
 {% endblock %}
 
     {% block body %}
+<form id="ActiveVar" action="." method='post'>
+  {% csrf_token %}
+<input type="hidden" name="VarID">
+</form>
   <table class="table table-bordered">
       <thead>
         <tr>
