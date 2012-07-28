@@ -41,11 +41,11 @@
           <a class="brand" href="#">Project name</a>
           <div class="nav-collapse">
             <ul class="nav">
-              <li><a href="/main/">Main</a></li>
+              <li><a href="/activeproject/">Main</a></li>
               <li><a href="#about">About</a></li>
               <li><a href="#contact">Contact</a></li>
             </ul>
-            <p class="navbar-text pull-right">Logged in as <a href="#">username</a></p>
+            <p class="navbar-text pull-right">{% if user.is_authenticated %}Logged in as <a href="/logout/">{{ user.username }}</a>{% else %}<a href="/login/">Login</a>{% endif %}</p>
           </div><!--/.nav-collapse -->
         </div>
       </div>

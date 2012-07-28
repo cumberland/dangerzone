@@ -5,6 +5,10 @@ from django.template import RequestContext
 from simpleform.models import *
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
+from django.utils import simplejson
+
 
 def login_main_page(request):
     return render_to_response('base.html', RequestContext(request))
@@ -14,76 +18,104 @@ def logout_page(request):
     return HttpResponseRedirect('/login/')
 
 def xhr_test(request):
-    if request.is_ajax():
-        message = "Hello Giddy Baby"
-    else:
-        message = "Hello"
-    return HttpResponse(message)
-
-def project(request):
-	if request.method == "POST":
-		try:
-			ProjectID = int(request.POST['ProjectID'])
-			request.session['ProjectID'] = ProjectID
-			return HttpResponseRedirect('/start/')
-		except:
-			return HttpResponseRedirect('/main/')
-	else:
-		return HttpResponseRedirect('/main/')
-
-
-def start(request):
-	if request.method == "POST":
-		try:
-			ProjectID = request.session['ProjectID']
-			VarList = VariableDescription.objects.filter(ProjectID=ProjectID)
-		except:
-			return HttpResponseRedirect('/main/')
-		try:
-			VarID = request.POST['VarID']
-		except:
-			VarID = []
-		if VarID == "New":
-			newForm = mfVariableDescription()
-		elif not VarID:
-			newForm = mfVariableDescription(request.POST)
-			getProject = ProjectName.objects.get(id=request.session['ProjectID'])
-			if newForm.is_valid():
-				instance = newForm.save(commit=False)
-				instance.ProjectID = getProject
-				instance.save()
-				return HttpResponseRedirect("/start/")
+	if request.is_ajax():
+		if request.method == "POST":
+			test = [{'absolute_url': 'blah', 'url_name': 'blah', 'message': 'blah', 'type': 'blah'}, {'absolute_url': 'foo', 'url_name': 'foo', 'message': 'foo', 'type': 'foo'}]
+			json = simplejson.dumps(test)
 		else:
-			newForm = mfVariableDescription(instance=VariableDescription.objects.filter(ProjectID=request.session['ProjectID'], VarName=VarID))
-		return render_to_response('start.html', {'newForm': newForm, 'VarList': VarList}, RequestContext(request))
+			message = "Hello Giddy Baby"
+		return HttpResponse(json, mimetype="text/json")
+	else:
+		pass
+
+
+@login_required(login_url='/login/')
+def project(request):
+	renderDict = {}
+	if request.method == "POST":
+		newForm = mfVariableDescription(request, request.POST)
+		if newForm.is_valid():
+			getProject = ProjectName.objects.get(id=request.session['ProjectID'])
+			instance = newForm.save(commit=False)
+			instance.ProjectID = getProject
+			instance.save()
+			return HttpResponseRedirect("/project/")
+		else:
+			renderDict['newForm'] = newForm
 	else:
 		try:
 			ProjectID = request.session['ProjectID']
-			VarList = VariableDescription.objects.filter(ProjectID=ProjectID)
 		except:
 			return HttpResponseRedirect('/main/')
-		newForm = mfVariableDescription()
-		return render_to_response('start.html', {'newForm': newForm, 'VarList': VarList}, RequestContext(request))
-			
+		try:
+			renderDict['newForm'] = mfVariableDescription(request, instance=VariableDescription.objects.filter(ProjectID=ProjectID, id=request.session['VarID']).latest())
+		except:
+			renderDict['newForm'] = mfVariableDescription(request)
+	renderDict['VarList'] = VariableDescription.objects.filter(ProjectID=ProjectID)
+	return render_to_response('project.html', renderDict, RequestContext(request))
 
+			
+@login_required(login_url='/login/')
 def main(request):
+	renderDict = {}
 	if request.method == "POST":
 		newForm = mfProjectName(request.POST)
 		if newForm.is_valid():
-			newForm.save()
+			newForm.save()	
 			return HttpResponseRedirect("/main/")
 		else:
-			ProjectList = ProjectName.objects.all()
-			return render_to_response('main.html', {'newForm': newForm, 'ProjectList': ProjectList}, RequestContext(request))
+			renderDict['newForm'] = newForm
 	else:
+		try:
+			del request.session['VarID']
+		except:
+			pass
+		try:
+			renderDict['newForm'] = mfProjectName(instance=ProjectName.objects.filter(id=request.session['ProjectID']).latest())
+		except:
+			renderDict['newForm'] = mfProjectName()
+	renderDict['ProjectList'] = ProjectName.objects.all()
+	return render_to_response('main.html', renderDict, RequestContext(request))
+
+
+@login_required(login_url='/login/')
+def activeproject(request):
+	try:
+		request.session['ProjectID'] = int(request.POST['ProjectID'])
+	except:
 		try:
 			del request.session['ProjectID']
 		except:
 			pass
-		newForm = mfProjectName()
-		ProjectList = ProjectName.objects.all()
-		return render_to_response('main.html', {'newForm': newForm, 'ProjectList': ProjectList}, RequestContext(request))
+	try:
+		del request.session['VarID']
+	except:
+		pass
+	return HttpResponseRedirect('/main/')
 
 
+@login_required(login_url='/login/')
+def activevar(request):
+	try:
+		request.session['VarID'] = int(request.POST['VarID'])
+	except:
+		try:
+			del request.session['VarID']
+		except:
+			pass
+	return HttpResponseRedirect('/project/')
 
+
+@login_required(login_url='/login/')
+def varsummary(request):
+	# try:
+	# 	ProjectID = request.session['ProjectID']
+	# 	VarID = request.session['VarID']
+	# except:
+	# 	return HttpResponseRedirect("/main/")
+	return render_to_response('varsummary.html', RequestContext(request))
+
+
+def tester(request):
+	return render_to_response('tester.html', RequestContext(request))
 

@@ -10,9 +10,9 @@ $('#Project_{{ Project.id }}').popover();
 </script>
 
 <script type='text/javascript'> 
-function ProjectForm(ProjectID){
+function ActiveProject(ProjectID){
       $('input:hidden[name=ProjectID]').val(ProjectID);
-      $('#ProjectForm').submit();
+      $('#ActiveProject').submit();
    }
 </script>
 {% endblock %}
@@ -20,30 +20,42 @@ function ProjectForm(ProjectID){
 {% block sidebar %}
 <ul class="nav nav-list">
   <li class="nav-header">Projects</li>
-  {% if ProjectList %}
   {% for Project in ProjectList %}
-    <li><a id="Project_{{ Project.id }}" href="#" rel="popover" onClick="ProjectForm({{ Project.id }})" title="{{ Project }}" data-content="{{ Project.ProjectDescription }}">{{ Project }}</a></li>
+    <li {% if Project.id == request.session.ProjectID %} class="active" {% else %}{% endif %}><a id="Project_{{ Project.id }}" href="#" rel="popover" onClick="ActiveProject({{ Project.id }})" title="{{ Project }}" data-content="{{ Project.ProjectDescription }}">{{ Project }}</a></li>
   {% endfor %}
-  {% else %}
-  <li>No projects.</li>
-  {% endif %}
+ <li {% if request.session.ProjectID %}{% else %} class="active" {% endif %}><a id="NewProject" href="#" rel="popover" onClick="ActiveProject()" title="Create Project" data-content="Create a new project.">Create...</a></li>
 </ul>
 {% endblock %}
 
 {% block body %}
-<form id="ProjectForm" action="/project/" method='post'>
+<form id="ActiveProject" action="/activeproject/" method='post'>
   {% csrf_token %}
 <input type="hidden" name="ProjectID">
 </form>
 {% load bootstrap %}
   <div class="hero-unit">
-    <h4>Create a new project.</h4><br><br>
-   <form id="VarForm" action="." method='post'>
+    {% if request.session.ProjectID %}
+    <a href="/project/"><h4>Add Variables</h4></a>
+    {% else %}
+    <h4>Create a new project.</h4>
+    {% endif %}
+    <br><br>
+   <form action="." method='post'>
   {% csrf_token %}
     {{ newForm|bootstrap2 }}
    <div class="form-actions">
     <input type="submit" class="btn btn-primary" value="Save Project">&nbsp;<button type="reset" class="btn">Reset</button>
     </div>
 </form>
+</div>
+<div style="background:black;">
+      <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <p>Extra Test</p>
+        </div>
+      </div>
+    </div>
+<p style="color:red;">Test<br><br></p>
 </div>
 {% endblock %}

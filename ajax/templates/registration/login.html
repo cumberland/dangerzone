@@ -1,7 +1,7 @@
-{% extends "sop/new.html" %}
+{% extends "base.html" %}
 {% block body %}
-    {% if form.has_errors %}
-    <p> Username or password didn't work. Please enter them again </p>
+    {% if form.errors %}
+    <h4 style="color:red;"> Username or password didn't work. Please enter them again </h4><br>
     {% endif %}
 
     <form method="post" action=".">
@@ -11,7 +11,7 @@
         <p><label for="id_password">Password:
             </label>{{ form.password }}</p>
         <input type="hidden" name="next"
-            value="/sopnew/" />
+            value="/main/" />
         <input class="btn btn-primary" type="submit" value="Log in" />
     </form>
 

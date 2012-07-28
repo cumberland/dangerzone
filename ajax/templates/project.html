@@ -60,16 +60,36 @@ $(document).ready(function(){
     $('#divid_VarMaxLength').show();
     $('#divid_VarMaxDigits').hide();
     $('#divid_VarMaxDecimalPlaces').hide();
+    $('#divid_VarBlank').show();
+    $('#divid_VarNull').show();
         }
   else if ($('select[name="FieldType"]').val() == "DecimalField") {
     $('#divid_VarMaxLength').hide();
     $('#divid_VarMaxDigits').show();
     $('#divid_VarMaxDecimalPlaces').show();
+    $('#divid_VarBlank').show();
+    $('#divid_VarNull').show();
+  }
+  else if ($('select[name="FieldType"]').val() == "BooleanField") {
+    $('#divid_VarMaxLength').hide();
+    $('#divid_VarMaxDigits').hide();
+    $('#divid_VarMaxDecimalPlaces').hide();
+    $('#divid_VarBlank').hide();
+    $('#divid_VarNull').hide();
+  }
+  else if ($('select[name="FieldType"]').val() == "NullBooleanField") {
+    $('#divid_VarMaxLength').hide();
+    $('#divid_VarMaxDigits').hide();
+    $('#divid_VarMaxDecimalPlaces').hide();
+    $('#divid_VarBlank').hide();
+    $('#divid_VarNull').hide();
   }
   else {
     $('#divid_VarMaxLength').hide();
     $('#divid_VarMaxDigits').hide();
     $('#divid_VarMaxDecimalPlaces').hide();
+    $('#divid_VarBlank').show();
+    $('#divid_VarNull').show();
   }
 });
 </script>
@@ -77,7 +97,7 @@ $(document).ready(function(){
 <script type='text/javascript'> 
 $(document).ready(function(){
  {% for Var in VarList %}
-$('#Project_{{ Var }}').popover();
+$('#Var_{{ Var.id }}').popover();
 {% endfor %}
 $('#NewVar').popover();
 });
@@ -95,48 +115,18 @@ function ActiveVar(VarID){
 {% block sidebar %}
 <ul class="nav nav-list">
   <li class="nav-header">Variables</li>
- {% for Var in VarList %}
-    <li><a id="Project_{{ Var }}" href="#" rel="popover" onClick="ActiveVar({{ Var }})" title="{{ Var }}" data-content="{{ Var.VarDescription }}">{{ Var }}</a></li>
+  {% for Var in VarList %}
+    <li {% if Var.id == request.session.VarID %} class="active" {% else %}{% endif %}><a id="Var_{{ Var.id }}" href="#" rel="popover" onClick="ActiveVar({{ Var.id }})" title="{{ Var }}" data-content="<b>Description:</b> {{ Var.VarDescription }}<br><br><b>Last modified:</b> {{ Var.datetime }} by {{ Var.user }}">{{ Var }}</a></li>
   {% endfor %}
-  <li><a id="NewVar" href="#" rel="popover" onClick="ActiveVar(New)" title="Create Variable" data-content="Create a new variable for this project.">Create...</a></li>
+ <li {% if request.session.VarID %}{% else %} class="active" {% endif %}><a id="NewVar" href="#" rel="popover" onClick="ActiveVar()" title="Create Variable" data-content="Create a new variable.">Create...</a></li>
 </ul>
 {% endblock %}
 
     {% block body %}
-<form id="ActiveVar" action="." method='post'>
+<form id="ActiveVar" action="/activevar/" method='post'>
   {% csrf_token %}
 <input type="hidden" name="VarID">
 </form>
-  <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>VarLabel</th>
-          <th>VarName</th>
-          <th>VarDescription</th>
-          <th>FieldType</th>
-          <th>VarBlank</th>
-          <th>VarNull</th>
-          <th>VarMaxDigits</th>
-          <th>VarMaxDecimalPlaces</th>
-          <th>VarMaxLength</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for Var in VarList %}
-        <tr>
-          <td>{{ Var.VarLabel }}</td>
-          <td>{{ Var.VarName }}</td>
-          <td>{{ Var.VarDescription }}</td>
-          <td>{{ Var.FieldType }}</td>
-          <td>{{ Var.VarBlank }}</td>
-          <td>{{ Var.VarNull }}</td>
-          <td>{{ Var.VarMaxDigits }}</td>
-          <td>{{ Var.VarMaxDecimalPlaces }}</td>
-          <td>{{ Var.VarMaxLength }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
     {% load bootstrap %}
     <form id="VarForm" action="." method='post'>
   {% csrf_token %}
