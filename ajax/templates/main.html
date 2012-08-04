@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 
 {% block head %}
+
+{% load selectable_tags %}
+{% include_jquery_libs %}
+{% include_ui_theme %}
+
 <script type='text/javascript'> 
 $(document).ready(function(){
 {% for Project in ProjectList %}
@@ -15,6 +20,10 @@ function ActiveProject(ProjectID){
       $('#ActiveProject').submit();
    }
 </script>
+
+    {{ newForm.media.css }}
+    {{ newForm.media.js }}
+
 {% endblock %}
 
 {% block sidebar %}
@@ -56,11 +65,11 @@ function ActiveProject(ProjectID){
         <div class="tweet original-tweet js-stream-tweet js-actionable-tweet js-hover js-profile-popup-actionable js-original-tweet" >
           <div class="content">
             <div class="stream-item-footer">
-              <a class="details with-icn js-details" href="#">
+              <a class="details with-icn js-details" href="/pdftest/">
               <b>
                 <span class="expand-stream-item js-view-details">
                   <span class="expand-action-wrapper">
-                    Something here.
+                    Oh God.
                   </span>
                 </span>
               </b>

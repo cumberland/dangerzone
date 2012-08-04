@@ -20,6 +20,13 @@ DATABASES = {
     }
 }
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'jondykeman@gmail.com'
+EMAIL_HOST_PASSWORD = 'jone0202'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -136,6 +143,9 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'simpleform',
     'bootstrapform',
+    'django_extensions',
+    'taggit',
+    'selectable',
 )
 
 # A sample logging configuration. The only tangible logging

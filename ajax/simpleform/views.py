@@ -3,12 +3,36 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from simpleform.models import *
+from simpleform.forms import *
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import simplejson
 
+from django import http
+from django.template.loader import get_template
+from django.template import Context
+import ho.pisa as pisa
+import cStringIO as StringIO
+import cgi
+from django.shortcuts import get_object_or_404
+from simpleform.lookups import EntryLookup
+
+def write_pdf(template_src, context_dict):
+	template = get_template(template_src)
+	context = Context(context_dict)
+	html = template.render(context)
+	result = StringIO.StringIO()
+	pdf = pisa.pisaDocument(StringIO.StringIO(
+		html.encode("UTF-8")), result)
+	if not pdf.err:
+		return HttpResponse(result.getvalue(), mimetype='application/pdf')
+	return HttpResponse("Gremlin's ate your pdf! %s" % cgi.escape(html))
+
+def article(request):
+	article = get_object_or_404(ProjectName, pk=1)
+	return write_pdf('main.html', {'pagesize': 'A4', 'article': article})
 
 def login_main_page(request):
     return render_to_response('base.html', RequestContext(request))
@@ -38,6 +62,7 @@ def project(request):
 			getProject = ProjectName.objects.get(id=request.session['ProjectID'])
 			instance = newForm.save(commit=False)
 			instance.ProjectID = getProject
+			instance.user = request.user.username
 			instance.save()
 			return HttpResponseRedirect("/project/")
 		else:
@@ -117,5 +142,31 @@ def varsummary(request):
 
 
 def tester(request):
-	return render_to_response('tester.html', RequestContext(request))
+	form = KbaseForm()
+	return render_to_response('tester.html',{'form': form}, RequestContext(request))
+
+from reportlab.pdfgen import canvas
+
+def pdf_test(request):
+	# Create HttpResponse object with the appropriate PDF headers.
+	response = HttpResponse(mimetype='application/pdf')
+	response['Content-Disposition'] = 'attachment; filename=test.pdf'
+
+	# Create the PDF object, using the response object as its "file".
+	p = canvas.Canvas(response)
+
+	# Draw things on the PDF. Here's where the PDF generation happens.
+	# See the ReportLab documentation for the full list of functionality.
+	x = range(0,1000,50)
+	for i in x:
+		p.drawString(i, 0, "%d" % i)
+	for i in x:
+		p.drawString(0, i, "%d" % i)
+
+
+	# Close the PDF object cleanly, and we're done.
+	p.showPage()
+	p.save()
+	return response
+
 

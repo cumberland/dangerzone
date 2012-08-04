@@ -84,5 +84,8 @@ function postClick() {
             <input type="submit" id="go" name="go" value="Go!">
     </form>
     <div id="DivText">
+        <form action="{% url kbase_search %}" method="get">
+            {{form}}
+        </form>
     </div>
 {% endblock %}

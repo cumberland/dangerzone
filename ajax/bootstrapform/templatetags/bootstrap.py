@@ -1,6 +1,7 @@
 from django.template import Context
 from django.template.loader import get_template
 from django import template
+from simpleform.forms import *
 
 register = template.Library()
 
@@ -37,3 +38,8 @@ def is_checkbox(field):
 @register.filter
 def is_radio(field):
     return field.field.widget.__class__.__name__.lower() == "radioselect"
+
+@register.inclusion_tag('kbase/kbase_lookup.html')
+def kbase_lookup():
+    return {'form': KbaseForm()}
+

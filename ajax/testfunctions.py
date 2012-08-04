@@ -17,9 +17,12 @@
 # for i in FieldChoicesInt:
 # 	print "%s: %s" % (i[1], i[0])
 
-import re
+# import re
 
-def special_match(strg, search=re.compile(r'[^A-Za-z0-9_]').search):
-	return not bool(search(strg))
+# def special_match(strg, search=re.compile(r'[^A-Za-z0-9_]').search):
+# 	return not bool(search(strg))
 
-print special_match("a U_9")
+# print special_match("a U_9")
+
+x = range(0,100,10)
+print x
