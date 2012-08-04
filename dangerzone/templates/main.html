@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% load selectable_tags %}
+{% include_jquery_libs %}
+{% include_ui_theme %}
+
+<script type='text/javascript'> 
+$(document).ready(function(){
+{% for Project in ProjectList %}
+$('#Project_{{ Project.id }}').popover();
+{% endfor %}
+});
+</script>
+
+<script type='text/javascript'> 
+function ActiveProject(ProjectID){
+      $('input:hidden[name=ProjectID]').val(ProjectID);
+      $('#ActiveProject').submit();
+   }
+</script>
+
+    {{ newForm.media.css }}
+    {{ newForm.media.js }}
+
+{% endblock %}
+
+{% block sidebar %}
+<ul class="nav nav-list">
+  <li class="nav-header">Projects</li>
+  {% for Project in ProjectList %}
+    <li {% if Project.id == request.session.ProjectID %} class="active" {% else %}{% endif %}><a id="Project_{{ Project.id }}" href="#" rel="popover" onClick="ActiveProject({{ Project.id }})" title="{{ Project }}" data-content="{{ Project.ProjectDescription }}">{{ Project }}</a></li>
+  {% endfor %}
+ <li {% if request.session.ProjectID %}{% else %} class="active" {% endif %}><a id="NewProject" href="#" rel="popover" onClick="ActiveProject()" title="Create Project" data-content="Create a new project.">Create...</a></li>
+</ul>
+{% endblock %}
+
+{% block body %}
+<form id="ActiveProject" action="/activeproject/" method='post'>
+  {% csrf_token %}
+<input type="hidden" name="ProjectID">
+</form>
+{% load bootstrap %}
+  <div class="hero-unit">
+    {% if request.session.ProjectID %}
+    <a href="/project/"><h4>Add Variables</h4></a>
+    {% else %}
+    <h4>Create a new project.</h4>
+    {% endif %}
+    <br><br>
+   <form action="." method='post'>
+  {% csrf_token %}
+    {{ newForm|bootstrap2 }}
+   <div class="form-actions">
+    <input type="submit" class="btn btn-primary" value="Save Project">&nbsp;<button type="reset" class="btn">Reset</button>
+    </div>
+</form>
+</div>
+
+<div class="stream-container">
+  <div class="stream home-stream">
+    <div class="js-stream-items stream-items">
+      <div class="js-stream-item stream-item stream-item">
+        <div class="tweet original-tweet js-stream-tweet js-actionable-tweet js-hover js-profile-popup-actionable js-original-tweet" >
+          <div class="content">
+            <div class="stream-item-footer">
+              <a class="details with-icn js-details" href="/pdftest/">
+              <b>
+                <span class="expand-stream-item js-view-details">
+                  <span class="expand-action-wrapper">
+                    Oh God.
+                  </span>
+                </span>
+              </b>
+              </a>
+
+            <ul class="tweet-actions js-actions">
+              <li class="action-reply-container">
+                <a class="with-icn js-action-reply" href="#">
+                  <i class="icon-chevron-up"></i>
+                  <b>Up</b>
+                </a>
+              </li>
+
+            <li class="action-rt-container">
+              <a class="with-icn js-toggle-rt" href="#">
+                <i class="icon-chevron-down"></i>
+                  <b>Down</b>
+              </a>
+            </li>
+
+          <li class="action-del-container">
+            <a class="with-icn js-action-del" href="#" title="Delete">
+              <i class="icon-remove"></i>
+              <b>Delete</b>
+            </a>
+          </li>
+
+          <li class="action-fav-container">
+            <a class="with-icn js-toggle-fav" href="#">
+              <i class="icon-plus"></i>
+              
+              
+                <b>Add</b>
+            </a>
+          </li>
+        </ul>      
+      </div>
+
+            <div class="stream-item-header">
+        <small class="time">
+            <a href="#" class="tweet-timestamp js-permalink" title="" >Some kind of stamp.</a>
+        </small>
+          <a  class="account-group js-account-group js-action-profile js-user-profile-link" href="#" >
+            <img class="avatar js-action-profile-avatar" src="">
+            <strong class="fullname js-action-profile-name show-popup-with-id">title of some sort</strong>
+          </a>
+            </div>
+
+
+      
+        <p class="js-tweet-text">
+            Form Content goes in here.
+                  </p>
+
+      
+          <div class="context">
+          <span class="with-icn"><i class="badge-retweeted"></i><b>Other stuff here</b></span>
+        </div>
+
+
+      
+      <div class="expanded-content js-tweet-details-dropdown">
+      </div>
+    </div>
+  </div>
+
+
+</div>
+{% endblock %}

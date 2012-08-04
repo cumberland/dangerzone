@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% block head %}
+<script type="text/javascript">  
+function startClick() {
+    console.log("Worked");
+    $.post("/start", { 
+      csrfmiddlewaretoken: "JrkuoR0qq80jwyav4wI2131atmlncyQY"},
+    function(data) {
+        $('#baby').append(data);
+        $('#baby').append("<br>");
+      });
+  }
+</script>
+
+<script type='text/javascript'> 
+$(window).load(function(){
+$('select[name="FieldType"]').change(function(){
+  if ($('select[name="FieldType"]').val() == "CharField") {
+    $('#divid_VarMaxLength').show();
+    $('#divid_VarMaxDigits').hide();
+    $('#divid_VarMaxDecimalPlaces').hide();
+    $('#divid_VarBlank').show();
+    $('#divid_VarNull').show();
+        }
+  else if ($('select[name="FieldType"]').val() == "DecimalField") {
+    $('#divid_VarMaxLength').hide();
+    $('#divid_VarMaxDigits').show();
+    $('#divid_VarMaxDecimalPlaces').show();
+    $('#divid_VarBlank').show();
+    $('#divid_VarNull').show();
+  }
+  else if ($('select[name="FieldType"]').val() == "BooleanField") {
+    $('#divid_VarMaxLength').hide();
+    $('#divid_VarMaxDigits').hide();
+    $('#divid_VarMaxDecimalPlaces').hide();
+    $('#divid_VarBlank').hide();
+    $('#divid_VarNull').hide();
+  }
+  else if ($('select[name="FieldType"]').val() == "NullBooleanField") {
+    $('#divid_VarMaxLength').hide();
+    $('#divid_VarMaxDigits').hide();
+    $('#divid_VarMaxDecimalPlaces').hide();
+    $('#divid_VarBlank').hide();
+    $('#divid_VarNull').hide();
+  }
+  else {
+    $('#divid_VarMaxLength').hide();
+    $('#divid_VarMaxDigits').hide();
+    $('#divid_VarMaxDecimalPlaces').hide();
+    $('#divid_VarBlank').show();
+    $('#divid_VarNull').show();
+  }
+})
+});
+</script>
+
+<script type='text/javascript'> 
+$(document).ready(function(){
+  if ($('select[name="FieldType"]').val() == "CharField") {
+    $('#divid_VarMaxLength').show();
+    $('#divid_VarMaxDigits').hide();
+    $('#divid_VarMaxDecimalPlaces').hide();
+    $('#divid_VarBlank').show();
+    $('#divid_VarNull').show();
+        }
+  else if ($('select[name="FieldType"]').val() == "DecimalField") {
+    $('#divid_VarMaxLength').hide();
+    $('#divid_VarMaxDigits').show();
+    $('#divid_VarMaxDecimalPlaces').show();
+    $('#divid_VarBlank').show();
+    $('#divid_VarNull').show();
+  }
+  else if ($('select[name="FieldType"]').val() == "BooleanField") {
+    $('#divid_VarMaxLength').hide();
+    $('#divid_VarMaxDigits').hide();
+    $('#divid_VarMaxDecimalPlaces').hide();
+    $('#divid_VarBlank').hide();
+    $('#divid_VarNull').hide();
+  }
+  else if ($('select[name="FieldType"]').val() == "NullBooleanField") {
+    $('#divid_VarMaxLength').hide();
+    $('#divid_VarMaxDigits').hide();
+    $('#divid_VarMaxDecimalPlaces').hide();
+    $('#divid_VarBlank').hide();
+    $('#divid_VarNull').hide();
+  }
+  else {
+    $('#divid_VarMaxLength').hide();
+    $('#divid_VarMaxDigits').hide();
+    $('#divid_VarMaxDecimalPlaces').hide();
+    $('#divid_VarBlank').show();
+    $('#divid_VarNull').show();
+  }
+});
+</script>
+
+<script type='text/javascript'> 
+$(document).ready(function(){
+ {% for Var in VarList %}
+$('#Var_{{ Var.id }}').popover();
+{% endfor %}
+$('#NewVar').popover();
+});
+</script>
+
+<script type='text/javascript'> 
+function ActiveVar(VarID){
+      $('input:hidden[name=VarID]').val(VarID);
+      $('#ActiveVar').submit();
+   }
+</script>
+
+{% endblock %}
+
+{% block sidebar %}
+<ul class="nav nav-list">
+  <li class="nav-header">Variables</li>
+  {% for Var in VarList %}
+    <li {% if Var.id == request.session.VarID %} class="active" {% else %}{% endif %}><a id="Var_{{ Var.id }}" href="#" rel="popover" onClick="ActiveVar({{ Var.id }})" title="{{ Var }}" data-content="<b>Description:</b> {{ Var.VarDescription }}<br><br><b>Last modified:</b> {{ Var.datetime }} by {{ Var.user }}">{{ Var }}</a></li>
+  {% endfor %}
+ <li {% if request.session.VarID %}{% else %} class="active" {% endif %}><a id="NewVar" href="#" rel="popover" onClick="ActiveVar()" title="Create Variable" data-content="Create a new variable.">Create...</a></li>
+</ul>
+{% endblock %}
+
+    {% block body %}
+<form id="ActiveVar" action="/activevar/" method='post'>
+  {% csrf_token %}
+<input type="hidden" name="VarID">
+</form>
+    {% load bootstrap %}
+    <form id="VarForm" action="." method='post'>
+  {% csrf_token %}
+      {{ newForm|bootstrap2 }}
+      <div class="form-actions">
+    <input type="submit" class="btn btn-primary" value="Save Variable">&nbsp;<button type="reset" class="btn">Reset</button>
+    </div>
+</form>    
+{% endblock %}
