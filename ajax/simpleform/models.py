@@ -2,9 +2,10 @@ from django.db import models
 from django import forms
 from django.forms import ModelForm
 from django.forms import Textarea
-# from simpleform.lookups import EntryLookup
 import re
-from selectable.forms import AutoCompleteWidget
+import reversion
+
+
 
 
 FieldChoices = (
@@ -55,10 +56,10 @@ class VariableDescription(Audit):
 class AJAXTester(models.Model):
 	AJAXVarLabel = models.CharField(max_length=500, verbose_name="Label of variable on form:") # verbose_name
 
+reversion.register(ProjectName)
 
-# class KbaseForm(forms.Form):
-# 	q = forms.CharField(
-# 		label='',
-# 		widget=AutoCompleteWidget(EntryLookup),
-# 		required=False,)
-
+class Options(Audit):
+	ProjectID = models.ForeignKey(ProjectName, default=0, editable=False)
+	VarID = models.ForeignKey(VariableDescription, default=0, editable=False)
+	Label = models.CharField(max_length=500)
+	Value = models.BigIntegerField()

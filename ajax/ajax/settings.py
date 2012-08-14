@@ -1,3 +1,4 @@
+
 # Django settings for ajax project.
 
 DEBUG = True
@@ -146,6 +147,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'taggit',
     'selectable',
+    'reversion',
 )
 
 # A sample logging configuration. The only tangible logging

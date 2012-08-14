@@ -18,5 +18,6 @@ urlpatterns = patterns('',
     url(r'^tester/$', 'simpleform.views.tester'),
     url(r'^pdftest/$', 'simpleform.views.pdf_test'),
     url(r'^article/$', 'simpleform.views.article'),
+    url(r'^projectedit/$', 'simpleform.views.projectedit'),
     url(r'^selectable/', include('selectable.urls')),
 )

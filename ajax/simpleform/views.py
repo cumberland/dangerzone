@@ -32,7 +32,7 @@ def write_pdf(template_src, context_dict):
 
 def article(request):
 	article = get_object_or_404(ProjectName, pk=1)
-	return write_pdf('main.html', {'pagesize': 'A4', 'article': article})
+	return write_pdf('samplepdf.html', {'pagesize': 'A4', 'article': article})
 
 def login_main_page(request):
     return render_to_response('base.html', RequestContext(request))
@@ -44,10 +44,12 @@ def logout_page(request):
 def xhr_test(request):
 	if request.is_ajax():
 		if request.method == "POST":
-			test = [{'absolute_url': 'blah', 'url_name': 'blah', 'message': 'blah', 'type': 'blah'}, {'absolute_url': 'foo', 'url_name': 'foo', 'message': 'foo', 'type': 'foo'}]
+			# test = [{'absolute_url': 'blah', 'url_name': 'blah', 'message': 'blah', 'type': 'blah'}, {'absolute_url': 'foo', 'url_name': 'foo', 'message': 'foo', 'type': 'foo'}]
+			test = ["What", "Up", "Biznatches", "Pimpin", "Ain't", "Easy"]
 			json = simplejson.dumps(test)
 		else:
-			message = "Hello Giddy Baby"
+			test = ["What", "Up", "Biznatches", "Pimpin", "Ain't", "Easy"]
+			json = simplejson.dumps(test)
 		return HttpResponse(json, mimetype="text/json")
 	else:
 		pass
@@ -142,8 +144,7 @@ def varsummary(request):
 
 
 def tester(request):
-	form = KbaseForm()
-	return render_to_response('tester.html',{'form': form}, RequestContext(request))
+	return render_to_response('tester.html', RequestContext(request))
 
 from reportlab.pdfgen import canvas
 
@@ -168,5 +169,27 @@ def pdf_test(request):
 	p.showPage()
 	p.save()
 	return response
+
+def projectedit(request):
+	renderDict = {}
+	if request.method == "POST":
+		newForm = mfProjectName(request.POST)
+		if newForm.is_valid():
+			a = mfProjectName(instance=ProjectName.objects.filter(id=request.session['ProjectID']).latest())
+			f = mfProjectName(request.POST, instance=a)
+			f.save()
+			return HttpResponseRedirect("/main/")
+		else:
+			renderDict['newForm'] = newForm
+	else:
+		try:
+			del request.session['VarID']
+		except:
+			pass
+		renderDict['newForm'] = mfProjectName(instance=ProjectName.objects.filter(id=request.session['ProjectID']).latest())
+	return render_to_response('edit.html', renderDict, RequestContext(request))
+
+
+
 
 

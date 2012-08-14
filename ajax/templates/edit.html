@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block head %}
+
+{% endblock %}
+
+
+    {% block body %}
+    {% load bootstrap %}
+    <form id="ProjectEdit" action="." method='post'>
+  {% csrf_token %}
+      {{ newForm|bootstrap2 }}
+      <div class="form-actions">
+    <input type="submit" class="btn btn-primary" value="Save Variable">&nbsp;<button type="reset" class="btn">Reset</button>
+    </div>
+</form>    
+{% endblock %}

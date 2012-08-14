@@ -2,27 +2,90 @@
 
 {% block head %}
 
-{% load selectable_tags %}
-{% include_jquery_libs %}
-{% include_ui_theme %}
 
 <script type='text/javascript'> 
 $(document).ready(function(){
-{% for Project in ProjectList %}
-$('#Project_{{ Project.id }}').popover();
-{% endfor %}
+$(function() {
+    $('li a').click(function(e) {
+        console.log("Click works.");
+        e.preventDefault();
+        var $this = $(this);
+        $this.closest('ul').children('li').removeClass('active');
+        $this.parent().addClass('active');
+    });
+});
+// {% for Project in ProjectList %}
+// $('#Project_{{ Project.id }}').popover();
+// {% endfor %}
 });
 </script>
 
 <script type='text/javascript'> 
 function ActiveProject(ProjectID){
-      $('input:hidden[name=ProjectID]').val(ProjectID);
-      $('#ActiveProject').submit();
+  $('#NewProject').show();
+  $('#ProjectManager').hide();
+   }
+function addVariables(){
+  $('#ActiveProject').submit();
    }
 </script>
 
-    {{ newForm.media.css }}
-    {{ newForm.media.js }}
+
+<script type="text/javascript">
+function NewActiveProject(ProjectID){
+           $('input:hidden[name=ProjectID]').val(ProjectID);
+           $.ajax({
+                type:"POST",
+                url:"/activeproject/",
+                data: {ProjectID: ProjectID},
+                success: function(data){
+                $('#NewProject').hide();
+                $('#divid_ActiveProject h2').html(data['Project']);
+                $('#divid_ActiveProject p').html(data['ProjectDescription']);
+                $('#ProjectManager').show();
+                }
+              });
+           }
+</script>
+
+<script type="text/javascript"> 
+jQuery(document).ajaxSend(function(event, xhr, settings) {
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    function sameOrigin(url) {
+        // url could be relative or scheme relative or absolute
+        var host = document.location.host; // host + port
+        var protocol = document.location.protocol;
+        var sr_origin = '//' + host;
+        var origin = protocol + sr_origin;
+        // Allow absolute or scheme relative URLs to same origin
+        return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+            (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+            // or any other URL that isn't scheme relative or absolute i.e relative.
+            !(/^(\/\/|http:|https:).*/.test(url));
+    }
+    function safeMethod(method) {
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
+        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+    }
+});
+</script>
 
 {% endblock %}
 
@@ -30,34 +93,52 @@ function ActiveProject(ProjectID){
 <ul class="nav nav-list">
   <li class="nav-header">Projects</li>
   {% for Project in ProjectList %}
-    <li {% if Project.id == request.session.ProjectID %} class="active" {% else %}{% endif %}><a id="Project_{{ Project.id }}" href="#" rel="popover" onClick="ActiveProject({{ Project.id }})" title="{{ Project }}" data-content="{{ Project.ProjectDescription }}">{{ Project }}</a></li>
+    <li {% if Project.id == request.session.ProjectID %} class="active" {% else %}{% endif %}><a id="Project_{{ Project.id }}" href="#" rel="popover" onClick="NewActiveProject({{ Project.id }})" title="{{ Project }}" data-content="{{ Project.ProjectDescription }}">{{ Project }}</a></li>
   {% endfor %}
- <li {% if request.session.ProjectID %}{% else %} class="active" {% endif %}><a id="NewProject" href="#" rel="popover" onClick="ActiveProject()" title="Create Project" data-content="Create a new project.">Create...</a></li>
+ <li {% if request.session.ProjectID %}{% else %} class="active" {% endif %}><a href="#" rel="popover" onClick="ActiveProject()" title="Create Project" data-content="Create a new project.">Create...</a></li>
 </ul>
 {% endblock %}
 
 {% block body %}
-<form id="ActiveProject" action="/activeproject/" method='post'>
-  {% csrf_token %}
-<input type="hidden" name="ProjectID">
-</form>
 {% load bootstrap %}
-  <div class="hero-unit">
-    {% if request.session.ProjectID %}
-    <a href="/project/"><h4>Add Variables</h4></a>
-    {% else %}
-    <h4>Create a new project.</h4>
-    {% endif %}
+
+<div id="NewProject" style="display:block;">    
+  <h4>Create a new project.</h4>
     <br><br>
    <form action="." method='post'>
   {% csrf_token %}
-    {{ newForm|bootstrap2 }}
+      {{ newForm|bootstrap2 }}
    <div class="form-actions">
     <input type="submit" class="btn btn-primary" value="Save Project">&nbsp;<button type="reset" class="btn">Reset</button>
     </div>
 </form>
 </div>
+<div id="ProjectManager" style="display:none;">
+      <div id="divid_ActiveProject" class="hero-unit">
+            <h2>Hello, world!</h2>
+            <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+            <a class="btn btn-primary btn-large" href="#" onClick="NewActiveProject(1)">Learn more &raquo;</a>
+          </div>
+          <div class="row-fluid" style="background:#00B2EE;">
+            <div class="span4" style="text-align:center;">
+              <h2>Variables</h2>
+              <p>Add new variables and edit existing variables for the project.</p>
+              <p><a class="btn" onClick="addVariables()" href="#">Go&raquo;</a></p>
+            </div><!--/span-->
+            <div class="span4" style="text-align:center;">
+              <h2>Forms</h2>
+              <p>Create/edit forms, add/remove variables from forms, and manage form display logic.</p>
+              <p><a class="btn" href="#">Go&raquo;</a></p>
+            </div><!--/span-->
+            <div class="span4" style="text-align:center;">
+              <h2>Manager</h2>
+              <p>Manage user permissions, tags, and print project reports (variables, forms, logic).</p>
+              <p><a class="btn" href="#">Go&raquo;</a></p>
+        </div><!--/span-->
+      </div><!--/row-->
+    </div><!--/span-->
 
+<br><br><br><br>
 <div class="stream-container">
   <div class="stream home-stream">
     <div class="js-stream-items stream-items">
@@ -138,4 +219,12 @@ function ActiveProject(ProjectID){
 
 
 </div>
+</div>
+</div>
+</div>
+
+<form id="ActiveProject" action="/activeproject/" method='post'>
+  {% csrf_token %}
+<input type="hidden" name="ProjectID">
+</form>
 {% endblock %}

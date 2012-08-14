@@ -2,9 +2,6 @@
 
 {% block head %}
 
-{% load selectable_tags %}
-{% include_jquery_libs %}
-{% include_ui_theme %}
 
 <script type='text/javascript'> 
 $(document).ready(function(){
@@ -21,8 +18,36 @@ function ActiveProject(ProjectID){
    }
 </script>
 
-    {{ newForm.media.css }}
-    {{ newForm.media.js }}
+<script type='text/javascript'> 
+$(document).ready(function(){
+var Project = $("#id_Project");
+var ProjectDescription = $("#id_ProjectDescription");
+var ProjectError = $("#error_Project");
+var ProjectDescriptionError = $("#error_ProjectDescription");
+
+function validProject(){
+  console.log("Worked.");
+  console.log(Project.val().length);
+  if (Project.val().length < 4){
+    Project.addClass("error");
+    ProjectError.text("We want names with more than 3 letters!");
+    ProjectError.addClass("error");
+    return false;
+  }
+  else {
+    Project.removeClass("error");
+    ProjectError.text("");
+    ProjectError.removeClass("error");
+    return true;
+  }
+}
+Project.blur(validProject);
+Project.keyup(validProject);
+
+
+});
+</script>
+
 
 {% endblock %}
 
@@ -45,6 +70,7 @@ function ActiveProject(ProjectID){
   <div class="hero-unit">
     {% if request.session.ProjectID %}
     <a href="/project/"><h4>Add Variables</h4></a>
+    <a href="/projectedit/"><h4>Edit Project</h4></a>
     {% else %}
     <h4>Create a new project.</h4>
     {% endif %}

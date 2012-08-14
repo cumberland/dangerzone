@@ -1,16 +1,5 @@
 {% extends 'base.html' %}
 {% block head %}
-<script type="text/javascript">  
-function startClick() {
-    console.log("Worked");
-    $.post("/start", { 
-      csrfmiddlewaretoken: "JrkuoR0qq80jwyav4wI2131atmlncyQY"},
-    function(data) {
-        $('#baby').append(data);
-        $('#baby').append("<br>");
-      });
-  }
-</script>
 
 <script type='text/javascript'> 
 $(window).load(function(){
@@ -42,6 +31,13 @@ $('select[name="FieldType"]').change(function(){
     $('#divid_VarMaxDecimalPlaces').hide();
     $('#divid_VarBlank').hide();
     $('#divid_VarNull').hide();
+  }
+  else if ($('select[name="FieldType"]').val() == "RadioButton") {
+    $('#divid_VarMaxLength').hide();
+    $('#divid_VarMaxDigits').hide();
+    $('#divid_VarMaxDecimalPlaces').hide();
+    $('#divid_VarBlank').show();
+    $('#divid_VarNull').show();
   }
   else {
     $('#divid_VarMaxLength').hide();
@@ -84,6 +80,13 @@ $(document).ready(function(){
     $('#divid_VarBlank').hide();
     $('#divid_VarNull').hide();
   }
+  else if ($('select[name="FieldType"]').val() == "RadioButton") {
+    $('#divid_VarMaxLength').hide();
+    $('#divid_VarMaxDigits').hide();
+    $('#divid_VarMaxDecimalPlaces').hide();
+    $('#divid_VarBlank').show();
+    $('#divid_VarNull').show();
+  }
   else {
     $('#divid_VarMaxLength').hide();
     $('#divid_VarMaxDigits').hide();
@@ -96,9 +99,9 @@ $(document).ready(function(){
 
 <script type='text/javascript'> 
 $(document).ready(function(){
- {% for Var in VarList %}
-$('#Var_{{ Var.id }}').popover();
-{% endfor %}
+//  {% for Var in VarList %}
+// $('#Var_{{ Var.id }}').popover();
+// {% endfor %}
 $('#NewVar').popover();
 });
 </script>
@@ -110,19 +113,169 @@ function ActiveVar(VarID){
    }
 </script>
 
+<script type="text/javascript"> 
+jQuery(document).ajaxSend(function(event, xhr, settings) {
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    function sameOrigin(url) {
+        // url could be relative or scheme relative or absolute
+        var host = document.location.host; // host + port
+        var protocol = document.location.protocol;
+        var sr_origin = '//' + host;
+        var origin = protocol + sr_origin;
+        // Allow absolute or scheme relative URLs to same origin
+        return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+            (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+            // or any other URL that isn't scheme relative or absolute i.e relative.
+            !(/^(\/\/|http:|https:).*/.test(url));
+    }
+    function safeMethod(method) {
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
+        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+    }
+});
+</script>
+
+<script type="text/javascript">
+    jQuery(document).ajaxError(function(){  
+        $("#OptionValueError").addClass("error");  
+        $("#OptionValueError span").text("Value must be an integer.");  
+        $("#OptionValueError span").addClass("error");  
+        return false;  
+    });  
+   $(document).ready(function() {
+       $("#OptionForm").submit(function(event){
+           event.preventDefault();
+           $.ajax({
+                type:"POST",
+                url:"/addoption/",
+                data: {VarID: $('input:hidden[name=VarID]').val(), OptionLabel: $('input:text[name=OptionLabel]').val(), OptionValue: $('input:text[name=OptionValue]').val()},
+                success: function(data){
+                  console.log(data['OptionID'])
+                $("#OptionValueError").removeClass("error");  
+                $("#OptionValueError span").text("");  
+                $("#OptionValueError span").removeClass("error");
+                $('#OptionTable > tbody:last').append('<tr id=Option_'+data['OptionID']+'><td>'+data['OptionValue']+'</td><td>'+data['OptionLabel']+'</td><td><a href="#" onClick="deleteOption('+data['OptionID']+')"><i class="icon icon-remove"></i></a>');
+                $('input:text[name=OptionValue]').val('');
+                $('input:text[name=OptionLabel]').val('');
+                }
+              });
+           });
+        });
+</script>
+
+<script type="text/javascript">
+function deleteOption(OptionID){
+  $.ajax({
+      type:"POST",
+      url:"/deleteoption/",
+      data: {OptionID: OptionID},
+      success: function(){
+        $('#Option_'+OptionID).remove();
+        }
+      });
+      }
+
+function currentOptions(VarID){
+           $.ajax({
+                type:"POST",
+                url:"/currentoptions/",
+                data: {VarID: VarID},
+                success: function(data){
+                  $.each(data, function(index) {
+                  $('#OptionTable > tbody:last').append('<tr id=Option_'+data[index].OptionID+'><td>'+data[index].OptionValue+'</td><td>'+data[index].OptionLabel+'</td><td><a href="#" onClick="deleteOption('+data[index].OptionID+')"><i class="icon icon-remove"></i></a>');
+                  });
+                }
+              });
+           }
+
+function NewActiveVar(VarID){
+           $('input:hidden[name=VarID]').val(VarID);
+           $('#divid_OptionTable').html('<table class="table table-condensed" id="OptionTable"><thead><th>Value</th><th class="span2">Label</th></thead><tbody></tbody></table>');
+           $.ajax({
+                type:"POST",
+                url:"/activevar/",
+                data: {VarID: VarID},
+                success: function(data){
+                $('#NewVar').hide();
+                $('#active_VarName').html(data['VarName']);
+                $('#active_VarLabel').html(data['VarLabel']);
+                $('#active_VarDescription').html(data['VarDescription']);
+                // $('#active_datetime').html(data['datetime']);
+                $('#active_user').html(data['user']);
+                $('#VarManager').show();
+                if (data['FieldType'] == "RadioButton"){
+                  $('#divid_Options').show();
+                  currentOptions(VarID);
+                }
+                else {
+                  $('#divid_Options').hide();
+                }
+                }
+              });
+           }
+  
+    //if it's valid  
+//     else{  
+//         name.removeClass("error");  
+//         nameInfo.text("What's your name?");  
+//         nameInfo.removeClass("error");  
+//         return true;  
+//     }  
+// }  
+
+
+</script>
+
+<script type="text/javascript">
+   $(document).ready(function() {
+    $(function() {
+    $('li a').click(function(e) {
+        console.log("Click works.");
+        e.preventDefault();
+        var $this = $(this);
+        $this.closest('ul').children('li').removeClass('active');
+        $this.parent().addClass('active');
+    });
+});
+    function validateOptions(){
+      console.log("Yuppers.");
+      $("input[id=id_OptionValue]").val()
+           }
+    $("input[id=id_OptionValue]").blur(validateOptions);
+    $("input[id=id_OptionValue]").keyup(validateOptions);
+   });
+</script>
 {% endblock %}
 
 {% block sidebar %}
 <ul class="nav nav-list">
   <li class="nav-header">Variables</li>
   {% for Var in VarList %}
-    <li {% if Var.id == request.session.VarID %} class="active" {% else %}{% endif %}><a id="Var_{{ Var.id }}" href="#" rel="popover" onClick="ActiveVar({{ Var.id }})" title="{{ Var }}" data-content="<b>Description:</b> {{ Var.VarDescription }}<br><br><b>Last modified:</b> {{ Var.datetime }} by {{ Var.user }}">{{ Var }}</a></li>
+    <li {% if Var.id == request.session.VarID %} class="active" {% else %}{% endif %}><a id="Var_{{ Var.id }}" href="#" rel="popover" onClick="NewActiveVar({{ Var.id }})" title="{{ Var }}" data-content="<b>Description:</b> {{ Var.VarDescription }}<br><br><b>Last modified:</b> {{ Var.datetime }} by {{ Var.user }}">{{ Var }}</a></li>
   {% endfor %}
- <li {% if request.session.VarID %}{% else %} class="active" {% endif %}><a id="NewVar" href="#" rel="popover" onClick="ActiveVar()" title="Create Variable" data-content="Create a new variable.">Create...</a></li>
+ <li {% if request.session.VarID %}{% else %} class="active" {% endif %}><a href="#" rel="popover" onClick="ActiveVar()" title="Create Variable" data-content="Create a new variable.">Create...</a></li>
 </ul>
 {% endblock %}
 
     {% block body %}
+<div id="NewVar">
 <form id="ActiveVar" action="/activevar/" method='post'>
   {% csrf_token %}
 <input type="hidden" name="VarID">
@@ -130,9 +283,67 @@ function ActiveVar(VarID){
     {% load bootstrap %}
     <form id="VarForm" action="." method='post'>
   {% csrf_token %}
-      {{ newForm|bootstrap2 }}
-      <div class="form-actions">
+      {{ newForm|bootstrap2 }}<br>
+    
+
+      
+<div class="form-actions">
     <input type="submit" class="btn btn-primary" value="Save Variable">&nbsp;<button type="reset" class="btn">Reset</button>
     </div>
-</form>    
+</form> 
+</div>
+<div id="VarManager" style="display:none;">
+      <div id="divid_ActiveVar" class="hero-unit">
+            <h2 id="active_VarName">Title</h2>
+            <p><b>Label: </b><span id="active_VarLabel"></span></p>
+            <p><b>Description: </b><span id="active_VarDescription"></span></p>
+            <p><b>Last modified by: </b><span id="active_user"></span></p>
+          <div class="row-fluid">
+            <div class="span4" id="divid_Options">
+            <p><a class="btn btn-mini btn-danger" data-toggle="modal" href="#AddOptions">Add Options&raquo;</a></p>
+            </div><!--/span-->
+            <div class="span4" style="text-align:center;">
+<!--               <h2>Forms</h2>
+              <p>Create/edit forms, add/remove variables from forms, and manage form display logic.</p> -->
+            </div><!--/span-->
+            <div class="span4" style="text-align:center;">
+<!--               <h2>Manager</h2>
+              <p>Manage user permissions, tags, and print project reports (variables, forms, logic).</p>
+              <p><a class="btn" href="#" onClick="NewActiveVar(2)">Go&raquo;</a></p> -->
+        </div><!--/span-->
+      </div><!--/row-->
+    </div><!--/span-->
+  </div>
+
+
+
+<div class="modal" id="AddOptions" style="display:none;">
+  <div class="modal-header">
+    <button class="close" data-dismiss="modal">X</button>
+    <h3>Add Options</h3>
+  </div>
+  <div class="modal-body">
+  
+<form id="OptionForm" action="." method='POST'>
+  <div id="OptionValueError" class="control-group">
+  <span class="help-inline"></span><br>
+  <br>Value&nbsp;<input type="text" name="OptionValue" id="id_OptionValue" /> Label&nbsp;<input type="text" name="OptionLabel" id="id_OptionLabel"/>
+  </div>
+<div id="divid_OptionTable">
+<table class="table table-condensed" id="OptionTable">
+<thead>
+  <th>Value</th>
+  <th class="span2">Label</th>
+</thead>
+<tbody>
+</tbody>
+</table>
+</div>
+</div>
+  <div class="modal-footer">
+  <input type="submit" class="btn btn-primary" value="Add">&nbsp;<button type="reset" class="btn">Reset</button>
+</form>
+  </div>
+</div>
+
 {% endblock %}
