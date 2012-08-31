@@ -1,67 +1,104 @@
+from builder.models import Options
+# Radiobutton needs to be written as an IntegerField
 
-	VarList = VariableDescription.objects.all()
-	printList = []
+def modelWrite(VarList, location):
+	modelWriter = open("../dangerzone/"+location+"/models.py", "w+")
+	# printList = []
 	for variable in VarList:
-		if variable.FieldType == "BooleanField":
-			pass
+		modeldetails = "verbose_name='%s'" % variable.VarLabel
+		if variable.FieldType != "BooleanField":
+			modeldetails = "%s, blank=%s, null=%s" % (modeldetails, variable.VarBlank, variable.VarNull)
 		else:
-			modeldetails = "blank=%s, null=%s" % (variable.VarBlank, variable.VarNull)
+			pass
 		if variable.FieldType == "DecimalField":
-			modeldetails = "%s, "
-		elif variable.FieldType == "BooleanField":
-			pass
+			modeldetails = "%s, max_digits=%s, decimal_places=%s" % (modeldetails, variable.VarMaxDigits, variable.VarMaxDecimalPlaces)
 		elif variable.FieldType == "CharField":
-			pass
-		elif variable.FieldType == "TextField":
-			pass
-		elif variable.FieldType == "DateField":
-			pass
-		elif variable.FieldType == "TimeField":
-			pass
-		elif variable.FieldType == "DateTimeField":
-			pass
+			modeldetails = "%s, max_length=%s" % (modeldetails, variable.VarMaxLength)
 		else:
-			print "Something went wrong."
-		printList.append("""
+			pass
+		modelWriter.write("""
 class mo%s(Audit):
-	mv%s = models.%s(verbose_name=%s)
+	mv%s = models.%s(%s)
 	def __unicode__(self):
 		return "%%s" %% self.mv%s
 	class Meta:
 		get_latest_by = 'record'
-		""" % (variable.VarName, variable.VarName, variable.FieldType, variable.VarLabel, variable.VarName))
+		\n\n""" % (variable.VarName, variable.VarName, variable.FieldType, modeldetails, variable.VarName))
+	# return printList
 
 
-class moHUILocation(Audit):
-	mvHUILocation = models.BigIntegerField(verbose_name="Where was HUI completed?", blank=False, null=False)
-	def __unicode__(self):
-		return "%s" % self.mvHUILocation
+def formWrite(VarList, location):
+	formWriter = open("../dangerzone/"+location+"/forms.py", "w+")
+	# printList = []
+	for variable in VarList:
+		if variable.FieldType == "RadioButton":
+			widget = """
+widgets = {
+	'mv%s': RadioSelect(choices=co%s)
+	}
+""" % (variable.VarName, variable.VarName)
+		else:
+			widget=""
+		formWriter.write("""
+class mf%s(ModelForm):
 	class Meta:
-		get_latest_by = 'record'
+		model = mo%s
+		%s
+		\n\n""" % (variable.VarName, variable.VarName, widget))
+	# return printList
+
+def optionWrite(VarList, location):
+	optionWriter = open("../dangerzone/"+location+"/options.py", "w+")
+	# printList = []
+	for variable in VarList:
+		OptionList = Options.objects.filter(VarID=variable)
+		Choices = []
+		for option in OptionList:
+			values = ()
+			newLab = str(option.Label)
+			newVal = int(option.Value)
+			values = values + (newVal, newLab)
+			Choices.append(values)
+		optionWriter.write("co%s = %r \n\n" % (variable.VarName, Choices))
+	# return printList
+
+def adminWrite(VarList, location):
+	adminWriter = open("../dangerzone/"+location+"/admin.py", "w+")
+	# printList = []
+	for variable in VarList:
+		adminWriter.write("admin.site.register(mo%s)\n\n" % variable.VarName)
+	for variable in VarList:
+		adminWriter.write("%s*" % variable.VarName)
+	# return printList
+
+
+
+# class moHUILocation(Audit):
+# 	mvHUILocation = models.BigIntegerField(verbose_name="Where was HUI completed?", blank=False, null=False)
+# 	def __unicode__(self):
+# 		return "%s" % self.mvHUILocation
+# 	class Meta:
+# 		get_latest_by = 'record'
 
 
 
 
 
-	ProjectID = models.ForeignKey(ProjectName, default=0, editable=False)
-	VarLabel = models.CharField(max_length=500, verbose_name="Label of variable on form:") # verbose_name
-	VarName = models.CharField(max_length=62, verbose_name="Name of variable in the database:") # variable name
-	VarDescription = models.CharField(max_length=500, verbose_name="Description of what the variable is collecting:") # description of variable purpose
-	FieldType = models.CharField(max_length=20, choices=FieldChoices, verbose_name="Variable type:") # variable type
-	VarBlank = models.BooleanField(verbose_name="Blank values are allowed.")
-	VarNull = models.BooleanField(verbose_name="Null values are allowed.")
-	Identifier = models.BooleanField(verbose_name="Collects identifiable information.")
-	VarMaxDigits = models.PositiveIntegerField(verbose_name="Maximum number of digits allowed (required):", blank=True, null=True)
-	VarMaxDecimalPlaces = models.PositiveIntegerField(verbose_name="Maximum number of decimal places allowed (required):", blank=True, null=True)
-	VarMaxLength = models.PositiveIntegerField(verbose_name="Maximum number of characters allowed (required):", blank=True, null=True)
+# 	ProjectID = models.ForeignKey(ProjectName, default=0, editable=False)
+# 	VarLabel = models.CharField(max_length=500, verbose_name="Label of variable on form:") # verbose_name
+# 	VarName = models.CharField(max_length=62, verbose_name="Name of variable in the database:") # variable name
+# 	VarDescription = models.CharField(max_length=500, verbose_name="Description of what the variable is collecting:") # description of variable purpose
+# 	FieldType = models.CharField(max_length=20, choices=FieldChoices, verbose_name="Variable type:") # variable type
+# 	VarBlank = models.BooleanField(verbose_name="Blank values are allowed.")
+# 	VarNull = models.BooleanField(verbose_name="Null values are allowed.")
+# 	Identifier = models.BooleanField(verbose_name="Collects identifiable information.")
+# 	VarMaxDigits = models.PositiveIntegerField(verbose_name="Maximum number of digits allowed (required):", blank=True, null=True)
+# 	VarMaxDecimalPlaces = models.PositiveIntegerField(verbose_name="Maximum number of decimal places allowed (required):", blank=True, null=True)
+# 	VarMaxLength = models.PositiveIntegerField(verbose_name="Maximum number of characters allowed (required):", blank=True, null=True)
 	
 
-# options = []
 
-# values = ()
-# values = values + (1,"Something")
-# options.append(values)
-# newChoices = """co%s = %r \n\n""" % ("Test", options)
-# print newChoices
+
+
 
 

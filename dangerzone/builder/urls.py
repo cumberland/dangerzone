@@ -15,4 +15,5 @@ urlpatterns = patterns('',
     url(r'^addoption/$', 'builder.views.addoption'),
     url(r'^currentoptions/$', 'builder.views.currentoptions'),
     url(r'^deleteoption/$', 'builder.views.deleteoption'),
+    url(r'^form/$', 'builder.views.form'),
 	)

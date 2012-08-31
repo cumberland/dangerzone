@@ -99,6 +99,7 @@ $(document).ready(function(){
 
 <script type='text/javascript'> 
 $(document).ready(function(){
+  // $("#id_VarName").datetimepicker();
 //  {% for Var in VarList %}
 // $('#Var_{{ Var.id }}').popover();
 // {% endfor %}
@@ -106,12 +107,6 @@ $('#NewVar').popover();
 });
 </script>
 
-<script type='text/javascript'> 
-function ActiveVar(VarID){
-      $('input:hidden[name=VarID]').val(VarID);
-      $('#ActiveVar').submit();
-   }
-</script>
 
 <script type="text/javascript"> 
 jQuery(document).ajaxSend(function(event, xhr, settings) {
@@ -267,10 +262,10 @@ function NewActiveVar(VarID){
 {% block sidebar %}
 <ul class="nav nav-list">
   <li class="nav-header">Variables</li>
+   <li {% if request.session.VarID %}{% else %} class="active" {% endif %}><a href="#" rel="popover" onClick="NewActiveVar()" title="Create Variable" data-content="Create a new variable.">Create...</a></li>
   {% for Var in VarList %}
     <li {% if Var.id == request.session.VarID %} class="active" {% else %}{% endif %}><a id="Var_{{ Var.id }}" href="#" rel="popover" onClick="NewActiveVar({{ Var.id }})" title="{{ Var }}" data-content="<b>Description:</b> {{ Var.VarDescription }}<br><br><b>Last modified:</b> {{ Var.datetime }} by {{ Var.user }}">{{ Var }}</a></li>
   {% endfor %}
- <li {% if request.session.VarID %}{% else %} class="active" {% endif %}><a href="#" rel="popover" onClick="ActiveVar()" title="Create Variable" data-content="Create a new variable.">Create...</a></li>
 </ul>
 {% endblock %}
 

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block body %}
+{% load bootstrap %}
+
+<div id="NewProject" style="display:block;">    
+  <h4>Create a new project.</h4>
+    <br><br>
+   <form action="." method='post'>
+  {% csrf_token %}
+      {{ newForm|bootstrap2 }}
+      {% for i in dictionary %}
+      	{{ i }}
+      {% endfor %}
+   <div class="form-actions">
+    <input type="submit" class="btn btn-primary" value="Save Project">&nbsp;<button type="reset" class="btn">Reset</button>
+    </div>
+</form>
+</div>
+
+{% endblock %}

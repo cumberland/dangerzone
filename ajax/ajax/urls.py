@@ -20,4 +20,7 @@ urlpatterns = patterns('',
     url(r'^article/$', 'simpleform.views.article'),
     url(r'^projectedit/$', 'simpleform.views.projectedit'),
     url(r'^selectable/', include('selectable.urls')),
+    url(r'^fancy/$', 'simpleform.views.fancy'),
+    url(r'^calendar/$', 'simpleform.views.calendar'),
+    url(r'^addavailable/$', 'simpleform.views.addavailable'),
 )

@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+{% block head %}
+	<style>
+	.column { width: 170px; float: left; padding-bottom: 100px; }
+	.portlet { margin: 0 1em 1em 0; }
+	.portlet-header { margin: 0.3em; padding-bottom: 4px; padding-left: 0.2em; }
+	.portlet-header .ui-icon { float: right; }
+	.portlet-content { padding: 0.4em; }
+	.ui-sortable-placeholder { border: 1px dotted black; visibility: visible !important; height: 50px !important; }
+	.ui-sortable-placeholder * { visibility: hidden; }
+	</style>
+
+<script>
+	$(function() {
+		// $( ".column" ).sortable({
+		// 	connectWith: ".column"
+		// });
+
+		$( ".portlet" ).addClass( "ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" )
+			.find( ".portlet-header" )
+				.addClass( "ui-widget-header ui-corner-all" )
+				.prepend( "<span class='ui-icon ui-icon-minusthick'></span>")
+				.end()
+			.find( ".portlet-content" );
+
+		$( ".portlet-header .ui-icon" ).click(function() {
+			$( this ).toggleClass( "ui-icon-minusthick" ).toggleClass( "ui-icon-plusthick" );
+			$( this ).parents( ".portlet:first" ).find( ".portlet-content" ).toggle();
+		});
+
+		$( ".column" ).disableSelection();
+	});
+</script>
+	<style>
+	#sortable1, #sortable2 { list-style-type: none; margin: 0; padding: 0 0 2.5em; float: left; margin-right: 10px; }
+	#sortable1 li, #sortable2 li { margin: 0 5px 5px 5px; padding: 5px; font-size: 1.2em; width: 120px; }
+	</style>
+	<script>
+	$(function() {
+		$( "#sortable1, #sortable2" ).sortable({
+			connectWith: ".connectedSortable",
+			update: function(event, ui){
+				console.log(ui.position);
+				console.log($('#sortable1').sortable('serialize'));
+			}
+		}).disableSelection();
+	});
+	function addItem1(){
+		$("#sortable1").append('<li class="ui-state-default">Item 5</li>')
+	}
+	function addItem2(){
+		$("#sortable2").append('<li class="ui-state-highlight">Item 5</li>')
+	}
+	function addItemWTF(){
+		$("#demo").append('<div id="draggable" class="ui-widget-content"><p>What the fuck??</p></div>');
+	}
+	// defining flags
+var isCtrl = false;
+var isShift = false;
+
+ 
+// the magic :)
+$(document).ready(function() {
+	$(window).keydown(function (e){
+    	if (e.shiftKey && e.keyCode == 13) addItem1();
+		});
+    console.log("Ready. Press Ctrl+Shift+F9!");
+     
+    // action on key up
+    $(document).keyup(function(e) {
+        if(e.which == 17) {
+            isCtrl = false;
+        }
+        if(e.which == 16) {
+            isShift = false;
+        }
+    });
+    // action on key down
+    $(document).keydown(function(e) {
+        if(e.which == 17) {
+            isCtrl = true; 
+        }
+        if(e.which == 16) {
+            isShift = true; 
+        }
+        if(e.which == 120 && isCtrl && isShift) { 
+            console.log("------- catching Ctrl+Shift+F9");
+        } 
+    });
+     
+});
+
+	</script>
+
+<style>
+	#draggable { width: 150px; height: 150px; padding: 0.5em; }
+	</style>
+	<script>
+	$(function() {
+		$( "#draggable" ).draggable({
+			stop: function(event, ui){
+				console.log(ui.position);
+			}
+		});
+	});
+	</script>
+
+
+{% endblock %}
+
+{% block body %}
+<a href="#" onClick="addItemWTF()"><i class="icon icon-plus"></i></a><br><br>
+<a href="#" onClick="addItem1()"><i class="icon icon-plus"></i></a>
+<div class="demo">
+
+<ul id="sortable1" class="connectedSortable">
+	<li class="ui-state-default">Item 1</li>
+	<li class="ui-state-default">Item 2</li>
+	<li class="ui-state-default">Item 3</li>
+	<li class="ui-state-default">Item 4</li>
+	<li class="ui-state-default">Item 5</li>
+</ul>
+
+<a href="#" onClick="addItem2()"><i class="icon icon-plus"></i></a><br>
+<ul id="sortable2" class="connectedSortable">
+	<li class="ui-state-highlight">Item 1</li>
+	<li class="ui-state-highlight">Item 2</li>
+	<li class="ui-state-highlight">Item 3</li>
+	<li class="ui-state-highlight">Item 4</li>
+	<li class="ui-state-highlight">Item 5</li>
+</ul>
+
+</div>
+
+
+
+<div id="demodrag">
+<div id="draggable" class="ui-widget-content">
+	<p>Yes, I am draggable!</p>
+</div>
+
+</div><!-- End demo -->
+
+<div class="demo">
+
+<div class="column">
+
+	<div class="portlet">
+		<div class="portlet-header">Feeds</div>
+		<div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+	</div>
+	
+	<div class="portlet">
+		<div class="portlet-header">News</div>
+		<div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+	</div>
+
+</div>
+
+<div class="column">
+
+	<div class="portlet">
+		<div class="portlet-header">Shopping</div>
+		<div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+	</div>
+
+</div>
+
+<div class="column">
+
+	<div class="portlet">
+		<div class="portlet-header">Links</div>
+		<div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+	</div>
+	
+	<div class="portlet">
+		<div class="portlet-header">Images</div>
+		<div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+	</div>
+
+</div>
+
+</div><!-- End demo -->
+{% endblock %}
+
+
+
+
+
+

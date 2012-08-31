@@ -56,10 +56,18 @@ class VariableDescription(Audit):
 class AJAXTester(models.Model):
 	AJAXVarLabel = models.CharField(max_length=500, verbose_name="Label of variable on form:") # verbose_name
 
-reversion.register(ProjectName)
 
 class Options(Audit):
 	ProjectID = models.ForeignKey(ProjectName, default=0, editable=False)
 	VarID = models.ForeignKey(VariableDescription, default=0, editable=False)
 	Label = models.CharField(max_length=500)
 	Value = models.BigIntegerField()
+
+
+class Appointment(models.Model):
+	start = models.DateTimeField()
+	available = models.BooleanField()
+	SCIDcomplete = models.BooleanField()
+	def __unicode__(self):
+		return "%s" % self.start
+

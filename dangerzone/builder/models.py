@@ -11,7 +11,8 @@ FieldChoices = (
 	("TextField", "Text Area"),
 	("DateField", "Date"),
 	("TimeField", "Time"),
-	("DateTimeField", "DateTime")
+	("DateTimeField", "DateTime"),
+	("EmailField", "Email")
 	)
 
 class Audit(models.Model):
@@ -56,6 +57,12 @@ class Options(models.Model):
 	user = models.ForeignKey(User, editable=False)
 	def __unicode__(self):
 		return "%s, %s" % (self.Value, self.Label)
+
+class Forms(models.Model):
+	ProjectID = models.ForeignKey(ProjectName, default=0, editable=False)
+	FormName = models.CharField(verbose_name="Form Name:", max_length=100)
+	FormDescription = models.CharField(verbose_name="Form Description:", max_length=500)
+	Variable = models.ManyToManyField(VariableDescription)
 
 
 

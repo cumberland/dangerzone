@@ -2,10 +2,16 @@ from django.contrib import admin
 from simpleform.models import *
 import reversion
 
-class YourModelAdmin(reversion.VersionAdmin):
 
-	pass
 
-admin.site.register(ProjectName, YourModelAdmin)
 
-admin.site.register(VariableDescription)
+
+admin.site.register(Appointment)
+
+class VariableAdmin(reversion.VersionAdmin):
+    pass
+
+admin.site.register(VariableDescription, VariableAdmin)
+
+admin.site.register(ProjectName, VariableAdmin)
+

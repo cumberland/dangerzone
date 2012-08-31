@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import simplejson
-
+from builder.formbuilder import modelWrite, formWrite, optionWrite, adminWrite
 
 
 def login_main_page(request):
@@ -224,7 +224,33 @@ def deleteoption(request):
 
 
 def testprint(request):
-	return render_to_response('testprint.html', {'testprint': printList}, RequestContext(request))
+	models = modelWrite(VariableDescription.objects.all(), "needs")
+	forms = formWrite(VariableDescription.objects.all(), "needs")
+	options = optionWrite(VariableDescription.objects.filter(FieldType="RadioButton"), "needs")
+	admin = adminWrite(VariableDescription.objects.all(), "needs")
+	return render_to_response('testprint.html', RequestContext(request))
 
 
+@login_required(login_url='/login/')
+def form(request):
+	renderDict = {}
+	if request.method == "POST":
+		renderDict['dictionary'] = request.POST['Variable']
+		return render_to_response('form.html', renderDict, RequestContext(request))
+		# if newForm.is_valid():
+		# 	newForm.save()	
+		# 	return HttpResponseRedirect("/main/")
+		# else:
+		# 	renderDict['newForm'] = newForm
+	else:
+		try:
+			del request.session['VarID']
+		except:
+			pass
+		try:
+			del request.session['ProjectID']
+		except:
+			pass
+		renderDict['newForm'] = mfForms()
+	return render_to_response('form.html', renderDict, RequestContext(request))
 

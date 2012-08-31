@@ -75,3 +75,7 @@ class mfVariableDescription(ModelForm):
 				pass
 		return self.cleaned_data
 
+class mfForms(ModelForm):
+	class Meta:
+		model = Forms
+

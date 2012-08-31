@@ -19,6 +19,10 @@ import cgi
 from django.shortcuts import get_object_or_404
 from simpleform.lookups import EntryLookup
 
+import datetime
+from datetime import timedelta
+from datetime import datetime
+
 def write_pdf(template_src, context_dict):
 	template = get_template(template_src)
 	context = Context(context_dict)
@@ -189,6 +193,34 @@ def projectedit(request):
 		renderDict['newForm'] = mfProjectName(instance=ProjectName.objects.filter(id=request.session['ProjectID']).latest())
 	return render_to_response('edit.html', renderDict, RequestContext(request))
 
+
+def fancy(request):
+	return render_to_response('fancy.html', RequestContext(request))
+
+def calendar(request):
+	Appointments = Appointment.objects.all()
+	return render_to_response('calendar.html',{'Appointments': Appointments}, RequestContext(request))
+
+def addavailable(request):
+	if request.is_ajax():
+		errors = []
+		start = datetime.strptime(request.POST['AvailableStart'], "%Y-%m-%d %H:%M")
+		end = datetime.strptime(request.POST['AvailableEnd'], "%Y-%m-%d %H:%M")
+		go = True
+		while go:
+			if start <= end-timedelta(hours=1):
+				newAvailable = Appointment(start=start,
+							available=True,
+							SCIDcomplete=False)
+				newAvailable.save()
+				start = start+timedelta(hours=1)
+			else:
+				go = False
+		# response = {'OptionValue': OptionValue, 'OptionLabel': OptionLabel, 'OptionID': newOption.id}
+		json = simplejson.dumps(errors)
+		return HttpResponse(json, mimetype="text/json")
+	else:
+		pass
 
 
 
