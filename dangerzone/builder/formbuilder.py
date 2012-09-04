@@ -6,7 +6,7 @@ def modelWrite(VarList, location):
 	modelWriter = open("../dangerzone/"+location+"/models.py", "w+")
 	# printList = []
 	for variable in VarList:
-		modeldetails = "verbose_name='%s'" % re.sub("'", "\\'", variable.VarLabel)
+		modeldetails = "verbose_name='%s'" % re.sub("'", "\\'", variable.VarLabel.strip())
 		if variable.FieldType != "BooleanField":
 			modeldetails = "%s, blank=%s, null=%s" % (modeldetails, variable.VarBlank, variable.VarNull)
 		else:
@@ -24,7 +24,7 @@ class mo%s(Audit):
 		return "%%s" %% self.mv%s
 	class Meta:
 		get_latest_by = 'record'
-		\n\n""" % (variable.VarName, variable.VarName, variable.FieldType, modeldetails, variable.VarName))
+		\n\n""" % (variable.VarName.strip(), variable.VarName.strip(), variable.FieldType.strip(), modeldetails, variable.VarName.strip()))
 	# return printList
 
 
@@ -37,7 +37,7 @@ def formWrite(VarList, location):
 widgets = {
 	'mv%s': RadioSelect(choices=co%s)
 	}
-""" % (variable.VarName, variable.VarName)
+""" % (variable.VarName.strip(), variable.VarName.strip())
 		else:
 			widget=""
 		formWriter.write("""
@@ -45,7 +45,7 @@ class mf%s(ModelForm):
 	class Meta:
 		model = mo%s
 		%s
-		\n\n""" % (variable.VarName, variable.VarName, widget))
+		\n\n""" % (variable.VarName.strip(), variable.VarName.strip(), widget))
 	# return printList
 
 def optionWrite(VarList, location):
@@ -56,20 +56,20 @@ def optionWrite(VarList, location):
 		Choices = []
 		for option in OptionList:
 			values = ()
-			newLab = re.sub("'", "\\'", str(option.Label))
+			newLab = re.sub("'", "\\'", str(option.Label.strip()))
 			newVal = int(option.Value)
 			values = values + (newVal, newLab)
 			Choices.append(values)
-		optionWriter.write("co%s = %r \n\n" % (variable.VarName, Choices))
+		optionWriter.write("co%s = %r \n\n" % (variable.VarName.strip(), Choices))
 	# return printList
 
 def adminWrite(VarList, location):
 	adminWriter = open("../dangerzone/"+location+"/admin.py", "w+")
 	# printList = []
 	for variable in VarList:
-		adminWriter.write("admin.site.register(mo%s)\n\n" % variable.VarName)
+		adminWriter.write("admin.site.register(mo%s)\n\n" % variable.VarName.strip())
 	for variable in VarList:
-		adminWriter.write("%s*" % variable.VarName)
+		adminWriter.write("%s*" % variable.VarName.strip())
 	# return printList
 
 

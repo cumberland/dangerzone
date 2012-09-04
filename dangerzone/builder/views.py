@@ -224,10 +224,10 @@ def deleteoption(request):
 
 
 def testprint(request):
-	models = modelWrite(VariableDescription.objects.all(), "needs")
-	forms = formWrite(VariableDescription.objects.all(), "needs")
-	options = optionWrite(VariableDescription.objects.filter(FieldType="RadioButton"), "needs")
-	admin = adminWrite(VariableDescription.objects.all(), "needs")
+	models = modelWrite(VariableDescription.objects.filter(ProjectID=2), "cncr")
+	forms = formWrite(VariableDescription.objects.filter(ProjectID=2), "cncr")
+	options = optionWrite(VariableDescription.objects.filter(ProjectID=2, FieldType="RadioButton"), "cncr")
+	admin = adminWrite(VariableDescription.objects.filter(ProjectID=2), "cncr")
 	return render_to_response('testprint.html', RequestContext(request))
 
 
