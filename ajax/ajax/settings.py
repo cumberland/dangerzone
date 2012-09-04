@@ -28,6 +28,19 @@ EMAIL_HOST_PASSWORD = 'jone0202'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 
+
+AUTHENTICATION_BACKENDS = (
+    'userena.backends.UserenaAuthenticationBackend',
+    'guardian.backends.ObjectPermissionBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+LOGIN_REDIRECT_URL = '/accounts/%(username)s/'
+LOGIN_URL = '/accounts/signin/'
+LOGOUT_URL = '/accounts/signout/'
+
+ANONYMOUS_USER_ID = -1
+
+AUTH_PROFILE_MODULE = 'simpleform.MyProfile'
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -154,6 +167,9 @@ INSTALLED_APPS = (
     'selectable',
     'reversion',
     'django_mobile',
+    'userena',
+    'easy_thumbnails',
+    'guardian',
 )
 
 # A sample logging configuration. The only tangible logging

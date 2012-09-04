@@ -23,4 +23,5 @@ urlpatterns = patterns('',
     url(r'^fancy/$', 'simpleform.views.fancy'),
     url(r'^calendar/$', 'simpleform.views.calendar'),
     url(r'^addavailable/$', 'simpleform.views.addavailable'),
+    url(r'^accounts/', include('userena.urls')),
 )

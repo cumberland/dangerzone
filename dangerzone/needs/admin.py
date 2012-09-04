@@ -69,4 +69,3 @@ admin.site.register(moDatafaxQuestionnaire)
 admin.site.register(moDatafaxConfirmQuestionnaire)
 
 FirstName*LastName*RHN*PHN*Sex*DOB*VisitDate*Clinic*PrelimConsent*ContactMethod*Email*PhoneNumb*AltPhoneNumb*MailAddress*AltContact*AltContactPhone*AltContactRelation*Included*ExcludeCalg*ExcludeEnglish*ExcludeOther*ExcludeAge*PreConsentChart*PreConsentClinic*PreferredName*ConsentQuestionnaire*ConsentInterview*ConsentAdditional*ConsentLink*DatafaxConsent*DatafaxConfirmConsent*QuestionnaireSent*QuestionnaireComplete*DatafaxQuestionnaire*DatafaxConfirmQuestionnaire*
-

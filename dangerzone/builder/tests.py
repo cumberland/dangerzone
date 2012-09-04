@@ -15,5 +15,10 @@
 #         """
 #         self.assertEqual(1 + 1, 2)
 
+import re
 
+a = "Don't try to use patient's clothes."
 
+a = re.sub("'", "\\'", a)
+
+print a

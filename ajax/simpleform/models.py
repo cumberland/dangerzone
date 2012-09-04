@@ -4,7 +4,7 @@ from django.forms import ModelForm
 from django.forms import Textarea
 import re
 import reversion
-
+from django.contrib.auth.models import User
 
 
 
@@ -70,4 +70,25 @@ class Appointment(models.Model):
 	SCIDcomplete = models.BooleanField()
 	def __unicode__(self):
 		return "%s" % self.start
+
+
+class SOP(models.Model):
+	name = models.CharField(max_length=30)
+	def __unicode__(self):
+		return "%s" % self.name
+
+class TAG(models.Model):
+	tag = models.CharField(max_length=20)
+	sop = models.ManyToManyField(SOP)
+	def __unicode__(self):
+		return "%s" % self.tag
+
+from userena.models import UserenaBaseProfile
+
+class MyProfile(UserenaBaseProfile):
+	user = models.OneToOneField(User,
+								unique=True,
+								verbose_name="user",
+								related_name="my_profile")
+	favourite_snack = models.CharField(verbose_name="favourite snack", max_length=5)
 

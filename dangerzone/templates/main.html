@@ -21,7 +21,7 @@ $(function() {
 </script>
 
 <script type='text/javascript'> 
-function ActiveProject(ProjectID){
+function ActiveProject(){
   $('#NewProject').show();
   $('#ProjectManager').hide();
    }
@@ -119,7 +119,7 @@ jQuery(document).ajaxSend(function(event, xhr, settings) {
             <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
             <a class="btn btn-primary btn-large" href="#" onClick="NewActiveProject(1)">Learn more &raquo;</a>
           </div>
-          <div class="row-fluid" style="background:#00B2EE;">
+          <div class="row-fluid">
             <div class="span4" style="text-align:center;">
               <h2>Variables</h2>
               <p>Add new variables and edit existing variables for the project.</p>
@@ -139,89 +139,11 @@ jQuery(document).ajaxSend(function(event, xhr, settings) {
     </div><!--/span-->
 
 <br><br><br><br>
-<div class="stream-container">
-  <div class="stream home-stream">
-    <div class="js-stream-items stream-items">
-      <div class="js-stream-item stream-item stream-item">
-        <div class="tweet original-tweet js-stream-tweet js-actionable-tweet js-hover js-profile-popup-actionable js-original-tweet" >
-          <div class="content">
-            <div class="stream-item-footer">
-              <a class="details with-icn js-details" href="/pdftest/">
-              <b>
-                <span class="expand-stream-item js-view-details">
-                  <span class="expand-action-wrapper">
-                    Oh God.
-                  </span>
-                </span>
-              </b>
-              </a>
-
-            <ul class="tweet-actions js-actions">
-              <li class="action-reply-container">
-                <a class="with-icn js-action-reply" href="#">
-                  <i class="icon-chevron-up"></i>
-                  <b>Up</b>
-                </a>
-              </li>
-
-            <li class="action-rt-container">
-              <a class="with-icn js-toggle-rt" href="#">
-                <i class="icon-chevron-down"></i>
-                  <b>Down</b>
-              </a>
-            </li>
-
-          <li class="action-del-container">
-            <a class="with-icn js-action-del" href="#" title="Delete">
-              <i class="icon-remove"></i>
-              <b>Delete</b>
-            </a>
-          </li>
-
-          <li class="action-fav-container">
-            <a class="with-icn js-toggle-fav" href="#">
-              <i class="icon-plus"></i>
-              
-              
-                <b>Add</b>
-            </a>
-          </li>
-        </ul>      
-      </div>
-
-            <div class="stream-item-header">
-        <small class="time">
-            <a href="#" class="tweet-timestamp js-permalink" title="" >Some kind of stamp.</a>
-        </small>
-          <a  class="account-group js-account-group js-action-profile js-user-profile-link" href="#" >
-            <img class="avatar js-action-profile-avatar" src="">
-            <strong class="fullname js-action-profile-name show-popup-with-id">title of some sort</strong>
-          </a>
-            </div>
-
-
-      
-        <p class="js-tweet-text">
-            Form Content goes in here.
-                  </p>
-
-      
-          <div class="context">
-          <span class="with-icn"><i class="badge-retweeted"></i><b>Other stuff here</b></span>
-        </div>
-
-
-      
-      <div class="expanded-content js-tweet-details-dropdown">
-      </div>
-    </div>
-  </div>
-
-
-</div>
-</div>
-</div>
-</div>
+      <span class="label">Tag 1</span>
+      <span class="label label-success">Tag 2</span>
+    <span class="label label-warning">Tag 3 x #</span>
+    <span class="label label-important">Tag 4</span>
+    <span class="label label-info">Tag 5</span>
 
 <form id="ActiveProject" action="/activeproject/" method='post'>
   {% csrf_token %}

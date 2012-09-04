@@ -1,11 +1,12 @@
 from builder.models import Options
+import re
 # Radiobutton needs to be written as an IntegerField
 
 def modelWrite(VarList, location):
 	modelWriter = open("../dangerzone/"+location+"/models.py", "w+")
 	# printList = []
 	for variable in VarList:
-		modeldetails = "verbose_name='%s'" % variable.VarLabel
+		modeldetails = "verbose_name='%s'" % re.sub("'", "\\'", variable.VarLabel)
 		if variable.FieldType != "BooleanField":
 			modeldetails = "%s, blank=%s, null=%s" % (modeldetails, variable.VarBlank, variable.VarNull)
 		else:
@@ -55,7 +56,7 @@ def optionWrite(VarList, location):
 		Choices = []
 		for option in OptionList:
 			values = ()
-			newLab = str(option.Label)
+			newLab = re.sub("'", "\\'", str(option.Label))
 			newVal = int(option.Value)
 			values = values + (newVal, newLab)
 			Choices.append(values)

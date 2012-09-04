@@ -27,7 +27,7 @@ DATABASES = {
         'USER': 'jdykeman',                      # Not used with sqlite3.
         'PASSWORD': 'Hn2ZSUNRVPaRL8Yt',                  # Not used with sqlite3.
         'HOST': 'thin.med.ucalgary.ca',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+        'PORT': '3306',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
 
