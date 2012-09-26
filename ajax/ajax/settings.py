@@ -133,7 +133,9 @@ MIDDLEWARE_CLASSES = (
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_mobile.middleware.MobileDetectionMiddleware',
-    'django_mobile.middleware.SetFlavourMiddleware'
+    'django_mobile.middleware.SetFlavourMiddleware',
+    'django.middleware.transaction.TransactionMiddleware',
+    'reversion.middleware.RevisionMiddleware',
 
 )
 
@@ -170,6 +172,9 @@ INSTALLED_APPS = (
     'userena',
     'easy_thumbnails',
     'guardian',
+    'south',
+    'newage',
+    # 'testset',
 )
 
 # A sample logging configuration. The only tangible logging

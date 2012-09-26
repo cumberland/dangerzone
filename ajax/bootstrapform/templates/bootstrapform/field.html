@@ -3,8 +3,6 @@
     {% if field|is_radio %}
                 <div class="controls">
                     
-                       <span><h5>{{ field.label }}&nbsp;<a href="#" onClick="testClick('{{ field.name }}')"><i class="icon-search"></i></a></h5></span><br>
-                    
                         {% for option in field %}
                         {{ option.tag }} {{ option.choice_label }}<br>
                         {% endfor %}

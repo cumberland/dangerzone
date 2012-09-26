@@ -1,6 +1,7 @@
+from newage.views import MyView, HomePageView
 from django.conf.urls import patterns, include, url
-
 from django.contrib import admin
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -24,4 +25,9 @@ urlpatterns = patterns('',
     url(r'^calendar/$', 'simpleform.views.calendar'),
     url(r'^addavailable/$', 'simpleform.views.addavailable'),
     url(r'^accounts/', include('userena.urls')),
+    url(r'^newage/$', 'newage.views.newage'),
+    url(r'^newageedit/(?P<test_id>\d+)/$', 'newage.views.newageedit'),
+    url(r'^newageset/$', 'newage.views.newageset'),
+    url(r'^mine/$', MyView.as_view(), name='my-view'),
+    url(r'^$', HomePageView.as_view(), name='home'),
 )

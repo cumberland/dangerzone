@@ -20,7 +20,7 @@ FieldChoices = (
 	("TimeField", "Time"),
 	("DateTimeField", "DateTime")
 	)
-
+ 
 class Audit(models.Model):
 	record = models.BigIntegerField(default=1, editable=False )
 	datetime = models.DateTimeField(auto_now_add=True)

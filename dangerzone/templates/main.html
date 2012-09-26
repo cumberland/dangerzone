@@ -28,6 +28,22 @@ function ActiveProject(){
 function addVariables(){
   $('#ActiveProject').submit();
    }
+  function Home(){
+  $('#HomeDiv').show();
+  $('#ProfileDiv').hide();
+  $('#MessageDiv').hide();
+   }
+  function Profile(){
+  $('#HomeDiv').hide();
+  $('#ProfileDiv').show();
+  $('#MessageDiv').hide();
+   }
+  function Message(){
+  $('#HomeDiv').hide();
+  $('#ProfileDiv').hide();
+  $('#MessageDiv').show();
+   }
+
 </script>
 
 
@@ -139,11 +155,20 @@ jQuery(document).ajaxSend(function(event, xhr, settings) {
     </div><!--/span-->
 
 <br><br><br><br>
-      <span class="label">Tag 1</span>
-      <span class="label label-success">Tag 2</span>
-    <span class="label label-warning">Tag 3 x #</span>
-    <span class="label label-important">Tag 4</span>
-    <span class="label label-info">Tag 5</span>
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#" onClick="Home()">Administation/Consent</a></li>
+  <li><a href="#" onClick="Profile()">Cognitive Registry</a></li>
+  <li><a href="#" onClick="Message()">Brain Impact</a></li>
+</ul>
+<div id="HomeDiv" style="display:block;">
+  <h3>Consent forms.</h3>
+</div>
+<div id="ProfileDiv" style="display:none;">
+  <h3>Cogreg forms</h3>
+</div>
+<div id="MessageDiv" style="display:none;">
+  <h3>Brain impact forms</h3>
+</div>
 
 <form id="ActiveProject" action="/activeproject/" method='post'>
   {% csrf_token %}

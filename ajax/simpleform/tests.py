@@ -84,3 +84,12 @@ for i in range(0,100):
 print zero
 print one
 
+
+testDict = {'Var1': 'Is', 'Var2': 'Foos', 'Var3': 'Changes'}
+testDict2 = {'Var1': 'Changed', 'Var2': 'Foos', 'Var3': 'Happen'}
+
+a = set(testDict.items()) - set(testDict2.items())
+changes = []
+for i in a:
+	changes.append(i[0])
+print "Changed %s." % changes
