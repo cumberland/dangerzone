@@ -1,0 +1,374 @@
+{% extends 'form.html' %}
+
+{% block head2 %}
+
+<script type="text/javascript"> 
+jQuery(document).ajaxSend(function(event, xhr, settings) {
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    function sameOrigin(url) {
+        // url could be relative or scheme relative or absolute
+        var host = document.location.host; // host + port
+        var protocol = document.location.protocol;
+        var sr_origin = '//' + host;
+        var origin = protocol + sr_origin;
+        // Allow absolute or scheme relative URLs to same origin
+        return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+            (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+            // or any other URL that isn't scheme relative or absolute i.e relative.
+            !(/^(\/\/|http:|https:).*/.test(url));
+    }
+    function safeMethod(method) {
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
+        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+    }
+});
+</script>
+
+<script type="text/javascript">
+    jQuery(document).ajaxError(function(){  
+        $("#OptionValueError").addClass("error");  
+        $("#OptionValueError span").text("Value must be an integer.");  
+        $("#OptionValueError span").addClass("error");  
+        return false;  
+    });  
+   $(document).ready(function() {
+       $("#OptionForm").submit(function(event){
+           event.preventDefault();
+           $.ajax({
+                type:"POST",
+                url:"{% url builder.views.addoption %}",
+                data: {VariableID: $('input:hidden[name=VariableID]').val(), OptionLabel: $('input:text[name=OptionLabel]').val(), OptionValue: $('input:text[name=OptionValue]').val()},
+                success: function(data){
+                console.log(data['OptionID']);
+                $("#OptionValueError").removeClass("error");  
+                $("#OptionValueError span").text("");  
+                $("#OptionValueError span").removeClass("error");
+                $('#OptionTable > tbody:last').append('<tr id=Option_'+data['OptionID']+'><td>'+data['OptionValue']+'</td><td>'+data['OptionLabel']+'</td><td><a href="#" onClick="deleteOption('+data['OptionID']+')"><i class="icon icon-remove"></i></a>');
+                $('input:text[name=OptionValue]').val('');
+                $('input:text[name=OptionLabel]').val('');
+                }
+              });
+           });
+        });
+</script>
+
+<script type="text/javascript">
+function deleteOption(OptionID){
+  $.ajax({
+      type:"POST",
+      url:"{% url builder.views.deleteoption %}",
+      data: {OptionID: OptionID},
+      success: function(data){
+      	console.log(data);
+        $('#Option_'+OptionID).remove();
+        }
+      });
+      }
+
+function AddOptions(VarID){
+           $.ajax({
+                type:"POST",
+                url:"{% url builder.views.currentoptions %}",
+                data: {VarID: VarID},
+                success: function(data){
+               	$('#OptionTable > tbody > tr').remove();
+                  $.each(data, function(index) {
+                  $('#OptionTable > tbody:last').append('<tr id=Option_'+data[index].OptionID+'><td>'+data[index].OptionValue+'</td><td>'+data[index].OptionLabel+'</td><td><a href="#" onClick="deleteOption('+data[index].OptionID+')"><i class="icon icon-remove"></i></a>');
+                  });
+                }
+              });
+           $('input:hidden[name=VariableID]').val(VarID);
+           $('#AddOptions').modal('toggle')
+           }
+</script>
+
+
+  <style>
+  #sortable { list-style-type: none; margin: 0; padding: 0; width: 100%; }
+  .ui-state-highlight { height: 1.5em; line-height: 1.2em; }
+
+  </style>
+	<script>
+	$(function() {
+		$("#sortable" ).sortable({
+			placeholder: "ui-state-highlight",
+			update: function(event, ui){
+				// console.log($('#sortable').sortable('serialize'));
+				// console.log(JSON.stringify($('#sortable').sortable('toArray')));
+				$.ajax({
+                type:"POST",
+                url:"{% url builder.views.variableorder %}",
+                data: {Order: JSON.stringify($('#sortable').sortable('toArray')) },
+                success: function(data){
+                 console.log(data);
+                }
+              });
+			}
+		});
+		$( "#sortable" ).disableSelection();
+	});
+	// $(function() {
+	// 	$( "#sorter").resizable();
+	// });
+	</script>
+
+<script type='text/javascript'> 
+function Edit(VarID){
+	$('input:hidden[name=VarID]').val(VarID);
+	$('#EditVar').submit();
+   }
+function Delete(VarID){
+       $.ajax({
+        type:"POST",
+        url:"{% url builder.views.deletevariable %}",
+        data: {VariableID: VarID},
+        success: function(data){
+          $("#liid_"+data).remove();
+          }
+        });
+      }
+
+</script>
+
+<script type='text/javascript'> 
+$(window).load(function(){
+$('select[name="FieldType"]').change(function(){
+  if ($('select[name="FieldType"]').val() == "CharField") {
+    $('#divid_VarMaxLength').show();
+    $('#divid_VarMaxDigits').hide();
+    $('#divid_VarMaxDecimalPlaces').hide();
+    $('#divid_VarBlank').show();
+    $('#divid_VarNull').show();
+        }
+  else if ($('select[name="FieldType"]').val() == "DecimalField") {
+    $('#divid_VarMaxLength').hide();
+    $('#divid_VarMaxDigits').show();
+    $('#divid_VarMaxDecimalPlaces').show();
+    $('#divid_VarBlank').show();
+    $('#divid_VarNull').show();
+  }
+  else if ($('select[name="FieldType"]').val() == "BooleanField") {
+    $('#divid_VarMaxLength').hide();
+    $('#divid_VarMaxDigits').hide();
+    $('#divid_VarMaxDecimalPlaces').hide();
+    $('#divid_VarBlank').hide();
+    $('#divid_VarNull').hide();
+  }
+  else if ($('select[name="FieldType"]').val() == "NullBooleanField") {
+    $('#divid_VarMaxLength').hide();
+    $('#divid_VarMaxDigits').hide();
+    $('#divid_VarMaxDecimalPlaces').hide();
+    $('#divid_VarBlank').hide();
+    $('#divid_VarNull').hide();
+  }
+  else if ($('select[name="FieldType"]').val() == "RadioButton") {
+    $('#divid_VarMaxLength').hide();
+    $('#divid_VarMaxDigits').hide();
+    $('#divid_VarMaxDecimalPlaces').hide();
+    $('#divid_VarBlank').show();
+    $('#divid_VarNull').show();
+  }
+  else {
+    $('#divid_VarMaxLength').hide();
+    $('#divid_VarMaxDigits').hide();
+    $('#divid_VarMaxDecimalPlaces').hide();
+    $('#divid_VarBlank').show();
+    $('#divid_VarNull').show();
+  }
+})
+});
+</script>
+
+<script type='text/javascript'> 
+$(document).ready(function(){
+  if ($('select[name="FieldType"]').val() == "CharField") {
+    $('#divid_VarMaxLength').show();
+    $('#divid_VarMaxDigits').hide();
+    $('#divid_VarMaxDecimalPlaces').hide();
+    $('#divid_VarBlank').show();
+    $('#divid_VarNull').show();
+        }
+  else if ($('select[name="FieldType"]').val() == "DecimalField") {
+    $('#divid_VarMaxLength').hide();
+    $('#divid_VarMaxDigits').show();
+    $('#divid_VarMaxDecimalPlaces').show();
+    $('#divid_VarBlank').show();
+    $('#divid_VarNull').show();
+  }
+  else if ($('select[name="FieldType"]').val() == "BooleanField") {
+    $('#divid_VarMaxLength').hide();
+    $('#divid_VarMaxDigits').hide();
+    $('#divid_VarMaxDecimalPlaces').hide();
+    $('#divid_VarBlank').hide();
+    $('#divid_VarNull').hide();
+  }
+  else if ($('select[name="FieldType"]').val() == "NullBooleanField") {
+    $('#divid_VarMaxLength').hide();
+    $('#divid_VarMaxDigits').hide();
+    $('#divid_VarMaxDecimalPlaces').hide();
+    $('#divid_VarBlank').hide();
+    $('#divid_VarNull').hide();
+  }
+  else if ($('select[name="FieldType"]').val() == "RadioButton") {
+    $('#divid_VarMaxLength').hide();
+    $('#divid_VarMaxDigits').hide();
+    $('#divid_VarMaxDecimalPlaces').hide();
+    $('#divid_VarBlank').show();
+    $('#divid_VarNull').show();
+  }
+  else {
+    $('#divid_VarMaxLength').hide();
+    $('#divid_VarMaxDigits').hide();
+    $('#divid_VarMaxDecimalPlaces').hide();
+    $('#divid_VarBlank').show();
+    $('#divid_VarNull').show();
+  }
+});
+</script>
+
+{% endblock %}
+
+
+{% block varform %}
+
+{% load bootstrap %}
+<ul id="sortable">
+
+{% for Variable in VarList %}
+<li id="liid_{{ Variable.id }}">
+	<div class="js-stream-item stream-item stream-item">
+		<div class="tweet original-tweet js-stream-tweet js-actionable-tweet js-hover js-profile-popup-actionable js-original-tweet" >
+<!-- 			<div class="content"> -->
+				<div class="stream-item-footer">
+					<a style="color:black; font-size:16px;" class="details with-icn js-details" href="#"><b><span class="expand-stream-item js-view-details"><span class="expand-action-wrapper">{{ Variable.VarName }}</span></span></b></a>
+						<ul class="tweet-actions js-actions"> 
+							<a href="#" onClick="Edit({{ Variable.id }})"><i class="icon-wrench"></i>Edit</h5></a>
+						{% if Variable.FieldType == "RadioButton" %}	
+							<a href="#" onClick="AddOptions({{ Variable.id }})"><i class="icon-plus"></i>Add Options</h5></a>
+						{% else %}
+						{% endif %}
+							<a href="#" onClick="Format({{ Variable.id }})"><i class="icon-text-width"></i>Format</h5></a>
+							<a href="#" onClick="Logic({{ Variable.id }})"><i class="icon-cog"></i>Logic</h5></a>
+							<a href="#" onClick="Delete({{ Variable.id }})"><i class="icon-trash"></i>Delete</h5></a>
+						</ul>
+				</div> 
+				<p class="js-tweet-text">	
+					<table class="table">
+					<thead>
+						<tr>
+							<th width="40%">Label</th>
+							<th width="10%">Type</th>
+							<th width="40%">Description</th>
+							<th width="10%">Identifier</th>
+						</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>{{ Variable.VarLabel }}</td>
+						<td>{{ Variable.FieldType }}</td>
+						<td>{{ Variable.VarDescription }}</td>
+						<td>{{ Variable.Identifier }}</td>
+					</tr>
+				</tbody>
+<!-- 					<thead>
+						<tr>
+							<th colspan="4">Additional Information</th>
+						</tr>
+					</thead> -->
+				</table>
+				</p>
+				<div class="expanded-content js-tweet-details-dropdown">
+					{% comment %}
+					VarBlank: {{ Variable.VarBlank }}<br>
+					VarNull: {{ Variable.VarNull }}<br>
+					VarMaxDigits: {{ Variable.VarMaxDigits }}<br>
+					VarMaxDecimalPlaces: {{ Variable.VarMaxDecimalPlaces }}<br>
+					VarMaxLength: {{ Variable.VarMaxLength }}<br>
+					{% endcomment %}
+						</div>
+<!-- 			</div> -->
+		</div>
+	</div>
+	</li>
+{% endfor %}
+
+</ul>
+
+<div class="modal" id="AddOptions" style="display:none;">
+  <div class="modal-header">
+    <button class="close" data-dismiss="modal">X</button>
+    <h3>Add Options</h3>
+  </div>
+  <div class="modal-body">
+  
+<form id="OptionForm" action="." method='POST'>
+  <div id="OptionValueError" class="control-group">
+  <span class="help-inline"></span><br>
+  <br>Value&nbsp;<input type="text" name="OptionValue" id="id_OptionValue" /><br>Label&nbsp;<input type="text" name="OptionLabel" id="id_OptionLabel"/><input type="hidden" name="VariableID">
+  </div>
+<div id="divid_OptionTable">
+<table class="table table-condensed" id="OptionTable">
+<thead>
+  <th>Value</th>
+  <th colspan="2">Label</th>
+</thead>
+<tbody>
+</tbody>
+</table>
+</div>
+</div>
+  <div class="modal-footer">
+  <input type="submit" class="btn btn-primary" value="Add">&nbsp;<button type="reset" class="btn">Reset</button>
+</form>
+  </div>
+</div>
+
+
+{% endblock %}
+
+{% block right %}
+
+
+<div class="well">
+	<h4 style="color:#ebd90b;">
+	{% if request.session.VarID %}
+	<i class="icon-wrench"></i> Edit variable:
+	{% else %}
+	<i class="icon-plus"></i> Add new variable:
+	{% endif %}
+</h4>
+    <form id="VarForm" action="." method='post'>
+  {% csrf_token %}
+      {{ newForm|bootstrap2 }}<br>
+    
+<div class="form-actions">
+   	{% if request.session.VarID %}
+	<input type="submit" class="btn btn-primary" value="Save Changes">&nbsp;<a type="reset" class="btn" href="{% url builder.views.variable %}">Cancel Edit</a>
+	{% else %}
+	<input type="submit" class="btn btn-primary" value="Save Variable">&nbsp;<button type="reset" class="btn">Reset</button>
+	{% endif %}
+    </div>
+</form>
+</div>
+<form id="EditVar" action="." method='get'>
+  {% csrf_token %}
+<input type="hidden" name="VarID">
+</form> 
+{% endblock %}

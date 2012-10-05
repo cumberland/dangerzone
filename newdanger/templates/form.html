@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block head %}
+
+	<style>
+	#sortable1, #sortable2, #sortable3 { list-style-type: none; margin: 0; padding: 0; float: left; margin-right: 10px; background: #eee; padding: 5px; width: 143px;}
+	#sortable1 li, #sortable2 li, #sortable3 li { margin: 5px; padding: 5px; font-size: 1.2em; width: 120px; }
+	</style>
+	<script>
+	$(function() {
+		$( "ul.droptrue" ).sortable({
+			connectWith: "ul"
+		});
+
+		$( "ul.dropfalse" ).sortable({
+			connectWith: "ul",
+			dropOnEmpty: false
+		});
+
+		$( "#sortable1, #sortable2, #sortable3" ).disableSelection();
+	});
+	</script>
+
+<script type='text/javascript'> 
+function ActiveForm(FormID){
+	$('input:hidden[name=FormID]').val(FormID);
+	$('#ActiveForm').submit();
+   }
+</script>
+
+
+{% endblock %}
+
+{% block sidebar %}
+<ul class="nav nav-list">
+  <li class="nav-header">Forms</li>
+   <li {% if request.session.FormID %}{% else %} class="active" {% endif %}><a href="#" rel="popover" title="Create Form" onClick="ActiveForm()" data-content="Create a new variable.">Create Form...</a></li>
+  {% for Form in FormList %}
+    <li {% if Form.id == request.session.FormID.id %} class="active" {% else %}{% endif %}><a id="Form_{{ Form.id }}" href="#" rel="popover" onClick="ActiveForm({{ Form.id }})">{{ Form }}</a></li>
+  {% endfor %}
+</ul>
+
+{% endblock %}
+
+    {% block body %}
+
+{% load bootstrap %}
+
+      <div class="well">
+			<h3>Project - {{ request.session.ProjectID }}</h3>
+			<h4>Form - {{ request.session.FormID }}</h4>
+      </div>
+
+
+{% block varform %}
+<form id="FormForm" action="." method='post'>
+  {% csrf_token %}
+      {{ newForm|bootstrap2 }}<br>
+
+<div class="form-actions">
+    <input type="submit" class="btn btn-primary" value="Save Form">&nbsp;<button type="reset" class="btn">Reset</button>
+    </div>
+</form> 
+{% endblock %}
+
+<form id="ActiveForm" action="{% url builder.views.activeform %}" method='post'>
+  {% csrf_token %}
+<input type="hidden" name="FormID">
+</form>
+
+
+{% endblock %}

@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% block head %}
+<script type="text/javascript"> 
+jQuery(document).ajaxSend(function(event, xhr, settings) {
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    function sameOrigin(url) {
+        // url could be relative or scheme relative or absolute
+        var host = document.location.host; // host + port
+        var protocol = document.location.protocol;
+        var sr_origin = '//' + host;
+        var origin = protocol + sr_origin;
+        // Allow absolute or scheme relative URLs to same origin
+        return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+            (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+            // or any other URL that isn't scheme relative or absolute i.e relative.
+            !(/^(\/\/|http:|https:).*/.test(url));
+    }
+    function safeMethod(method) {
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
+        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+    }
+});
+</script>
+
+<script type='text/javascript'> 
+function getClick() {
+    console.log("Worked");
+    $.get("/xhr_test", function(data){
+      console.log(data);
+    });
+  }
+</script>
+
+<script type='text/javascript'> 
+function postClick() {
+    console.log("Worked");
+    $.post("/xhr_test", function(data){
+      console.log(data);
+    });
+  }
+</script>
+
+<script type='text/javascript'> 
+$(document).ready(function(){
+ {% for Var in VarList %}
+$('#Var_{{ Var.id }}').popover();
+{% endfor %}
+$('#NewVar').popover();
+});
+</script>
+
+<script type='text/javascript'> 
+function ActiveVar(VarID){
+      $('input:hidden[name=VarID]').val(VarID);
+      $('#ActiveVar').submit();
+   }
+</script>
+
+{% endblock %}
+
+{% block sidebar %}
+<ul class="nav nav-list">
+  <li class="nav-header">Variables</li>
+  {% for Var in VarList %}
+    <li {% if Var.id == request.session.VarID %} class="active" {% else %}{% endif %}><a id="Var_{{ Var.id }}" href="#" rel="popover" onClick="ActiveVar({{ Var.id }})" title="{{ Var }}" data-content="{{ Var.VarDescription }}">{{ Var }}</a></li>
+  {% endfor %}
+ <li {% if request.session.VarID %}{% else %} class="active" {% endif %}><a id="NewVar" href="#" rel="popover" onClick="ActiveVar()" title="Create Variable" data-content="Create a new variable.">Create...</a></li>
+</ul>
+{% endblock %}
+
+    {% block body %}
+    <button onClick="getClick()">AJAX GET</button><br><br>
+    <button onClick="postClick()">AJAX POST</button><br><br>
+<form id="ActiveVar" action="/activevar/" method='post'>
+  {% csrf_token %}
+<input type="hidden" name="VarID">
+</form>
+  <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>VarLabel</th>
+          <th>VarName</th>
+          <th>VarDescription</th>
+          <th>FieldType</th>
+          <th>VarBlank</th>
+          <th>VarNull</th>
+          <th>VarMaxDigits</th>
+          <th>VarMaxDecimalPlaces</th>
+          <th>VarMaxLength</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for Var in VarList %}
+        <tr>
+          <td>{{ Var.VarLabel }}</td>
+          <td>{{ Var.VarName }}</td>
+          <td>{{ Var.VarDescription }}</td>
+          <td>{{ Var.FieldType }}</td>
+          <td>{{ Var.VarBlank }}</td>
+          <td>{{ Var.VarNull }}</td>
+          <td>{{ Var.VarMaxDigits }}</td>
+          <td>{{ Var.VarMaxDecimalPlaces }}</td>
+          <td>{{ Var.VarMaxLength }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>    
+{% endblock %}

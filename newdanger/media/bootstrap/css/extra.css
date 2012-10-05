@@ -1,0 +1,92 @@
+
+
+/* css for timepicker */
+.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
+.ui-timepicker-div dl { text-align: left; }
+.ui-timepicker-div dl dt { height: 25px; margin-bottom: -25px; }
+.ui-timepicker-div dl dd { margin: 0 10px 10px 65px; }
+.ui-timepicker-div td { font-size: 90%; }
+.ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
+
+.tooltip2 { display: none; }
+.container2:hover > div.tooltip2 { display: block; }
+
+.unselectable{-webkit-user-select:none;-moz-user-select:none;-o-user-select:none;user-select:none;}
+.stream{overflow:hidden;position:relative;}
+.stream-items{position:relative;overflow:hidden;}
+.stream-item,.unfocusable-stream-item{background:#fff;border:1px solid #e8e8e8;border:1px solid rgba(0,0,0,.1);-webkit-background-clip:padding-box;-moz-background-clip:padding;background-clip:padding-box;}
+
+.stream-item.has-follow-dropdown-open{position:relative\9;z-index:10000\9;}
+.stream-item-header .avatar,.permalink-header .avatar{position:absolute;top:12px;left:12px;}
+.stream-item .content,.permalink-tweet .content{margin-left:58px;}.stream-item-header .account-group{color:#999;}
+.stream-item-header .sm-lock{margin-top:1px;margin-left:2px;}
+.account,.interest-category,.list,.saved-search,.tweet,.app,.discover-item{position:relative;min-height:51px;padding:9px 12px;border-bottom:1px solid #e8e8e8;}
+.stream-end-item .account,.stream-end-item .interest-category,.stream-end-item .list,.stream-end-item .message-item,.stream-end-item .saved-search,.stream-end-item .tweet,.stream-end-item .app,.stream-end-item .discover-item{border-bottom:none;}
+
+.rm-streamitem-clearfix .stream-item:before,.rm-streamitem-clearfix .stream-item:after{display:block;content:normal;clear:none;}
+.tweet{cursor:pointer;}
+.tweet p{word-wrap:break-word;}.tweet .details{float:left;margin-right:2px;}
+.tweet .context a{color:#999;}.tweet a .invisible{font-size:0;line-height:0;}
+.tweet .stream-item-footer{overflow:hidden;font-size:12px;padding-top:1px;}
+.animating .in-reply-to{overflow:hidden;}.tweet .details .sm-geo+i{margin-left:4px;}
+.tweet.permalink-tweet-withheld{padding:12px;}
+
+.tweet .time{position:relative;float:right;margin-top:1px;color:#bbb;}
+.tweet .tweet-user-actions{position:relative;float:right;margin-right:10px;}
+.tweet-user-actions .user-dropdown{padding-left:0;padding-right:0;background:transparent;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;}
+.tweet-user-actions .mark-as-spam-text:hover{text-decoration:underline;}
+.tweet-user-actions .mark-as-spam-silhouette,.tweet-user-actions .mark-as-spam-flag{margin-top:2px;}
+.tweet-user-actions .user-actions{margin-right:-12px;}
+.tweet-user-actions .user-actions .user-dropdown{padding-right:12px;}
+.tweet-user-actions .user-actions .dropdown-menu{margin-top:4px;}
+.tweet .tweet-user-actions .user-actions{display:none;}
+.tweet .tweet-user-actions .user-actions.dropdown-open,.tweet.spam-threat-tweet .tweet-user-actions .user-actions,.tweet:hover .tweet-user-actions .user-actions{display:block;}
+.mark-as-spam-flag,.mark-as-spam-text,.mark-as-spam-silhouette,.tweet-spam-experiment 
+.account-arrow{color:#999;display:none;}
+
+.hidden-tweet .block-message,.hidden-tweet .spam-message{color:#999;margin-left:58px;}
+.hidden-tweet.block-tweet .spam-message,.hidden-tweet.spam-tweet .block-message{display:none;}
+.hidden-tweet .undo-hide-action{float:right;font-size:12px;margin-top:1px;}
+.tweet-actions{display:none\9;-moz-opacity:0;opacity:0;}.tweet-actions li{display:inline;}
+.tweet-actions a{margin-left:8px;color:#999;}
+.tweet.favorited .tweet-actions .sm-fav,.tweet.favorited .tweet-actions .action-fav-container:hover .sm-fav,.permalink-tweet.favorited .tweet-actions .sm-fav,.permalink-tweet.tweet.favorited 
+.tweet-actions .action-fav-container:hover .sm-fav{background-color:#ff9b00;}
+.tweet.favorited .action-fav-container b,.tweet.favorited .action-fav-container:hover b{color:#ff9b00;}.opened-tweet.retweeted .tweet-actions .sm-rt,.tweet.retweeted .tweet-actions .sm-rt,.tweet.retweeted .tweet-actions .action-rt-container:hover .sm-rt,.permalink-tweet.retweeted .tweet-actions .sm-rt,.permalink-tweet.tweet.retweeted 
+.tweet-actions .action-rt-container:hover .sm-rt{background-color:#609928;}
+.tweet.retweeted .action-rt-container b,.tweet.retweeted .action-rt-container:hover b,.opened-tweet.retweeted 
+
+.tweet-actions .action-rt-container b{color:#609928;}.tweet:hover .tweet-actions,.stream-item.open .original-tweet .tweet-actions,.permalink-tweet .tweet-actions,.simple-tweet.open .tweet-actions,.stream-item-activity.opened-tweet .tweet-actions,.media-slideshow-tweet .tweet:hover .tweet-actions,.supplement.open 
+.tweet .tweet-actions{display:block\9;-moz-opacity:1;opacity:1;}
+.proxy-tweet-container{display:none;}
+.media-slideshow-tweet:hover{background:#000;background:rgba(0,0,0,.8);}
+.media-slideshow-tweet .tweet .tweet-row{line-height:18px;}
+
+.media-gallery-content .tweet:hover .details:hover{text-decoration:underline;}
+.tweet:hover,.stream-item.hovered-stream-item{background-color:#f5f5f5;}
+.simple-tweet:hover,.recent-tweets .tweet:hover,.stream-item-activity .tweet:hover,.twttr-dialog-reply-footer:hover,.media-gallery-content 
+.tweet:hover{background-color:transparent;}
+.permalink-tweet:hover,.stream-item.hovered-stream-item.open,.stream-item.open 
+.original-tweet:hover{background-color:#fff;}
+.twttr-dialog-reply-footer:hover{cursor:default;}
+.unclickable-tweet,.unclickable-tweet .account-group{cursor:default;}
+.unclickable-tweet .account-group:hover .fullname{color:#333;text-decoration:none;}
+
+.tweet.retweeted .undo-retweet,.tweet.favorited span.unfavorite,.my-tweet .tweet-actions .action-del-container,.can-delete .tweet-actions .action-del-container,.opened-tweet .tweet-actions .close-tweet,.opened-tweet.original-tweet .tweet-actions b{display:inline;}
+.permalink-tweet .expanded-content{display:block;}.permalink-tweet{padding-bottom:24px;border-bottom:0;}
+.permalink .permalink-header{float:left;margin-bottom:15px;}.permalink .permalink-header .time{display:none;}
+.permalink .permalink-header .fullname{display:block;margin-top:10px;font-size:18px;}
+.permalink .permalink-header .verified{margin-left:5px;margin-top:3px;}
+.permalink .permalink-header .username{font-size:14px;}
+.permalink-header .sm-lock{margin-top:1px;}.permalink .follow-combo,.permalink .follow-bar{float:right;}.permalink-tweet 
+.tweet-actions{margin-top:9px;}
+.permalink-tweet .tweet-actions .action-reply-container a{margin-left:0;}
+.permalink-tweet .tweet-actions .action-open-container,.permalink-tweet 
+.edit-profile-btn{display:none;}.permalink-tweet .dogear{top:-8px;right:-40px;}
+.permalink-tweet p{font-family:Georgia,"Times New Roman",serif;font-size:22px;line-height:28px;}
+.permalink-footer{margin-top:10px;}.permalink .stats .stat-count a:hover{cursor:pointer;}
+.permalink .stats.no-activity-popup .stat-count a:hover{cursor:default;}
+.permalink .stats.no-activity-popup .stat-count a{cursor:default;color:#999;}
+.permalink .stats .avatar-row a{padding:0;border-left:none;}
+
+//ML's SHIT
+
