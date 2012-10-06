@@ -21,7 +21,7 @@ FieldChoices = (
 
 class Project(models.Model):
 	ProjectName = models.CharField(max_length=100, verbose_name="Project Name:")
-	ProjectURL = models.SlugField(max_length=8, verbose_name="Project URL:")
+	ProjectURL = models.SlugField(max_length=18, verbose_name="Project URL:")
 	ProjectDescription = models.TextField(verbose_name="Project Description:")
 	def __unicode__(self):
 		return "%s" % self.ProjectName
@@ -30,14 +30,14 @@ class Form(models.Model):
 	ProjectID = models.ForeignKey(Project, default=0, editable=False, related_name="Form")
 	FormName = models.CharField(verbose_name="Form Name:", max_length=40)
 	FormDescription = models.TextField(verbose_name="Form Description:")
-	VariableOrder = models.CommaSeparatedIntegerField(max_length=500, default="[]", editable=True, blank=True)
+	VariableOrder = models.CommaSeparatedIntegerField(max_length=500, default="[]", editable=False, blank=True)
 	def __unicode__(self):
 		return "%s" % (self.FormName)
 
 class Variable(models.Model):
 	FormID = models.ForeignKey(Form, default=0, editable=False, related_name="Variable")
 	VarLabel = models.CharField(max_length=500, verbose_name="Label of variable on form:") # verbose_name
-	VarName = models.CharField(max_length=62, verbose_name="Name of variable in the database:") # variable name
+	VarName = models.CharField(max_length=32, verbose_name="Name of variable in the database:") # variable name
 	VarDescription = models.CharField(max_length=500, verbose_name="Description of what the variable is collecting:") # description of variable purpose
 	FieldType = models.CharField(max_length=20, choices=FieldChoices, verbose_name="Variable type:") # variable type
 	VarBlank = models.BooleanField(verbose_name="Blank values are allowed.")
@@ -91,3 +91,9 @@ def it_worked(sender, **kwargs):
 	# for i in kwargs.pop('instances'):
 	# 	print dir(i)
 	# 	print dir(i.clean_fields)
+
+
+
+
+
+	

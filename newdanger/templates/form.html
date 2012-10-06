@@ -44,12 +44,10 @@ function ActiveForm(FormID){
     {% block body %}
 
 {% load bootstrap %}
-
       <div class="well">
 			<h3>Project - {{ request.session.ProjectID }}</h3>
 			<h4>Form - {{ request.session.FormID }}</h4>
       </div>
-
 
 {% block varform %}
 <form id="FormForm" action="." method='post'>

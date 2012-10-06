@@ -97,6 +97,7 @@ function AddOptions(VarID){
            $('input:hidden[name=VariableID]').val(VarID);
            $('#AddOptions').modal('toggle')
            }
+
 </script>
 
 
@@ -149,6 +150,10 @@ function Delete(VarID){
 
 <script type='text/javascript'> 
 $(window).load(function(){
+	$("#Identifier").tooltip();
+	$("#Blank").tooltip();
+	$("#Null").tooltip();
+	$("#FieldType").tooltip();
 $('select[name="FieldType"]').change(function(){
   if ($('select[name="FieldType"]').val() == "CharField") {
     $('#divid_VarMaxLength').show();
@@ -249,6 +254,7 @@ $(document).ready(function(){
 {% block varform %}
 
 {% load bootstrap %}
+
 <ul id="sortable">
 
 {% for Variable in VarList %}
@@ -257,9 +263,23 @@ $(document).ready(function(){
 		<div class="tweet original-tweet js-stream-tweet js-actionable-tweet js-hover js-profile-popup-actionable js-original-tweet" >
 <!-- 			<div class="content"> -->
 				<div class="stream-item-footer">
-					<a style="color:black; font-size:16px;" class="details with-icn js-details" href="#"><b><span class="expand-stream-item js-view-details"><span class="expand-action-wrapper">{{ Variable.VarName }}</span></span></b></a>
+					<span style="color:black; font-size:16px;" class="details with-icn js-details" href="#"><b><span class="expand-stream-item js-view-details"><span class="expand-action-wrapper">{{ Variable.VarName }}</span></span></b>&nbsp;&nbsp;&nbsp;<span class="label label-info" id="FieldType" rel="tooltip" title="Variable type.">{{ Variable.FieldType }}</span>
+							{% if Variable.Identifier %}
+							<span class="label label-important" id="Identifier" rel="tooltip" title="Variable collects identifiable information.">Identified</span>
+							{% else %}
+							{% endif %}
+							{% if Variable.VarBlank %}
+							<span class="label label-success" id="Blank" rel="tooltip" title="Blank values are allowed.">Blank</span>
+							{% else %}
+							{% endif %}
+
+							{% if Variable.VarNull %}
+ 							<span class="label label-warning" id="Null" rel="tooltip" title="Null values are allowed.">Null</span>
+							{% else %}
+							{% endif %}	</span>
 						<ul class="tweet-actions js-actions"> 
-							<a href="#" onClick="Edit({{ Variable.id }})"><i class="icon-wrench"></i>Edit</h5></a>
+							
+					<a href="#" onClick="Edit({{ Variable.id }})"><i class="icon-wrench"></i>Edit</h5></a>
 						{% if Variable.FieldType == "RadioButton" %}	
 							<a href="#" onClick="AddOptions({{ Variable.id }})"><i class="icon-plus"></i>Add Options</h5></a>
 						{% else %}
@@ -272,19 +292,41 @@ $(document).ready(function(){
 				<p class="js-tweet-text">	
 					<table class="table">
 					<thead>
+						
 						<tr>
 							<th width="40%">Label</th>
-							<th width="10%">Type</th>
 							<th width="40%">Description</th>
-							<th width="10%">Identifier</th>
+							{% if Variable.VarMaxLength %}
+							<th width="20%">Max<br>Characters</th>
+							{% else %}
+						{% endif %}
+						{% if Variable.VarMaxDecimalPlaces %}
+							<th width="10%">Decimal<br>Places</th>
+							{% else %}
+						{% endif %}
+						{% if Variable.VarMaxDigits %}
+							<th width="10%">Max<br>Digits</th>
+							{% else %}
+						{% endif %}		
 						</tr>
+						
 					</thead>
 					<tbody>
 					<tr>
 						<td>{{ Variable.VarLabel }}</td>
-						<td>{{ Variable.FieldType }}</td>
 						<td>{{ Variable.VarDescription }}</td>
-						<td>{{ Variable.Identifier }}</td>
+						{% if Variable.VarMaxLength %}
+						<td>{{ Variable.VarMaxLength }}</td>
+						{% else %}
+						{% endif %}
+						{% if Variable.VarMaxDecimalPlaces %}
+						<td>{{ Variable.VarMaxDecimalPlaces }}</td>
+						{% else %}
+						{% endif %}
+						{% if Variable.VarMaxDigits %}
+						<td>{{ Variable.VarMaxDigits }}</td>	
+						{% else %}
+						{% endif %}				
 					</tr>
 				</tbody>
 <!-- 					<thead>
@@ -295,13 +337,6 @@ $(document).ready(function(){
 				</table>
 				</p>
 				<div class="expanded-content js-tweet-details-dropdown">
-					{% comment %}
-					VarBlank: {{ Variable.VarBlank }}<br>
-					VarNull: {{ Variable.VarNull }}<br>
-					VarMaxDigits: {{ Variable.VarMaxDigits }}<br>
-					VarMaxDecimalPlaces: {{ Variable.VarMaxDecimalPlaces }}<br>
-					VarMaxLength: {{ Variable.VarMaxLength }}<br>
-					{% endcomment %}
 						</div>
 <!-- 			</div> -->
 		</div>
@@ -345,8 +380,8 @@ $(document).ready(function(){
 
 {% block right %}
 
-
-<div class="well">
+<div class="well sidebar-nav sidebar-nav-fixed">
+	<div class="well">
 	<h4 style="color:#ebd90b;">
 	{% if request.session.VarID %}
 	<i class="icon-wrench"></i> Edit variable:
@@ -364,9 +399,11 @@ $(document).ready(function(){
 	{% else %}
 	<input type="submit" class="btn btn-primary" value="Save Variable">&nbsp;<button type="reset" class="btn">Reset</button>
 	{% endif %}
-    </div>
+</div>
 </form>
 </div>
+</div>
+
 <form id="EditVar" action="." method='get'>
   {% csrf_token %}
 <input type="hidden" name="VarID">
