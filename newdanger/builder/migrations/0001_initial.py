@@ -12,7 +12,7 @@ class Migration(SchemaMigration):
         db.create_table('builder_project', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('ProjectName', self.gf('django.db.models.fields.CharField')(max_length=100)),
-            ('ProjectURL', self.gf('django.db.models.fields.SlugField')(max_length=8)),
+            ('ProjectURL', self.gf('django.db.models.fields.SlugField')(max_length=18)),
             ('ProjectDescription', self.gf('django.db.models.fields.TextField')()),
         ))
         db.send_create_signal('builder', ['Project'])
@@ -32,7 +32,7 @@ class Migration(SchemaMigration):
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('FormID', self.gf('django.db.models.fields.related.ForeignKey')(default=0, related_name='Variable', to=orm['builder.Form'])),
             ('VarLabel', self.gf('django.db.models.fields.CharField')(max_length=500)),
-            ('VarName', self.gf('django.db.models.fields.CharField')(max_length=62)),
+            ('VarName', self.gf('django.db.models.fields.CharField')(max_length=32)),
             ('VarDescription', self.gf('django.db.models.fields.CharField')(max_length=500)),
             ('FieldType', self.gf('django.db.models.fields.CharField')(max_length=20)),
             ('VarBlank', self.gf('django.db.models.fields.BooleanField')(default=False)),
@@ -88,7 +88,7 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Project'},
             'ProjectDescription': ('django.db.models.fields.TextField', [], {}),
             'ProjectName': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'ProjectURL': ('django.db.models.fields.SlugField', [], {'max_length': '8'}),
+            'ProjectURL': ('django.db.models.fields.SlugField', [], {'max_length': '18'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
         },
         'builder.variable': {
@@ -102,7 +102,7 @@ class Migration(SchemaMigration):
             'VarMaxDecimalPlaces': ('django.db.models.fields.PositiveIntegerField', [], {'null': 'True', 'blank': 'True'}),
             'VarMaxDigits': ('django.db.models.fields.PositiveIntegerField', [], {'null': 'True', 'blank': 'True'}),
             'VarMaxLength': ('django.db.models.fields.PositiveIntegerField', [], {'null': 'True', 'blank': 'True'}),
-            'VarName': ('django.db.models.fields.CharField', [], {'max_length': '62'}),
+            'VarName': ('django.db.models.fields.CharField', [], {'max_length': '32'}),
             'VarNull': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
         }
