@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import simplejson
-from builder.formbuilder import modelWrite, formWrite, optionWrite, adminWrite
+from builder.formbuilder import writeModels, formWrite, optionWrite, adminWrite
 from django.core.urlresolvers import reverse
 
 
@@ -420,6 +420,13 @@ def variableorder(request):
 		return HttpResponse(request.POST['Order'])
 	else:
 		pass
+
+def projectprinter(request):
+	renderDict = {}
+	ProjectID = int(request.POST['ProjectID'])
+	writeModels(Form.objects.filter(ProjectID=ProjectID))
+	return render_to_response('printout.html', renderDict, RequestContext(request))
+
 
 ######################################################################
 ##################--END: Properly Converted Views--###################

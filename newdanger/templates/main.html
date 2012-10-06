@@ -27,6 +27,9 @@ function ActiveProject(){
 function addForms(){
   $('#ActiveProject').submit();
    }
+ function Print(){
+  $('#ActiveProjectPrint').submit();
+   }  
   function Home(){
   $('#HomeDiv').show();
   $('#ProfileDiv').hide();
@@ -132,7 +135,7 @@ jQuery(document).ajaxSend(function(event, xhr, settings) {
       <div id="divid_ActiveProject" class="hero-unit">
             <h2>Hello, world!</h2>
             <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-            <a class="btn btn-primary btn-large" href="#" onClick="NewActiveProject(1)">Learn more &raquo;</a>
+            <a class="btn btn-primary btn-large" href="#" onClick="Print()">Print Project &raquo;</a>
           </div>
           <div class="row-fluid">
             <div class="span4" style="text-align:center;">
@@ -168,6 +171,11 @@ jQuery(document).ajaxSend(function(event, xhr, settings) {
 <div id="MessageDiv" style="display:none;">
   <h3>Brain impact forms</h3>
 </div> -->
+
+<form id="ActiveProjectPrint" action="{% url builder.views.projectprinter %}" method='post'>
+  {% csrf_token %}
+<input type="hidden" name="ProjectID">
+</form>
 
 <form id="ActiveProject" action="{% url builder.views.activeproject %}" method='post'>
   {% csrf_token %}

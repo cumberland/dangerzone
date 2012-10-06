@@ -1,31 +1,46 @@
 from builder.models import Option
 import re
-# Radiobutton needs to be written as an IntegerField
 
-def modelWrite(VarList, location):
-	modelWriter = open("../dangerzone/"+location+"/models.py", "w+")
-	# printList = []
-	for variable in VarList:
-		modeldetails = "verbose_name='%s'" % re.sub("'", "\\'", variable.VarLabel.strip())
-		if variable.FieldType != "BooleanField":
-			modeldetails = "%s, blank=%s, null=%s" % (modeldetails, variable.VarBlank, variable.VarNull)
-		else:
-			pass
-		if variable.FieldType == "DecimalField":
-			modeldetails = "%s, max_digits=%s, decimal_places=%s" % (modeldetails, variable.VarMaxDigits, variable.VarMaxDecimalPlaces)
-		elif variable.FieldType == "CharField":
-			modeldetails = "%s, max_length=%s" % (modeldetails, variable.VarMaxLength)
-		else:
-			pass
-		modelWriter.write("""
-class mo%s(Audit):
-	mv%s = models.%s(%s)
-	def __unicode__(self):
-		return "%%s" %% self.mv%s
-	class Meta:
-		get_latest_by = 'record'
-		\n\n""" % (variable.VarName.strip(), variable.VarName.strip(), variable.FieldType.strip(), modeldetails, variable.VarName.strip()))
-	# return printList
+# Outine Process
+# Startapp - 1) Create folder with slug name 2) __init__.py the folder 3) Create the files that will be used
+# i) admin.py
+# ii) forms.py
+# iii) models.py - DONE
+# iv) urls.py
+# v) choices.py
+# vi) views.py
+
+def writeModels(Project):
+	newModels = open("../newdanger/testprint/models.py", "w+")
+	modelWriter = open("../newdanger/testprint/models.py", "a")
+	modelWriter.write(
+"""from django.db import models
+from django.contrib.auth.models import User
+from django.dispatch import receiver
+import reversion""")
+	for form in Project:
+		VariableWrite = []
+		for variable in form.Variable.all():
+			modeldetails = "verbose_name='%s'" % re.sub("'", "\\'", variable.VarLabel.strip())
+			if variable.FieldType != "BooleanField":
+				modeldetails = "%s, blank=%s, null=%s" % (modeldetails, variable.VarBlank, variable.VarNull)
+			else:
+				pass
+			if variable.FieldType == "DecimalField":
+				modeldetails = "%s, max_digits=%s, decimal_places=%s" % (modeldetails, variable.VarMaxDigits, variable.VarMaxDecimalPlaces)
+			elif variable.FieldType == "CharField":
+				modeldetails = "%s, max_length=%s" % (modeldetails, variable.VarMaxLength)
+			else:
+				pass
+			if variable.FieldType.strip() == "RadioButton":
+				FieldType = "BigIntegerField"
+			else:
+				FieldType = variable.FieldType.strip()
+			VariableWrite.append("%s = models.%s(%s)" % (variable.VarName.strip(), FieldType, modeldetails))
+		modelWriter.write(
+"""\n\nclass %s(models.Model):
+	%s
+		""" % (form.FormName, "\n\t".join(VariableWrite)))
 
 
 def formWrite(VarList, location):
