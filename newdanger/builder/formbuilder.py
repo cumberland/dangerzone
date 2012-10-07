@@ -63,20 +63,22 @@ class mf%s(ModelForm):
 		\n\n""" % (variable.VarName.strip(), variable.VarName.strip(), widget))
 	# return printList
 
-def optionWrite(VarList, location):
-	optionWriter = open("../dangerzone/"+location+"/options.py", "w+")
-	# printList = []
-	for variable in VarList:
-		OptionList = Options.objects.filter(VarID=variable)
-		Choices = []
-		for option in OptionList:
-			values = ()
-			newLab = re.sub("'", "\\'", str(option.Label.strip()))
-			newVal = int(option.Value)
-			values = values + (newVal, newLab)
-			Choices.append(values)
-		optionWriter.write("co%s = %r \n\n" % (variable.VarName.strip(), Choices))
-	# return printList
+def writeOptions(Project):
+	newOptions = open("../newdanger/testprint/options.py", "w+")
+	optionWriter = open("../newdanger/testprint/options.py", "a")
+	for form in Project:
+		for variable in form.Variable.all():
+			if variable.FieldType == "RadioButton":
+				Choices = []
+				for option in variable.Option.all():
+					values = ()
+					newLab = re.sub("'", "\\'", str(option.Label.strip()))
+					newVal = int(option.Value)
+					values = values + (newVal, newLab)
+					Choices.append(values)
+				optionWriter.write("%s_%s = %r \n\n" % (form.FormName.strip(), variable.VarName.strip(), Choices))
+			else:
+				pass
 
 def adminWrite(VarList, location):
 	adminWriter = open("../dangerzone/"+location+"/admin.py", "w+")

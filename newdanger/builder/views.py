@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import simplejson
-from builder.formbuilder import writeModels, formWrite, optionWrite, adminWrite
+from builder.formbuilder import writeModels, formWrite, writeOptions, adminWrite
 from django.core.urlresolvers import reverse
 
 
@@ -425,6 +425,7 @@ def projectprinter(request):
 	renderDict = {}
 	ProjectID = int(request.POST['ProjectID'])
 	writeModels(Form.objects.filter(ProjectID=ProjectID))
+	writeOptions(Form.objects.filter(ProjectID=ProjectID))
 	return render_to_response('printout.html', renderDict, RequestContext(request))
 
 

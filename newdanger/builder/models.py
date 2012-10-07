@@ -1,9 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
-
 from django.dispatch import receiver
 import reversion
 
+from django.core.signals import request_finished,request_started
 
 FieldChoices = (
 	("BigIntegerField", "Integer"),
@@ -94,6 +94,12 @@ def it_worked(sender, **kwargs):
 
 
 
+@receiver(request_started)
+def my_callback(sender, **kwargs):
+    print "#####--SENDER--#####"
+    print dir(sender)
+    print "#####--SIGNAL--#####"
+    print kwargs.pop('signal')
+    print kwargs
 
 
-	

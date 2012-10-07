@@ -3,7 +3,7 @@ from builder.models import *
 import reversion
 
 
-class VersioningAdmin(reversion.VersionAdmin):
+class ProjectTracking(reversion.VersionAdmin):
     pass
 
 
