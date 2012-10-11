@@ -46,6 +46,8 @@ class Variable(models.Model):
 	VarMaxDigits = models.PositiveIntegerField(verbose_name="Maximum number of digits allowed (required):", blank=True, null=True)
 	VarMaxDecimalPlaces = models.PositiveIntegerField(verbose_name="Maximum number of decimal places allowed (required):", blank=True, null=True)
 	VarMaxLength = models.PositiveIntegerField(verbose_name="Maximum number of characters allowed (required):", blank=True, null=True)
+	ActivePanel = models.BooleanField(verbose_name="Include in active patient panel.")
+	MainList = models.BooleanField(verbose_name="Include in patient list/search view.")
 	def __unicode__(self):
 		return "%s" % self.VarName
 
@@ -94,12 +96,12 @@ def it_worked(sender, **kwargs):
 
 
 
-@receiver(request_started)
-def my_callback(sender, **kwargs):
-    print "#####--SENDER--#####"
-    print dir(sender)
-    print "#####--SIGNAL--#####"
-    print kwargs.pop('signal')
-    print kwargs
+# @receiver(request_started)
+# def my_callback(sender, **kwargs):
+#     print "#####--SENDER--#####"
+#     print dir(sender)
+#     print "#####--SIGNAL--#####"
+#     print kwargs.pop('signal')
+#     print kwargs
 
 

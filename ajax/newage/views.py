@@ -69,6 +69,8 @@ class MyView(View):
 	def get(self, request, *args, **kwargs):
 		return HttpResponse("Hello, World!")
 
+
+
 class HomePageView(TemplateView):
 
 	template_name="home.html"

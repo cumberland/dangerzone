@@ -4,6 +4,14 @@ from django.forms import ModelForm
 from django.forms import Textarea
 from django.forms.util import ErrorList
 import re
+from django.forms.models import modelformset_factory
+from django.forms.models import BaseModelFormSet
+
+class BaseAuthorFormSet(BaseModelFormSet):
+    def __init__(self, request, *args, **kwargs):
+        self.request = request
+        super(BaseAuthorFormSet, self).__init__(*args, **kwargs)
+        
 
 def special_match(strg, search=re.compile(r'[^A-Za-z0-9_]').search):
 	return not bool(search(strg))
@@ -121,6 +129,8 @@ class mfVariable(ModelForm):
 		else:
 			pass
 		return m
+
+
 
 
 

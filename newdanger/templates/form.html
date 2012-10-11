@@ -31,6 +31,11 @@ function ActiveForm(FormID){
 {% endblock %}
 
 {% block sidebar %}
+      <div class="well">
+			<h3>Project - {{ request.session.ProjectID }}</h3>
+			<h4>Form - {{ request.session.FormID }}</h4>
+      </div>
+
 <ul class="nav nav-list">
   <li class="nav-header">Forms</li>
    <li {% if request.session.FormID %}{% else %} class="active" {% endif %}><a href="#" rel="popover" title="Create Form" onClick="ActiveForm()" data-content="Create a new variable.">Create Form...</a></li>
@@ -44,15 +49,29 @@ function ActiveForm(FormID){
     {% block body %}
 
 {% load bootstrap %}
-      <div class="well">
-			<h3>Project - {{ request.session.ProjectID }}</h3>
-			<h4>Form - {{ request.session.FormID }}</h4>
-      </div>
 
 {% block varform %}
 <form id="FormForm" action="." method='post'>
   {% csrf_token %}
-      {{ newForm|bootstrap2 }}<br>
+
+      {{ newForm|bootstrap2 }}
+
+<div class="control-group">
+    
+        <div class="controls" id="divid_FormCopy">
+        <div class="control-label"><h5>Copy Form:&nbsp;</h5></div>
+
+        <div class="controls">
+            
+		<select name="FormCopy">
+			<option>None</option>
+			{% for Form in FormList %}
+			<option>{{ Form }}</option>
+			{% endfor %}
+		</select>
+  </div>
+    
+</div>
 
 <div class="form-actions">
     <input type="submit" class="btn btn-primary" value="Save Form">&nbsp;<button type="reset" class="btn">Reset</button>

@@ -10,3 +10,5 @@ Consent_WitnessSigned = [(0, 'No'), (1, 'Yes')]
 
 Consent_ProxyConsent = [(0, 'Patient'), (1, 'Proxy')] 
 
+
+

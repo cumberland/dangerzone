@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import simplejson
-from builder.formbuilder import writeModels, formWrite, writeOptions, adminWrite
+from builder.formbuilder import writeModels, writeForms, writeOptions, writeAdmins
 from django.core.urlresolvers import reverse
 
 
@@ -342,6 +342,68 @@ def variable(request):
 	else:
 		return HttpResponseRedirect(reverse('django.contrib.auth.views.login'))
 
+
+def bulkvariable(request):
+	if request.user.is_authenticated():
+		renderDict = {}
+		try:
+			ProjectID = request.session['ProjectID']
+		except KeyError:
+			return HttpResponseRedirect(reverse('builder.views.main'))
+		try:
+			FormID = request.session['FormID']
+		except KeyError:
+			return HttpResponseRedirect(reverse('builder.views.form'))
+		if request.method == "POST":
+			try:
+				newForm = mfVariable(request, request.POST, instance=request.session['VarID'])
+			except:
+				newForm = mfVariable(request, request.POST)
+			if newForm.is_valid():
+				instance = newForm.save(commit=False)
+				testID = instance.id
+				instance.save()
+				if not testID:
+					updateOrder = request.session['FormID']
+					changeOrder = eval(updateOrder.VariableOrder)
+					changeOrder.append(instance.id)
+					updateOrder.VariableOrder = changeOrder
+					updateOrder.save()
+					request.session['FormID'] = Form.objects.get(id=updateOrder.id)
+				return HttpResponseRedirect(reverse('builder.views.variable'))
+			else:
+				renderDict['newForm'] = newForm
+		elif 'VarID' in request.GET:
+			VarID = request.GET['VarID']
+			try:
+				VarID = int(VarID)
+			except ValueError:
+				try:
+					del request.session['VarID']
+				except:
+					pass
+				return HttpResponseRedirect(reverse('builder.views.variable'))
+			else:
+				request.session['VarID'] = Variable.objects.get(id=VarID)
+				renderDict['newForm'] = mfVariable(request, instance=request.session['VarID'])
+		else:
+			try:
+				del request.session['VarID']
+			except KeyError:
+				pass
+			VariableFormSet = modelformset_factory(Variable, form=mfVariable, extra=3, formset=BaseAuthorFormSet)
+			renderDict['newForm'] = VariableFormSet(queryset=Variable.objects.filter(FormID=request.session['FormID']))
+		VarList = []
+		for OrderID in eval(request.session['FormID'].VariableOrder):
+			VarList.append(Variable.objects.get(id=OrderID))
+		renderDict['VarList'] = VarList
+		renderDict['FormList'] = Form.objects.filter(ProjectID=ProjectID)
+		return render_to_response('bulkvariable.html', renderDict, RequestContext(request))
+	else:
+		return HttpResponseRedirect(reverse('django.contrib.auth.views.login'))
+
+
+
 def currentoptions(request):
 	if request.is_ajax():
 		currentOptions = Option.objects.filter(VariableID=int(request.POST['VarID']))
@@ -426,7 +488,19 @@ def projectprinter(request):
 	ProjectID = int(request.POST['ProjectID'])
 	writeModels(Form.objects.filter(ProjectID=ProjectID))
 	writeOptions(Form.objects.filter(ProjectID=ProjectID))
+	writeForms(Form.objects.filter(ProjectID=ProjectID))
+	writeAdmins(Form.objects.filter(ProjectID=ProjectID))
 	return render_to_response('printout.html', renderDict, RequestContext(request))
+
+def templateprinter(request):
+	renderDict = {}
+	# ProjectID = int(request.POST['ProjectID'])
+	# writeModels(Form.objects.filter(ProjectID=ProjectID))
+	# writeOptions(Form.objects.filter(ProjectID=ProjectID))
+	# writeForms(Form.objects.filter(ProjectID=ProjectID))
+	# writeAdmins(Form.objects.filter(ProjectID=ProjectID))
+	return render_to_response('printout.html', renderDict, RequestContext(request))
+
 
 
 ######################################################################

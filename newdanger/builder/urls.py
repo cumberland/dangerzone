@@ -14,7 +14,9 @@ urlpatterns = patterns('',
     url(r'^deleteoption/$', 'builder.views.deleteoption'),
     url(r'^deletevariable/$', 'builder.views.deletevariable'),
     url(r'^variableorder/$', 'builder.views.variableorder'),
+    url(r'^bulkvariable/$', 'builder.views.bulkvariable'),
 
+    url(r'^templateprinter/$', 'builder.views.templateprinter'),
     url(r'^projectprinter/$', 'builder.views.projectprinter'),
 
     url(r'^project/$', 'builder.views.project'),

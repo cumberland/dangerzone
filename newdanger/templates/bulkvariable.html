@@ -255,107 +255,27 @@ $(document).ready(function(){
 
 {% load bootstrap %}
 
-<ul id="sortable">
 
-{% for Variable in VarList %}
-<li id="liid_{{ Variable.id }}">
-	<div class="js-stream-item stream-item stream-item">
-		<div class="tweet original-tweet js-stream-tweet js-actionable-tweet js-hover js-profile-popup-actionable js-original-tweet" >
-<!-- 			<div class="content"> -->
-				<div class="stream-item-footer">
-					<span style="color:black; font-size:16px;" class="details with-icn js-details" href="#"><b><span class="expand-stream-item js-view-details"><span class="expand-action-wrapper">{{ Variable.VarName }}</span></span></b>&nbsp;&nbsp;&nbsp;<span class="label label-info" id="FieldType" rel="tooltip" title="Variable type.">{{ Variable.FieldType }}</span>
-							{% if Variable.Identifier %}
-							<span class="label label-important" id="Identifier" rel="tooltip" title="Variable collects identifiable information.">Identified</span>
-							{% else %}
-							{% endif %}
-							{% if Variable.VarBlank %}
-							<span class="label label-success" id="Blank" rel="tooltip" title="Blank values are allowed.">Blank</span>
-							{% else %}
-							{% endif %}
 
-							{% if Variable.VarNull %}
- 							<span class="label label-warning" id="Null" rel="tooltip" title="Null values are allowed.">Null</span>
-							{% else %}
-							{% endif %}	
-
-							{% if Variable.ActivePanel %}
- 							<span class="label label-default" id="Active" rel="tooltip" title="Variable included in active patient panel.">Active</span>
-							{% else %}
-							{% endif %}	
-
-							{% if Variable.MainList %}
- 							<span class="label label-default" id="MainList" rel="tooltip" title="Variable included on list/search page.">List/Search</span>
-							{% else %}
-							{% endif %}	
-						</span>
-						<ul class="tweet-actions js-actions"> 
-							
-					<a href="#" onClick="Edit({{ Variable.id }})"><i class="icon-wrench"></i>Edit</h5></a>
-						{% if Variable.FieldType == "RadioButton" %}	
-							<a href="#" onClick="AddOptions({{ Variable.id }})"><i class="icon-plus"></i>Add Options</h5></a>
-						{% else %}
-						{% endif %}
-							<a href="#" onClick="Format({{ Variable.id }})"><i class="icon-text-width"></i>Format</h5></a>
-							<a href="#" onClick="Logic({{ Variable.id }})"><i class="icon-cog"></i>Logic</h5></a>
-							<a href="#" onClick="Delete({{ Variable.id }})"><i class="icon-trash"></i>Delete</h5></a>
-						</ul>
-				</div> 
-				<p class="js-tweet-text">	
-					<table class="table table-condensed">
-					<thead>
-						
-						<tr>
-							<th width="40%">Label</th>
-							<th width="40%">Description</th>
-							{% if Variable.VarMaxLength %}
-							<th width="20%">Max<br>Characters</th>
-							{% else %}
-						{% endif %}
-						{% if Variable.VarMaxDecimalPlaces %}
-							<th width="10%">Decimal<br>Places</th>
-							{% else %}
-						{% endif %}
-						{% if Variable.VarMaxDigits %}
-							<th width="10%">Max<br>Digits</th>
-							{% else %}
-						{% endif %}		
-						</tr>
-						
-					</thead>
-					<tbody>
-					<tr>
-						<td>{{ Variable.VarLabel }}</td>
-						<td>{{ Variable.VarDescription }}</td>
-						{% if Variable.VarMaxLength %}
-						<td>{{ Variable.VarMaxLength }}</td>
-						{% else %}
-						{% endif %}
-						{% if Variable.VarMaxDecimalPlaces %}
-						<td>{{ Variable.VarMaxDecimalPlaces }}</td>
-						{% else %}
-						{% endif %}
-						{% if Variable.VarMaxDigits %}
-						<td>{{ Variable.VarMaxDigits }}</td>	
-						{% else %}
-						{% endif %}				
-					</tr>
-				</tbody>
-<!-- 					<thead>
-						<tr>
-							<th colspan="4">Additional Information</th>
-						</tr>
-					</thead> -->
-				</table>
-				</p>
-				<div class="expanded-content js-tweet-details-dropdown">
-						</div>
-<!-- 			</div> -->
-		</div>
-	</div>
-	</li>
-{% endfor %}
-
-</ul>
+    <form id="VarForm" action="." method='post'>
+{{ newForm.management_form }}
+    {% for form in newForm.forms %}
+    <table class="table table-condensed">
+<!--     <div class="item"> -->
+      {{ form|bstable }}
+<!--       <p style=""><a class="delete" href="#">Delete</a></p>
+    </div> -->
+  </table>
+    {% endfor %}
+    
+<div class="form-actions">
+    {% if request.session.VarID %}
+  <input type="submit" class="btn btn-primary" value="Save Changes">&nbsp;<a type="reset" class="btn" href="{% url builder.views.variable %}">Cancel Edit</a>
+  {% else %}
+  <input type="submit" class="btn btn-primary" value="Save Variable">&nbsp;<button type="reset" class="btn">Reset</button>
+  {% endif %}
+</div>
+</form>
 
 <div class="modal" id="AddOptions" style="display:none;">
   <div class="modal-header">
@@ -400,20 +320,7 @@ $(document).ready(function(){
 	<i class="icon-plus"></i> Add new variable:
 	{% endif %}
 </h4>
-    <form id="VarForm" action="." method='post'>
-  {% csrf_token %}
-  <table class="table table-condensed">
-      {{ newForm|bstable }}
-   </table>
-    
-<div class="form-actions">
-   	{% if request.session.VarID %}
-	<input type="submit" class="btn btn-primary" value="Save Changes">&nbsp;<a type="reset" class="btn" href="{% url builder.views.variable %}">Cancel Edit</a>
-	{% else %}
-	<input type="submit" class="btn btn-primary" value="Save Variable">&nbsp;<button type="reset" class="btn">Reset</button>
-	{% endif %}
-</div>
-</form>
+
 </div>
 </div>
 

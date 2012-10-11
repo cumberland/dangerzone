@@ -21,3 +21,4 @@ class Consent(models.Model):
 	ProxyName = models.CharField(verbose_name='Name of proxy:', blank=True, null=True, max_length=200)
 	ProxyRelationship = models.CharField(verbose_name='Relationship of proxy:', blank=True, null=True, max_length=100)
 		
+

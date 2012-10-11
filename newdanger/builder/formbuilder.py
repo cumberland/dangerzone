@@ -3,12 +3,12 @@ import re
 
 # Outine Process
 # Startapp - 1) Create folder with slug name 2) __init__.py the folder 3) Create the files that will be used
-# i) admin.py
-# ii) forms.py
+# i) admin.py - DONE
+# ii) forms.py - DONE
 # iii) models.py - DONE
-# iv) urls.py
-# v) choices.py
-# vi) views.py
+# iv) urls.py - 
+# v) choices.py - DONE
+# vi) views.py - 
 
 def writeModels(Project):
 	newModels = open("../newdanger/testprint/models.py", "w+")
@@ -43,25 +43,31 @@ import reversion""")
 		""" % (form.FormName, "\n\t".join(VariableWrite)))
 
 
-def formWrite(VarList, location):
-	formWriter = open("../dangerzone/"+location+"/forms.py", "w+")
-	# printList = []
-	for variable in VarList:
-		if variable.FieldType == "RadioButton":
-			widget = """
-widgets = {
-	'mv%s': RadioSelect(choices=co%s)
-	}
-""" % (variable.VarName.strip(), variable.VarName.strip())
-		else:
-			widget=""
+def writeForms(Project):
+	newForms = open("../newdanger/testprint/forms.py", "w+")
+	formWriter = open("../newdanger/testprint/forms.py", "a")
+	formWriter.write(
+"""from %s.models import *
+from %s.options import *
+from django import forms
+from django.forms import ModelForm
+from django.forms import Textarea
+from django.forms.util import ErrorList
+import re\n\n""" % (Project[0].ProjectID.ProjectURL, Project[0].ProjectID.ProjectURL))
+	for form in Project:
 		formWriter.write("""
 class mf%s(ModelForm):
 	class Meta:
-		model = mo%s
-		%s
-		\n\n""" % (variable.VarName.strip(), variable.VarName.strip(), widget))
-	# return printList
+		model = %s
+		widgets = {""" % (form.FormName.strip(), form.FormName.strip()))
+		for variable in form.Variable.all():
+			if variable.FieldType == "RadioButton":
+				formWriter.write("\n\t\t'%s': RadioSelect(choices=%s_%s)," % (variable.VarName.strip(), form.FormName.strip(), variable.VarName.strip()))
+		formWriter.write("""}
+	def __init__(self, request, *args, **kwargs):
+		self.request = request
+		super(mf%s, self).__init__(*args, **kwargs)\n\n""" % form.FormName.strip())
+
 
 def writeOptions(Project):
 	newOptions = open("../newdanger/testprint/options.py", "w+")
@@ -80,40 +86,19 @@ def writeOptions(Project):
 			else:
 				pass
 
-def adminWrite(VarList, location):
-	adminWriter = open("../dangerzone/"+location+"/admin.py", "w+")
-	# printList = []
-	for variable in VarList:
-		adminWriter.write("admin.site.register(mo%s)\n\n" % variable.VarName.strip())
-	for variable in VarList:
-		adminWriter.write("%s*" % variable.VarName.strip())
-	# return printList
+def writeAdmins(Project):
+	newAdmins = open("../newdanger/testprint/admin.py", "w+")
+	adminWriter = open("../newdanger/testprint/admin.py", "a")
+	adminWriter.write(
+"""from django.contrib import admin
+from %s.models import *
+import reversion
 
+class VersioningAdmin(reversion.VersionAdmin):
+    pass\n\n""" % (Project[0].ProjectID.ProjectURL))
+	for form in Project:
+		adminWriter.write("admin.site.register(%s, VersioningAdmin)\n\n" % form.FormName.strip())
 
-
-# class moHUILocation(Audit):
-# 	mvHUILocation = models.BigIntegerField(verbose_name="Where was HUI completed?", blank=False, null=False)
-# 	def __unicode__(self):
-# 		return "%s" % self.mvHUILocation
-# 	class Meta:
-# 		get_latest_by = 'record'
-
-
-
-
-
-# 	ProjectID = models.ForeignKey(ProjectName, default=0, editable=False)
-# 	VarLabel = models.CharField(max_length=500, verbose_name="Label of variable on form:") # verbose_name
-# 	VarName = models.CharField(max_length=62, verbose_name="Name of variable in the database:") # variable name
-# 	VarDescription = models.CharField(max_length=500, verbose_name="Description of what the variable is collecting:") # description of variable purpose
-# 	FieldType = models.CharField(max_length=20, choices=FieldChoices, verbose_name="Variable type:") # variable type
-# 	VarBlank = models.BooleanField(verbose_name="Blank values are allowed.")
-# 	VarNull = models.BooleanField(verbose_name="Null values are allowed.")
-# 	Identifier = models.BooleanField(verbose_name="Collects identifiable information.")
-# 	VarMaxDigits = models.PositiveIntegerField(verbose_name="Maximum number of digits allowed (required):", blank=True, null=True)
-# 	VarMaxDecimalPlaces = models.PositiveIntegerField(verbose_name="Maximum number of decimal places allowed (required):", blank=True, null=True)
-# 	VarMaxLength = models.PositiveIntegerField(verbose_name="Maximum number of characters allowed (required):", blank=True, null=True)
-	
 
 
 
