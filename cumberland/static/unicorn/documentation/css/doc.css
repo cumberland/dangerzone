@@ -1,0 +1,36 @@
+body {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAAEyBAMAAACIVtqyAAAALVBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///8AAAAAAAAAAAAMxR3lAAAAD3RSTlMABw0BAwUCBgsEDAAKCQiHWYRhAAABCElEQVR4Xu3YP27CMBjGYR8h3ID2BJF6AQ+oc5bulioxe+AAjB09ICS2jlWnHIGNlSOwcgvMn+2T4HMIECe/d3qHR5aXV5Zs3kYJMWNzSaEofdZoNNtpqNHo95SwBjSadweNZjvP1mg020Gj2Q4azV8BGs27k7dGo9kOGs120Gi246X+VSCV9q1pryiD1ej/mL8fTSJ86E3mA9WVKE/WlaIMRK+T9OYrIYlnSx1EyVUHqUP7etthbUXJVVuprUbvV6csJtdzVmaXcnaHdPEa7TTa9VB7hXZSu7z0bBLzOb2do2vvJqXUlUQKjS6lLjU63KnRyziL7w9NIkw827ala42uG2k0um6mD1I/iTxORroSAAAAAElFTkSuQmCC);
+    background-color: #ffffff;
+    background-position: top left;
+    background-attachment: fixed;
+    background-repeat: repeat-x;
+    
+    padding-top: 50px;
+}
+
+a.reference {
+    
+}
+p {
+    line-height: 24px;
+}
+header h1 {
+    font-size: 46px;
+    margin-bottom: 20px;
+}
+
+header p {
+    font-size: 16px;
+    line-height: 24px;
+}
+
+section {
+    padding-top: 50px;
+}
+
+footer {
+    margin: 15px 0;
+    padding: 15px 0 0;
+    border-top: 1px solid #ddd;
+    color: #999;
+}

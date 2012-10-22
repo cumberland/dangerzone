@@ -212,7 +212,21 @@ def form(request):
 		if request.method == "POST":
 			newForm = mfForm(request, request.POST)
 			if newForm.is_valid():
-				newForm.save()	
+				instance = newForm.save(commit=False)
+				instance.save()
+				FormCopy = request.POST['FormCopy']
+				if FormCopy != "Create New":
+					newCopyForm = Form.objects.get(ProjectID=ProjectID, FormName=FormCopy)
+					newVariableOrder = []
+					for Var in newCopyForm.Variable.all():
+						Var.id = None
+						Var.FormID = instance
+						Var.save()
+						newVariableOrder.append(Var.id)
+					instance.VariableOrder = newVariableOrder
+					instance.save()
+				else:
+					pass	
 				return HttpResponseRedirect(reverse('builder.views.form'))
 			else:
 				renderDict['newForm'] = newForm
@@ -501,6 +515,42 @@ def templateprinter(request):
 	# writeAdmins(Form.objects.filter(ProjectID=ProjectID))
 	return render_to_response('printout.html', renderDict, RequestContext(request))
 
+def copyvar(request):
+	if request.user.is_authenticated():
+		renderDict = {}
+		try:
+			ProjectID = request.session['ProjectID']
+		except KeyError:
+			return HttpResponseRedirect(reverse('builder.views.main'))
+		try:
+			FormID = request.session['FormID']
+		except KeyError:
+			return HttpResponseRedirect(reverse('builder.views.form'))
+		if request.method == "POST":
+			try:
+				VarID = int(request.POST['VarID'])
+			except:
+				pass
+			copyVar = Variable.objects.get(id=VarID)
+			copyOptions = Option.objects.filter(VariableID=copyVar)
+			copyVar.id = None
+			copyVar.VarName = copyVar.VarName+"_1"
+			copyVar.save()
+			for opt in copyOptions:
+				opt.id = None
+				opt.VariableID = copyVar
+				opt.save()
+			updateOrder = request.session['FormID']
+			changeOrder = eval(updateOrder.VariableOrder)
+			changeOrder.append(copyVar.id)
+			updateOrder.VariableOrder = changeOrder
+			updateOrder.save()
+			request.session['FormID'] = Form.objects.get(id=updateOrder.id)
+		else:
+			pass
+		return HttpResponseRedirect(reverse('builder.views.variable'))
+	else:
+		return HttpResponseRedirect(reverse('django.contrib.auth.views.login'))
 
 
 ######################################################################

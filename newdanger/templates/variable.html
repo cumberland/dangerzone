@@ -60,7 +60,7 @@ jQuery(document).ajaxSend(function(event, xhr, settings) {
                 $("#OptionValueError").removeClass("error");  
                 $("#OptionValueError span").text("");  
                 $("#OptionValueError span").removeClass("error");
-                $('#OptionTable > tbody:last').append('<tr id=Option_'+data['OptionID']+'><td>'+data['OptionValue']+'</td><td>'+data['OptionLabel']+'</td><td><a href="#" onClick="deleteOption('+data['OptionID']+')"><i class="icon icon-remove"></i></a>');
+                $('#OptionTable > tbody:last').append('<tr id=Option_'+data['OptionID']+'><td>'+data['OptionValue']+'</td><td>'+data['OptionLabel']+'</td><td><a href="javascript:void(0)" onClick="deleteOption('+data['OptionID']+')"><i class="icon icon-remove"></i></a>');
                 $('input:text[name=OptionValue]').val('');
                 $('input:text[name=OptionLabel]').val('');
                 }
@@ -90,7 +90,7 @@ function AddOptions(VarID){
                 success: function(data){
                	$('#OptionTable > tbody > tr').remove();
                   $.each(data, function(index) {
-                  $('#OptionTable > tbody:last').append('<tr id=Option_'+data[index].OptionID+'><td>'+data[index].OptionValue+'</td><td>'+data[index].OptionLabel+'</td><td><a href="#" onClick="deleteOption('+data[index].OptionID+')"><i class="icon icon-remove"></i></a>');
+                  $('#OptionTable > tbody:last').append('<tr id=Option_'+data[index].OptionID+'><td>'+data[index].OptionValue+'</td><td>'+data[index].OptionLabel+'</td><td><a href="javascript:void(0)" onClick="deleteOption('+data[index].OptionID+')"><i class="icon icon-remove"></i></a>');
                   });
                 }
               });
@@ -135,6 +135,12 @@ function Edit(VarID){
 	$('input:hidden[name=VarID]').val(VarID);
 	$('#EditVar').submit();
    }
+
+function Copy(VarID){
+  $('input:hidden[name=VarID]').val(VarID);
+  $('#CopyVar').submit();
+   }
+
 function Delete(VarID){
        $.ajax({
         type:"POST",
@@ -263,7 +269,7 @@ $(document).ready(function(){
 		<div class="tweet original-tweet js-stream-tweet js-actionable-tweet js-hover js-profile-popup-actionable js-original-tweet" >
 <!-- 			<div class="content"> -->
 				<div class="stream-item-footer">
-					<span style="color:black; font-size:16px;" class="details with-icn js-details" href="#"><b><span class="expand-stream-item js-view-details"><span class="expand-action-wrapper">{{ Variable.VarName }}</span></span></b>&nbsp;&nbsp;&nbsp;<span class="label label-info" id="FieldType" rel="tooltip" title="Variable type.">{{ Variable.FieldType }}</span>
+					<span style="color:black; font-size:16px;" class="details with-icn js-details" href="javascript:void(0)"><b><span class="expand-stream-item js-view-details"><span class="expand-action-wrapper">{{ Variable.VarName }}</span></span></b>&nbsp;&nbsp;&nbsp;<span class="label label-info" id="FieldType" rel="tooltip" title="Variable type.">{{ Variable.FieldType }}</span>
 							{% if Variable.Identifier %}
 							<span class="label label-important" id="Identifier" rel="tooltip" title="Variable collects identifiable information.">Identified</span>
 							{% else %}
@@ -290,14 +296,15 @@ $(document).ready(function(){
 						</span>
 						<ul class="tweet-actions js-actions"> 
 							
-					<a href="#" onClick="Edit({{ Variable.id }})"><i class="icon-wrench"></i>Edit</h5></a>
+					<a href="javascript:void(0)" onClick="Edit({{ Variable.id }})"><i class="icon-wrench"></i>Edit</h5></a>
 						{% if Variable.FieldType == "RadioButton" %}	
-							<a href="#" onClick="AddOptions({{ Variable.id }})"><i class="icon-plus"></i>Add Options</h5></a>
+							<a href="javascript:void(0)" onClick="AddOptions({{ Variable.id }})"><i class="icon-plus"></i>Add Options</h5></a>
 						{% else %}
 						{% endif %}
-							<a href="#" onClick="Format({{ Variable.id }})"><i class="icon-text-width"></i>Format</h5></a>
-							<a href="#" onClick="Logic({{ Variable.id }})"><i class="icon-cog"></i>Logic</h5></a>
-							<a href="#" onClick="Delete({{ Variable.id }})"><i class="icon-trash"></i>Delete</h5></a>
+							<a href="javascript:void(0)" onClick="Format({{ Variable.id }})"><i class="icon-text-width"></i>Format</h5></a>
+							<a href="javascript:void(0)" onClick="Logic({{ Variable.id }})"><i class="icon-cog"></i>Logic</h5></a>
+							<a href="javascript:void(0)" onClick="Delete({{ Variable.id }})"><i class="icon-trash"></i>Delete</h5></a>
+              <a href="javascript:void(0)" onClick="Copy({{ Variable.id }})"><i class="icon-file"></i>Copy</h5></a>
 						</ul>
 				</div> 
 				<p class="js-tweet-text">	
@@ -420,5 +427,9 @@ $(document).ready(function(){
 <form id="EditVar" action="." method='get'>
   {% csrf_token %}
 <input type="hidden" name="VarID">
-</form> 
+</form>
+<form id="CopyVar" action="{% url builder.views.copyvar %}" method='post'>
+  {% csrf_token %}
+<input type="hidden" name="VarID">
+</form>
 {% endblock %}

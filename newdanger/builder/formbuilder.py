@@ -11,8 +11,8 @@ import re
 # vi) views.py - 
 
 def writeModels(Project):
-	newModels = open("../newdanger/testprint/models.py", "w+")
-	modelWriter = open("../newdanger/testprint/models.py", "a")
+	newModels = open("../newdanger/stroke/doubt/models.py", "w+")
+	modelWriter = open("../newdanger/stroke/doubt/models.py", "a")
 	modelWriter.write(
 """from django.db import models
 from django.contrib.auth.models import User
@@ -44,14 +44,14 @@ import reversion""")
 
 
 def writeForms(Project):
-	newForms = open("../newdanger/testprint/forms.py", "w+")
-	formWriter = open("../newdanger/testprint/forms.py", "a")
+	newForms = open("../newdanger/stroke/doubt/forms.py", "w+")
+	formWriter = open("../newdanger/stroke/doubt/forms.py", "a")
 	formWriter.write(
 """from %s.models import *
 from %s.options import *
 from django import forms
 from django.forms import ModelForm
-from django.forms import Textarea
+from django.forms import Textarea, RadioSelect
 from django.forms.util import ErrorList
 import re\n\n""" % (Project[0].ProjectID.ProjectURL, Project[0].ProjectID.ProjectURL))
 	for form in Project:
@@ -70,8 +70,8 @@ class mf%s(ModelForm):
 
 
 def writeOptions(Project):
-	newOptions = open("../newdanger/testprint/options.py", "w+")
-	optionWriter = open("../newdanger/testprint/options.py", "a")
+	newOptions = open("../newdanger/stroke/doubt/options.py", "w+")
+	optionWriter = open("../newdanger/stroke/doubt/options.py", "a")
 	for form in Project:
 		for variable in form.Variable.all():
 			if variable.FieldType == "RadioButton":
@@ -87,8 +87,8 @@ def writeOptions(Project):
 				pass
 
 def writeAdmins(Project):
-	newAdmins = open("../newdanger/testprint/admin.py", "w+")
-	adminWriter = open("../newdanger/testprint/admin.py", "a")
+	newAdmins = open("../newdanger/stroke/doubt/admin.py", "w+")
+	adminWriter = open("../newdanger/stroke/doubt/admin.py", "a")
 	adminWriter.write(
 """from django.contrib import admin
 from %s.models import *

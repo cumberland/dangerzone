@@ -175,6 +175,7 @@ INSTALLED_APPS = (
     'south',
     'newage',
     # 'testset',
+    'usertools'
 )
 
 # A sample logging configuration. The only tangible logging
