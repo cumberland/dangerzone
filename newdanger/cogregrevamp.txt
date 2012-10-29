@@ -1,0 +1,5592 @@
+class moComment(Audit):
+	mvComment = models.CharField(verbose_name="New Comment:",max_length=500, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvComment
+	class Meta:
+		get_latest_by = 'record'
+
+
+class moThankYouLetter(Audit):
+	mvThankYouLetter = models.BooleanField(verbose_name="Thank you letter has been sent.", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvThankYouLetter
+	class Meta:
+		get_latest_by = 'record'
+
+class moDeclinedResearch(Audit):
+	mvDeclinedResearch = models.BooleanField(verbose_name="Currently declines being contacted for future research studies.", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvDeclinedResearch
+	class Meta:
+		get_latest_by = 'record'
+
+class moDeclineDoctorInfo(Audit):
+	mvDeclineDoctorInfo = models.BooleanField(verbose_name="Currently declines information being sent to referring doctor.", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvDeclineDoctorInfo
+	class Meta:
+		get_latest_by = 'record'
+
+class moWithdrawal(Audit):
+	mvWithdrawal = models.BigIntegerField(verbose_name="Withdrawal", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvWithdrawal
+	class Meta:
+		get_latest_by = 'record'
+
+class moWithdrawalReason(Audit):
+	mvWithdrawalReason = models.CharField(verbose_name="Reason for withdrawal:", max_length=500, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvWithdrawalReason
+	class Meta:
+		get_latest_by = 'record'
+
+class moDeceased(Audit):
+	mvDeceased = models.BooleanField(verbose_name="Patient is deceased.", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvDeceased
+	class Meta:
+		get_latest_by = 'record'
+
+
+class moDeceasedDate(Audit):
+	mvDeceasedDate = models.DateField(verbose_name="Date of Death:", blank=True, null=True)
+	def __unicode__(self):
+		return unicode(self.mvDeceasedDate)
+	class Meta:
+		get_latest_by = 'record'
+
+class moDeceasedCause(Audit):
+	mvDeceasedCause = models.CharField(verbose_name="Cause of Death:", max_length=500, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvDeceasedCause
+	class Meta:
+		get_latest_by = 'record'
+
+class moAddress(Audit):
+	mvAddress = models.CharField(verbose_name="Address:", max_length=500, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvAddress
+	class Meta:
+		get_latest_by = 'record'
+
+class moCity(Audit):
+	mvCity = models.CharField(verbose_name="City:", max_length=100, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvCity
+	class Meta:
+		get_latest_by = 'record'
+
+class moProvince(Audit):
+	mvProvince = models.CharField(verbose_name="Province:", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvProvince
+	class Meta:
+		get_latest_by = 'record'
+
+class moPostalCode(Audit):
+	mvPostalCode = models.CharField(verbose_name="Postal Code:", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvPostalCode
+	class Meta:
+		get_latest_by = 'record'
+
+class moPhoneNumber(Audit):
+	mvPhoneNumber = models.CharField(verbose_name="Phone Number:", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvPhoneNumber
+	class Meta:
+		get_latest_by = 'record'
+
+class moSex(Audit):
+	mvSex = models.BigIntegerField(verbose_name="Sex:", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvSex
+	class Meta:
+		get_latest_by = 'record'
+
+class moCNCChart(Audit):
+	mvCNCChart = models.CharField(verbose_name="CNC Chart:", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvCNCChart
+	class Meta:
+		get_latest_by = 'record'
+
+class moCACChart(Audit):
+	mvCACChart = models.CharField(verbose_name="CAC Chart (previous, if any):", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvCACChart
+	class Meta:
+		get_latest_by = 'record'
+
+class moRegConsent(Audit):
+	mvRegConsent = models.CharField(verbose_name="Consent", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvRegConsent
+	class Meta:
+		get_latest_by = 'record'
+
+class moRegConsentProxyRelation(Audit):
+	mvRegConsentProxyRelation = models.CharField(verbose_name="Relation of proxy to patient:", max_length=100, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvRegConsentProxyRelation
+	class Meta:
+		get_latest_by = 'record'
+
+class moRegConsentProxyName(Audit):
+	mvRegConsentProxyName = models.CharField(verbose_name="Full name of proxy:", max_length=100, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvRegConsentProxyName
+	class Meta:
+		get_latest_by = 'record'
+
+class moRegConsentProxy(Audit):
+	mvRegConsentProxy = models.BigIntegerField(verbose_name="Who provided consent:", blank=False, null=False)
+	def __unicode__(self):
+		return unicode(self.mvRegConsentProxy)
+	class Meta:
+		get_latest_by = 'record'
+
+class moPhnConsent(Audit):
+	mvPhnConsent = models.CharField(verbose_name="Consent", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvPhnConsent
+	class Meta:
+		get_latest_by = 'record'
+
+class moPhnConsentProxyRelation(Audit):
+	mvPhnConsentProxyRelation = models.CharField(verbose_name="Relation of proxy to patient:", max_length=100, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvPhnConsentProxyRelation
+	class Meta:
+		get_latest_by = 'record'
+
+class moPhnConsentProxyName(Audit):
+	mvPhnConsentProxyName = models.CharField(verbose_name="Full name of proxy:", max_length=100, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvPhnConsentProxyName
+	class Meta:
+		get_latest_by = 'record'
+
+class moPhnConsentProxy(Audit):
+	mvPhnConsentProxy = models.BigIntegerField(verbose_name="Who provided consent:", blank=False, null=False)
+	def __unicode__(self):
+		return unicode(self.mvPhnConsentProxy)
+	class Meta:
+		get_latest_by = 'record'
+
+class moRegConsentDate(Audit):
+	mvRegConsentDate = models.DateField(verbose_name="Date of consent:", blank=False, null=False)
+	def __unicode__(self):
+		return unicode(self.mvRegConsentDate)
+	class Meta:
+		get_latest_by = 'record'
+
+class moPhnConsentDate(Audit):
+	mvPhnConsentDate = models.DateField(verbose_name="Date of consent:", blank=False, null=False)
+	def __unicode__(self):
+		return unicode(self.mvPhnConsentDate)
+	class Meta:
+		get_latest_by = 'record'
+
+
+class moPhysicianName(Audit):
+	mvPhysicianName = models.CharField(verbose_name="Physician Name:", max_length=100, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvPhysicianName
+	class Meta:
+		get_latest_by = 'record'
+
+
+class moPhysicianNameOther(Audit):
+	mvPhysicianNameOther = models.CharField(verbose_name="Other Physician:", max_length=200, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvPhysicianNameOther
+	class Meta:
+		get_latest_by = 'record'
+
+class moAssessorQualification(Audit):
+	mvAssessorQualification = models.BigIntegerField(verbose_name="Assessor Qualifications:", blank=True, null=True)
+	def __unicode__(self):
+		return unicode(self.mvAssessorQualification)
+	class Meta:
+		get_latest_by = 'record'
+
+
+
+
+class moFirstname(Audit):
+	mvFirstname = models.CharField(verbose_name="First Name:", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvFirstname
+	class Meta:
+		get_latest_by = 'record'
+
+class moLastname(Audit):
+	mvLastname = models.CharField(verbose_name="Last Name:", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvLastname
+	class Meta:
+		get_latest_by = 'record'
+
+class moPhn(Audit):
+	mvPhn = models.CharField(verbose_name="PHN:", max_length=20, blank=False, null=False)
+	def __unicode__(self):
+		return self.mvPhn
+	class Meta:
+		get_latest_by = 'record'
+
+class moDob(Audit):
+	mvDob = models.DateField(verbose_name="Date of Birth:", blank=True, null=True)
+	def __unicode__(self):
+		return unicode(self.mvDob)
+	class Meta:
+		get_latest_by = 'record'
+
+class moVisitDate(Audit):
+	mvVisitDate = models.DateField(verbose_name="Date of Visit (yyyy-mm-dd):", blank=True, null=True)
+	def __unicode__(self):
+		return unicode(self.mvVisitDate)
+	class Meta:
+		get_latest_by = 'record'
+
+class moInformantName(Audit):
+	mvInformantName = models.CharField(verbose_name="Informant Name:", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvInformantName
+	class Meta:
+		get_latest_by = 'record'
+
+
+class moRelationOtherText(Audit):
+	mvRelationOtherText = models.CharField(verbose_name="Informant/Relation Other Text:", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvRelationOtherText
+	class Meta:
+		get_latest_by = 'record'
+
+
+class moRaceOtherText(Audit):
+	mvRaceOtherText = models.CharField(verbose_name="Other Text:", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvRaceOtherText
+	class Meta:
+		get_latest_by = 'record'
+
+
+class moFirstLanguageOtherText(Audit):
+	mvFirstLanguageOtherText = models.CharField(verbose_name="Other Text:", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvFirstLanguageOtherText
+	class Meta:
+		get_latest_by = 'record'
+
+
+class moResidenceTypeOtherText(Audit):
+	mvResidenceTypeOtherText = models.CharField(verbose_name="Other Text:", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvResidenceTypeOtherText
+	class Meta:
+		get_latest_by = 'record'
+
+
+class moEducationLevelOtherText(Audit):
+	mvEducationLevelOtherText = models.CharField(verbose_name="Other Text:", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvEducationLevelOtherText
+	class Meta:
+		get_latest_by = 'record'
+
+
+
+
+
+
+
+class moCVDisOtherText(Audit):
+	mvCVDisOtherText = models.CharField(verbose_name="Other Text:", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvCVDisOtherText
+	class Meta:
+		get_latest_by = 'record'
+
+
+
+
+
+
+
+
+class moCVProcOtherText(Audit):
+	mvCVProcOtherText = models.CharField(verbose_name="Other Text:", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvCVProcOtherText
+	class Meta:
+		get_latest_by = 'record'
+
+
+
+
+
+
+
+class moCerebDisOtherText(Audit):
+	mvCerebDisOtherText = models.CharField(verbose_name="Other Text:", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvCerebDisOtherText
+	class Meta:
+		get_latest_by = 'record'
+
+
+
+
+
+
+class moTBIAges(Audit):
+	mvTBIAges = models.CharField(verbose_name="Ages TBI occurred:", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvTBIAges
+	class Meta:
+		get_latest_by = 'record'
+
+
+
+class moOthMedOtherText(Audit):
+	mvOthMedOtherText = models.CharField(verbose_name="Other Text:", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvOthMedOtherText
+	class Meta:
+		get_latest_by = 'record'
+
+
+class moNeurDisOtherText(Audit):
+	mvNeurDisOtherText = models.CharField(verbose_name="Other Text:", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvNeurDisOtherText
+	class Meta:
+		get_latest_by = 'record'
+
+
+
+
+
+
+
+
+
+
+
+
+class moPsychDisOtherText(Audit):
+	mvPsychDisOtherText = models.CharField(verbose_name="Other Text:", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvPsychDisOtherText
+	class Meta:
+		get_latest_by = 'record'
+
+
+
+
+
+
+
+
+class moSlpDisOtherText(Audit):
+	mvSlpDisOtherText = models.CharField(verbose_name="Other Text:", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvSlpDisOtherText
+	class Meta:
+		get_latest_by = 'record'
+
+
+
+
+
+
+
+
+
+
+class moSubstAbuseOtherText(Audit):
+	mvSubstAbuseOtherText = models.CharField(verbose_name="Other abused substance, specify:", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvSubstAbuseOtherText
+	class Meta:
+		get_latest_by = 'record'
+
+
+
+
+class moAriceptUnits(Audit):
+	mvAriceptUnits = models.CharField(verbose_name="AriceptUnits", max_length=10, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvAriceptUnits
+	class Meta:
+		get_latest_by = 'record'
+
+
+class moAriceptRoute(Audit):
+	mvAriceptRoute = models.CharField(verbose_name="AriceptRoute", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvAriceptRoute
+	class Meta:
+		get_latest_by = 'record'
+
+
+class moAriceptFrequency(Audit):
+	mvAriceptFrequency = models.CharField(verbose_name="AriceptFrequency", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvAriceptFrequency
+	class Meta:
+		get_latest_by = 'record'
+
+
+
+
+class moGalantamineUnits(Audit):
+	mvGalantamineUnits = models.CharField(verbose_name="GalantamineUnits", max_length=10, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvGalantamineUnits
+	class Meta:
+		get_latest_by = 'record'
+
+
+class moGalantamineRoute(Audit):
+	mvGalantamineRoute = models.CharField(verbose_name="GalantamineRoute", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvGalantamineRoute
+	class Meta:
+		get_latest_by = 'record'
+
+
+class moGalantamineFrequency(Audit):
+	mvGalantamineFrequency = models.CharField(verbose_name="GalantamineFrequency", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvGalantamineFrequency
+	class Meta:
+		get_latest_by = 'record'
+
+
+
+
+class moRivastigmineUnits(Audit):
+	mvRivastigmineUnits = models.CharField(verbose_name="RivastigmineUnits", max_length=10, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvRivastigmineUnits
+	class Meta:
+		get_latest_by = 'record'
+
+
+class moRivastigmineRoute(Audit):
+	mvRivastigmineRoute = models.CharField(verbose_name="RivastigmineRoute", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvRivastigmineRoute
+	class Meta:
+		get_latest_by = 'record'
+
+
+class moRivastigmineFrequency(Audit):
+	mvRivastigmineFrequency = models.CharField(verbose_name="RivastigmineFrequency", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvRivastigmineFrequency
+	class Meta:
+		get_latest_by = 'record'
+
+
+
+
+class moMemantineUnits(Audit):
+	mvMemantineUnits = models.CharField(verbose_name="MemantineUnits", max_length=10, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvMemantineUnits
+	class Meta:
+		get_latest_by = 'record'
+
+
+class moMemantineRoute(Audit):
+	mvMemantineRoute = models.CharField(verbose_name="MemantineRoute", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvMemantineRoute
+	class Meta:
+		get_latest_by = 'record'
+
+
+class moMemantineFrequency(Audit):
+	mvMemantineFrequency = models.CharField(verbose_name="MemantineFrequency", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvMemantineFrequency
+	class Meta:
+		get_latest_by = 'record'
+
+
+class moRelation(Audit):
+	mvRelation = models.BigIntegerField(verbose_name="Informant/Relation:", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvRelation
+	class Meta:
+		get_latest_by = 'record'
+
+class moLiveWithInformant(Audit):
+	mvLiveWithInformant = models.BigIntegerField(verbose_name="Does patient live with informant?", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvLiveWithInformant
+	class Meta:
+		get_latest_by = 'record'
+
+class moCogComplaintPatient(Audit):
+	mvCogComplaintPatient = models.BigIntegerField(verbose_name="Cognitive complaints Patient", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvCogComplaintPatient
+	class Meta:
+		get_latest_by = 'record'
+
+class moCogComplaintInformant(Audit):
+	mvCogComplaintInformant = models.BigIntegerField(verbose_name="Cognitive complaints Informant", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvCogComplaintInformant
+	class Meta:
+		get_latest_by = 'record'
+
+class moHandedness(Audit):
+	mvHandedness = models.BigIntegerField(verbose_name="1. Handedness", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvHandedness
+	class Meta:
+		get_latest_by = 'record'
+
+class moRace(Audit):
+	mvRace = models.BigIntegerField(verbose_name="2. Race", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvRace
+	class Meta:
+		get_latest_by = 'record'
+
+class moFirstLanguage(Audit):
+	mvFirstLanguage = models.BigIntegerField(verbose_name="3. First Language", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvFirstLanguage
+	class Meta:
+		get_latest_by = 'record'
+
+class moFluentEnglishOral(Audit):
+	mvFluentEnglishOral = models.BigIntegerField(verbose_name="a. Oral", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvFluentEnglishOral
+	class Meta:
+		get_latest_by = 'record'
+
+class moFluentEnglishWritten(Audit):
+	mvFluentEnglishWritten = models.BigIntegerField(verbose_name="b. Written", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvFluentEnglishWritten
+	class Meta:
+		get_latest_by = 'record'
+
+class moMaritalStatus(Audit):
+	mvMaritalStatus = models.BigIntegerField(verbose_name="5. Marital Status", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvMaritalStatus
+	class Meta:
+		get_latest_by = 'record'
+
+class moLivingArrangement(Audit):
+	mvLivingArrangement = models.BigIntegerField(verbose_name="6. Living Arrangement", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvLivingArrangement
+	class Meta:
+		get_latest_by = 'record'
+
+class moResidenceType(Audit):
+	mvResidenceType = models.BigIntegerField(verbose_name="7. Residence Type", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvResidenceType
+	class Meta:
+		get_latest_by = 'record'
+
+class moEducationLevel(Audit):
+	mvEducationLevel = models.BigIntegerField(verbose_name="8. a. Education (highest level):", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvEducationLevel
+	class Meta:
+		get_latest_by = 'record'
+
+class moEducationYears(Audit):
+	mvEducationYears = models.BigIntegerField(verbose_name="8. b. Education - Number of Years:", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvEducationYears
+	class Meta:
+		get_latest_by = 'record'
+
+class moCVDisNone(Audit):
+	mvCVDisNone = models.BooleanField(verbose_name="None (move to next question)", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvCVDisNone
+	class Meta:
+		get_latest_by = 'record'
+
+class moCVDisCAD(Audit):
+	mvCVDisCAD = models.BooleanField(verbose_name="Coronary artery disease (incl. MI)", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvCVDisCAD
+	class Meta:
+		get_latest_by = 'record'
+
+class moCVDisAfib(Audit):
+	mvCVDisAfib = models.BooleanField(verbose_name="Atrial Fibrillation or flutter", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvCVDisAfib
+	class Meta:
+		get_latest_by = 'record'
+
+class moCVDisCHD(Audit):
+	mvCVDisCHD = models.BooleanField(verbose_name="Congestive heart failure", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvCVDisCHD
+	class Meta:
+		get_latest_by = 'record'
+
+class moCVDisOther(Audit):
+	mvCVDisOther = models.BooleanField(verbose_name="Other", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvCVDisOther
+	class Meta:
+		get_latest_by = 'record'
+
+class moCVProcNone(Audit):
+	mvCVProcNone = models.BooleanField(verbose_name="None (move to next question)", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvCVProcNone
+	class Meta:
+		get_latest_by = 'record'
+
+class moCVProvPacemaker(Audit):
+	mvCVProvPacemaker = models.BooleanField(verbose_name="Pacemaker", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvCVProvPacemaker
+	class Meta:
+		get_latest_by = 'record'
+
+class moCVProvPCI(Audit):
+	mvCVProvPCI = models.BooleanField(verbose_name="PCI (Angioplasty)", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvCVProvPCI
+	class Meta:
+		get_latest_by = 'record'
+
+class moCVProcStent(Audit):
+	mvCVProcStent = models.BooleanField(verbose_name="Endarterectomy/Carotid stent", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvCVProcStent
+	class Meta:
+		get_latest_by = 'record'
+
+class moCVProcCABG(Audit):
+	mvCVProcCABG = models.BooleanField(verbose_name="Coronary artery bypass graft (CABG)", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvCVProcCABG
+	class Meta:
+		get_latest_by = 'record'
+
+class moCVProvValve(Audit):
+	mvCVProvValve = models.BooleanField(verbose_name="Valve replacement/repair", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvCVProvValve
+	class Meta:
+		get_latest_by = 'record'
+
+class moCVProcOther(Audit):
+	mvCVProcOther = models.BooleanField(verbose_name="Other", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvCVProcOther
+	class Meta:
+		get_latest_by = 'record'
+
+class moCerebDisNone(Audit):
+	mvCerebDisNone = models.BooleanField(verbose_name="None (move to next question)", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvCerebDisNone
+	class Meta:
+		get_latest_by = 'record'
+
+class moCerebDisIschemic(Audit):
+	mvCerebDisIschemic = models.BooleanField(verbose_name="Ischemic stroke", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvCerebDisIschemic
+	class Meta:
+		get_latest_by = 'record'
+
+class moCerebDisIntraHemor(Audit):
+	mvCerebDisIntraHemor = models.BooleanField(verbose_name="Intracerebral hemorrhage", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvCerebDisIntraHemor
+	class Meta:
+		get_latest_by = 'record'
+
+class moCerebDisUnspecified(Audit):
+	mvCerebDisUnspecified = models.BooleanField(verbose_name="Unspecified stroke", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvCerebDisUnspecified
+	class Meta:
+		get_latest_by = 'record'
+
+class moCerebDisTIA(Audit):
+	mvCerebDisTIA = models.BooleanField(verbose_name="TIA", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvCerebDisTIA
+	class Meta:
+		get_latest_by = 'record'
+
+class moCerebDisOther(Audit):
+	mvCerebDisOther = models.BooleanField(verbose_name="Other", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvCerebDisOther
+	class Meta:
+		get_latest_by = 'record'
+
+class moMultipleStokes(Audit):
+	mvMultipleStokes = models.BigIntegerField(verbose_name="Multiple Strokes?", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvMultipleStokes
+	class Meta:
+		get_latest_by = 'record'
+
+class moTBINone(Audit):
+	mvTBINone = models.BooleanField(verbose_name="None (move to next question)", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvTBINone
+	class Meta:
+		get_latest_by = 'record'
+
+class moTBIChronic(Audit):
+	mvTBIChronic = models.BooleanField(verbose_name="Chronic traumatic encephalopathy (e.g. from boxing)", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvTBIChronic
+	class Meta:
+		get_latest_by = 'record'
+
+class moTBIPrevious(Audit):
+	mvTBIPrevious = models.BooleanField(verbose_name="Previous concussions/Acute TBI-Provide specifics below", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvTBIPrevious
+	class Meta:
+		get_latest_by = 'record'
+
+class moTBITimes(Audit):
+	mvTBITimes = models.BigIntegerField(verbose_name="How many TBI?", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvTBITimes
+	class Meta:
+		get_latest_by = 'record'
+
+class moTBIType(Audit):
+	mvTBIType = models.BigIntegerField(verbose_name="Type of TBI:", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvTBIType
+	class Meta:
+		get_latest_by = 'record'
+
+class moTBISeverity(Audit):
+	mvTBISeverity = models.BigIntegerField(verbose_name="TBI Severity:", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvTBISeverity
+	class Meta:
+		get_latest_by = 'record'
+
+class moOthMedNone(Audit):
+	mvOthMedNone = models.BooleanField(verbose_name="None (move to next question)", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvOthMedNone
+	class Meta:
+		get_latest_by = 'record'
+
+class moOthMedHTN(Audit):
+	mvOthMedHTN = models.BooleanField(verbose_name="Hypertension", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvOthMedHTN
+	class Meta:
+		get_latest_by = 'record'
+
+class moOthMedDyslipid(Audit):
+	mvOthMedDyslipid = models.BooleanField(verbose_name="Dyslipidemia", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvOthMedDyslipid
+	class Meta:
+		get_latest_by = 'record'
+
+class moOthMedB12Deficient(Audit):
+	mvOthMedB12Deficient = models.BooleanField(verbose_name="B12 Deficiency", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvOthMedB12Deficient
+	class Meta:
+		get_latest_by = 'record'
+
+class moOthMedDM1(Audit):
+	mvOthMedDM1 = models.BooleanField(verbose_name="Type 1 Diabetes", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvOthMedDM1
+	class Meta:
+		get_latest_by = 'record'
+
+class moOthMedDM2(Audit):
+	mvOthMedDM2 = models.BooleanField(verbose_name="Type 2 Diabetes", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvOthMedDM2
+	class Meta:
+		get_latest_by = 'record'
+
+class moOthMedHyperthyroid(Audit):
+	mvOthMedHyperthyroid = models.BooleanField(verbose_name="Hyperthyroidism", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvOthMedHyperthyroid
+	class Meta:
+		get_latest_by = 'record'
+
+class moOthMedHypothyroid(Audit):
+	mvOthMedHypothyroid = models.BooleanField(verbose_name="Hypothyroidism", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvOthMedHypothyroid
+	class Meta:
+		get_latest_by = 'record'
+
+class moOthMedUrineIncont(Audit):
+	mvOthMedUrineIncont = models.BooleanField(verbose_name="Urinary Incontinence", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvOthMedUrineIncont
+	class Meta:
+		get_latest_by = 'record'
+
+class moOthMedBowelIncont(Audit):
+	mvOthMedBowelIncont = models.BooleanField(verbose_name="Bowel Incontinence", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvOthMedBowelIncont
+	class Meta:
+		get_latest_by = 'record'
+
+class moOthMedOther(Audit):
+	mvOthMedOther = models.BooleanField(verbose_name="Other", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvOthMedOther
+	class Meta:
+		get_latest_by = 'record'
+
+class moNeurDisNone(Audit):
+	mvNeurDisNone = models.BooleanField(verbose_name="None (move to next question)", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvNeurDisNone
+	class Meta:
+		get_latest_by = 'record'
+
+class moNeurDisParkinsonism(Audit):
+	mvNeurDisParkinsonism = models.BooleanField(verbose_name="Parkinsonism", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvNeurDisParkinsonism
+	class Meta:
+		get_latest_by = 'record'
+
+class moNeurDisParkinsons(Audit):
+	mvNeurDisParkinsons = models.BooleanField(verbose_name="Parkinson's disease", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvNeurDisParkinsons
+	class Meta:
+		get_latest_by = 'record'
+
+class moNeurDisMS(Audit):
+	mvNeurDisMS = models.BooleanField(verbose_name="Multiple sclerosis", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvNeurDisMS
+	class Meta:
+		get_latest_by = 'record'
+
+class moNeurDisSeizures(Audit):
+	mvNeurDisSeizures = models.BooleanField(verbose_name="Seizures/Epilepsy", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvNeurDisSeizures
+	class Meta:
+		get_latest_by = 'record'
+
+class moNeurDisALS(Audit):
+	mvNeurDisALS = models.BooleanField(verbose_name="ALS", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvNeurDisALS
+	class Meta:
+		get_latest_by = 'record'
+
+class moNeurDisDelirium(Audit):
+	mvNeurDisDelirium = models.BooleanField(verbose_name="History of Delirium", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvNeurDisDelirium
+	class Meta:
+		get_latest_by = 'record'
+
+class moNeurDisOther(Audit):
+	mvNeurDisOther = models.BooleanField(verbose_name="Other", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvNeurDisOther
+	class Meta:
+		get_latest_by = 'record'
+
+class moPsychDisNone(Audit):
+	mvPsychDisNone = models.BooleanField(verbose_name="None (move to next question)", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvPsychDisNone
+	class Meta:
+		get_latest_by = 'record'
+
+class moPsychDisADD(Audit):
+	mvPsychDisADD = models.BooleanField(verbose_name="ADD/ADHD ", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvPsychDisADD
+	class Meta:
+		get_latest_by = 'record'
+
+class moPsychDisBipolar(Audit):
+	mvPsychDisBipolar = models.BooleanField(verbose_name="Bipolar disorder, and related ", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvPsychDisBipolar
+	class Meta:
+		get_latest_by = 'record'
+
+class moPsychDisOCD(Audit):
+	mvPsychDisOCD = models.BooleanField(verbose_name="OCD", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvPsychDisOCD
+	class Meta:
+		get_latest_by = 'record'
+
+class moPsychDisDepression(Audit):
+	mvPsychDisDepression = models.BooleanField(verbose_name="Depression (incl. Major Depressive disorder) ", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvPsychDisDepression
+	class Meta:
+		get_latest_by = 'record'
+
+class moPsychDisPanic(Audit):
+	mvPsychDisPanic = models.BooleanField(verbose_name="Panic disorders", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvPsychDisPanic
+	class Meta:
+		get_latest_by = 'record'
+
+class moPsychDisGAD(Audit):
+	mvPsychDisGAD = models.BooleanField(verbose_name="Generalized anxiety disorder", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvPsychDisGAD
+	class Meta:
+		get_latest_by = 'record'
+
+class moPsychDisPTSD(Audit):
+	mvPsychDisPTSD = models.BooleanField(verbose_name="PTSD", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvPsychDisPTSD
+	class Meta:
+		get_latest_by = 'record'
+
+class moPsychDisSchizo(Audit):
+	mvPsychDisSchizo = models.BooleanField(verbose_name="Schizophrenia", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvPsychDisSchizo
+	class Meta:
+		get_latest_by = 'record'
+
+class moPsychDisPsychotic(Audit):
+	mvPsychDisPsychotic = models.BooleanField(verbose_name="Psychotic episode", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvPsychDisPsychotic
+	class Meta:
+		get_latest_by = 'record'
+
+class moPsychDisOther(Audit):
+	mvPsychDisOther = models.BooleanField(verbose_name="Other", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvPsychDisOther
+	class Meta:
+		get_latest_by = 'record'
+
+class moSlpDisInsomia(Audit):
+	mvSlpDisInsomia = models.BigIntegerField(verbose_name="a. Insomnia", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvSlpDisInsomia
+	class Meta:
+		get_latest_by = 'record'
+
+class moSlpDisREM(Audit):
+	mvSlpDisREM = models.BigIntegerField(verbose_name="b. REM sleep behaviour disorder", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvSlpDisREM
+	class Meta:
+		get_latest_by = 'record'
+
+class moSlpDisPeriodic(Audit):
+	mvSlpDisPeriodic = models.BigIntegerField(verbose_name="c. Periodic limb movements in sleep", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvSlpDisPeriodic
+	class Meta:
+		get_latest_by = 'record'
+
+class moSlpDisRestless(Audit):
+	mvSlpDisRestless = models.BigIntegerField(verbose_name="d. Restless leg syndrome", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvSlpDisRestless
+	class Meta:
+		get_latest_by = 'record'
+
+class moSlpDisOSA(Audit):
+	mvSlpDisOSA = models.BigIntegerField(verbose_name="e. Obstructive sleep apnea", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvSlpDisOSA
+	class Meta:
+		get_latest_by = 'record'
+
+class moSlpDisNarcolepsy(Audit):
+	mvSlpDisNarcolepsy = models.BigIntegerField(verbose_name="f. Narcolepsy", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvSlpDisNarcolepsy
+	class Meta:
+		get_latest_by = 'record'
+
+class moSlpDisOther(Audit):
+	mvSlpDisOther = models.BigIntegerField(verbose_name="Other", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvSlpDisOther
+	class Meta:
+		get_latest_by = 'record'
+
+class moSmoking(Audit):
+	mvSmoking = models.BigIntegerField(verbose_name="1. Smoking:", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvSmoking
+	class Meta:
+		get_latest_by = 'record'
+
+class moSmokingFormerAgeStart(Audit):
+	mvSmokingFormerAgeStart = models.BigIntegerField(verbose_name="Former smoker, Age Started:", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvSmokingFormerAgeStart
+	class Meta:
+		get_latest_by = 'record'
+
+class moSmokingFormerAgeStop(Audit):
+	mvSmokingFormerAgeStop = models.BigIntegerField(verbose_name="Former smoker, Age Stopped:", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvSmokingFormerAgeStop
+	class Meta:
+		get_latest_by = 'record'
+
+class moSmokingCurrentQuant(Audit):
+	mvSmokingCurrentQuant = models.BigIntegerField(verbose_name="Current smoker, Quantity (cigarettes/day):", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvSmokingCurrentQuant
+	class Meta:
+		get_latest_by = 'record'
+
+class moSmokingCurrenDuration(Audit):
+	mvSmokingCurrenDuration = models.BigIntegerField(verbose_name="Current smoker, Duration (years):", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvSmokingCurrenDuration
+	class Meta:
+		get_latest_by = 'record'
+
+class moAlcohol(Audit):
+	mvAlcohol = models.BigIntegerField(verbose_name="2. Alcohol:", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvAlcohol
+	class Meta:
+		get_latest_by = 'record'
+
+class moAlcoholAbuseHx(Audit):
+	mvAlcoholAbuseHx = models.BigIntegerField(verbose_name="2.a. History of alcohol abuse:", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvAlcoholAbuseHx
+	class Meta:
+		get_latest_by = 'record'
+
+class moAlcoholAbuseCurrent(Audit):
+	mvAlcoholAbuseCurrent = models.BigIntegerField(verbose_name="2.b. Clinical impression of current alcohol abuse:", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvAlcoholAbuseCurrent
+	class Meta:
+		get_latest_by = 'record'
+
+class moSubstAbuseOther(Audit):
+	mvSubstAbuseOther = models.BigIntegerField(verbose_name="3. Other abused substances:", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvSubstAbuseOther
+	class Meta:
+		get_latest_by = 'record'
+
+class moSubstAbuseCurrent(Audit):
+	mvSubstAbuseCurrent = models.BigIntegerField(verbose_name="Other abused substance:", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvSubstAbuseCurrent
+	class Meta:
+		get_latest_by = 'record'
+
+class moAricept(Audit):
+	mvAricept = models.BooleanField(verbose_name="Aricept", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvAricept
+	class Meta:
+		get_latest_by = 'record'
+
+class moAriceptDose(Audit):
+	mvAriceptDose = models.BigIntegerField(verbose_name="AriceptDose", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvAriceptDose
+	class Meta:
+		get_latest_by = 'record'
+
+class moAriceptDoseUnknown(Audit):
+	mvAriceptDoseUnknown = models.BooleanField(verbose_name="AriceptDoseUnknown", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvAriceptDoseUnknown
+	class Meta:
+		get_latest_by = 'record'
+
+class moAriceptRouteUnknown(Audit):
+	mvAriceptRouteUnknown = models.BooleanField(verbose_name="AriceptRouteUnknown", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvAriceptRouteUnknown
+	class Meta:
+		get_latest_by = 'record'
+
+class moAriceptFrequencyUnknown(Audit):
+	mvAriceptFrequencyUnknown = models.BooleanField(verbose_name="AriceptFrequencyUnknown", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvAriceptFrequencyUnknown
+	class Meta:
+		get_latest_by = 'record'
+
+class moGalantamine(Audit):
+	mvGalantamine = models.BooleanField(verbose_name="Galantamine", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvGalantamine
+	class Meta:
+		get_latest_by = 'record'
+
+class moGalantamineDose(Audit):
+	mvGalantamineDose = models.BigIntegerField(verbose_name="GalantamineDose", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvGalantamineDose
+	class Meta:
+		get_latest_by = 'record'
+
+class moGalantamineDoseUnknown(Audit):
+	mvGalantamineDoseUnknown = models.BooleanField(verbose_name="GalantamineDoseUnknown", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvGalantamineDoseUnknown
+	class Meta:
+		get_latest_by = 'record'
+
+class moGalantamineRouteUnknown(Audit):
+	mvGalantamineRouteUnknown = models.BooleanField(verbose_name="GalantamineRouteUnknown", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvGalantamineRouteUnknown
+	class Meta:
+		get_latest_by = 'record'
+
+class moGalantamineFrequencyUnknown(Audit):
+	mvGalantamineFrequencyUnknown = models.BooleanField(verbose_name="GalantamineFrequencyUnknown", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvGalantamineFrequencyUnknown
+	class Meta:
+		get_latest_by = 'record'
+
+class moRivastigmine(Audit):
+	mvRivastigmine = models.BooleanField(verbose_name="Rivastigmine", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvRivastigmine
+	class Meta:
+		get_latest_by = 'record'
+
+class moRivastigmineDose(Audit):
+	mvRivastigmineDose = models.BigIntegerField(verbose_name="RivastigmineDose", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvRivastigmineDose
+	class Meta:
+		get_latest_by = 'record'
+
+class moRivastigmineDoseUnknown(Audit):
+	mvRivastigmineDoseUnknown = models.BooleanField(verbose_name="RivastigmineDoseUnknown", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvRivastigmineDoseUnknown
+	class Meta:
+		get_latest_by = 'record'
+
+class moRivastigmineRouteUnknown(Audit):
+	mvRivastigmineRouteUnknown = models.BooleanField(verbose_name="RivastigmineRouteUnknown", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvRivastigmineRouteUnknown
+	class Meta:
+		get_latest_by = 'record'
+
+class moRivastigmineFrequencyUnknown(Audit):
+	mvRivastigmineFrequencyUnknown = models.BooleanField(verbose_name="RivastigmineFrequencyUnknown", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvRivastigmineFrequencyUnknown
+	class Meta:
+		get_latest_by = 'record'
+
+class moMemantine(Audit):
+	mvMemantine = models.BooleanField(verbose_name="Memantine", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvMemantine
+	class Meta:
+		get_latest_by = 'record'
+
+class moMemantineDose(Audit):
+	mvMemantineDose = models.BigIntegerField(verbose_name="MemantineDose", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvMemantineDose
+	class Meta:
+		get_latest_by = 'record'
+
+class moMemantineDoseUnknown(Audit):
+	mvMemantineDoseUnknown = models.BooleanField(verbose_name="MemantineDoseUnknown", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvMemantineDoseUnknown
+	class Meta:
+		get_latest_by = 'record'
+
+class moMemantineRouteUnknown(Audit):
+	mvMemantineRouteUnknown = models.BooleanField(verbose_name="MemantineRouteUnknown", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvMemantineRouteUnknown
+	class Meta:
+		get_latest_by = 'record'
+
+class moMemantineFrequencyUnknown(Audit):
+	mvMemantineFrequencyUnknown = models.BooleanField(verbose_name="MemantineFrequencyUnknown", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvMemantineFrequencyUnknown
+	class Meta:
+		get_latest_by = 'record'
+
+class moCVMedsACEi(Audit):
+	mvCVMedsACEi = models.BooleanField(verbose_name="Ace-inhibitor", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvCVMedsACEi
+	class Meta:
+		get_latest_by = 'record'
+
+class moCVMedsARB(Audit):
+	mvCVMedsARB = models.BooleanField(verbose_name="Angiotensin receptor blocker", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvCVMedsARB
+	class Meta:
+		get_latest_by = 'record'
+
+class moCVMedsStatin(Audit):
+	mvCVMedsStatin = models.BooleanField(verbose_name="Statin", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvCVMedsStatin
+	class Meta:
+		get_latest_by = 'record'
+
+class moCVMedsCaBlocker(Audit):
+	mvCVMedsCaBlocker = models.BooleanField(verbose_name="Calcium-channel blocker", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvCVMedsCaBlocker
+	class Meta:
+		get_latest_by = 'record'
+
+class moCVMedsBetaBlocker(Audit):
+	mvCVMedsBetaBlocker = models.BooleanField(verbose_name="Beta blocker", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvCVMedsBetaBlocker
+	class Meta:
+		get_latest_by = 'record'
+
+class moCVMedsDiuretic(Audit):
+	mvCVMedsDiuretic = models.BooleanField(verbose_name="Diuretic", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvCVMedsDiuretic
+	class Meta:
+		get_latest_by = 'record'
+
+class moCVMedsOther(Audit):
+	mvCVMedsOther = models.BooleanField(verbose_name="Other", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvCVMedsOther
+	class Meta:
+		get_latest_by = 'record'
+
+class moPsychoMedsTypAntiPsychotic(Audit):
+	mvPsychoMedsTypAntiPsychotic = models.BooleanField(verbose_name="Typical antipsychotic", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvPsychoMedsTypAntiPsychotic
+	class Meta:
+		get_latest_by = 'record'
+
+class moPsychoMedsAtypAntiPsychotic(Audit):
+	mvPsychoMedsAtypAntiPsychotic = models.BooleanField(verbose_name="Atypical antipsychotic", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvPsychoMedsAtypAntiPsychotic
+	class Meta:
+		get_latest_by = 'record'
+
+class moPsychoMedsAnxiolytic(Audit):
+	mvPsychoMedsAnxiolytic = models.BooleanField(verbose_name="Anxiolytic", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvPsychoMedsAnxiolytic
+	class Meta:
+		get_latest_by = 'record'
+
+class moPsychoMedsSedative(Audit):
+	mvPsychoMedsSedative = models.BooleanField(verbose_name="Sedative/Hypnotic", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvPsychoMedsSedative
+	class Meta:
+		get_latest_by = 'record'
+
+class moPsychoMedsAntiDepressant(Audit):
+	mvPsychoMedsAntiDepressant = models.BooleanField(verbose_name="Anti-depressant", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvPsychoMedsAntiDepressant
+	class Meta:
+		get_latest_by = 'record'
+
+class moPsychoMedsMoodStabilizer(Audit):
+	mvPsychoMedsMoodStabilizer = models.BooleanField(verbose_name="Mood stabilizer", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvPsychoMedsMoodStabilizer
+	class Meta:
+		get_latest_by = 'record'
+
+class moPsychoMedsStimulants(Audit):
+	mvPsychoMedsStimulants = models.BooleanField(verbose_name="Prescription stimulants", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvPsychoMedsStimulants
+	class Meta:
+		get_latest_by = 'record'
+
+class moPsychoMedsOther(Audit):
+	mvPsychoMedsOther = models.BooleanField(verbose_name="Other", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvPsychoMedsOther
+	class Meta:
+		get_latest_by = 'record'
+
+class moOtherMedsAspirin(Audit):
+	mvOtherMedsAspirin = models.BooleanField(verbose_name="Aspirin/Anti-thrombotic", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvOtherMedsAspirin
+	class Meta:
+		get_latest_by = 'record'
+
+class moOtherMedsWarfarin(Audit):
+	mvOtherMedsWarfarin = models.BooleanField(verbose_name="Warfarin (or other anticoagulant)", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvOtherMedsWarfarin
+	class Meta:
+		get_latest_by = 'record'
+
+class moHeight(Audit):
+	mvHeight = models.DecimalField(verbose_name="Height (cm):", max_digits=8, decimal_places=1, blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvHeight
+	class Meta:
+		get_latest_by = 'record'
+
+class moWeight(Audit):
+	mvWeight = models.DecimalField(verbose_name="Weight (kg):", max_digits=8, decimal_places=1, blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvWeight
+	class Meta:
+		get_latest_by = 'record'
+
+class moBPSittingSystolic(Audit):
+	mvBPSittingSystolic = models.BigIntegerField(verbose_name="BP Systolic (sitting):", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvBPSittingSystolic
+	class Meta:
+		get_latest_by = 'record'
+
+class moBPSittingDiastolic(Audit):
+	mvBPSittingDiastolic = models.BigIntegerField(verbose_name="BP Diastolic (sitting):", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvBPSittingDiastolic
+	class Meta:
+		get_latest_by = 'record'
+
+class moBPStandingSystolic(Audit):
+	mvBPStandingSystolic = models.BigIntegerField(verbose_name="BP Systolic (standing):", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvBPStandingSystolic
+	class Meta:
+		get_latest_by = 'record'
+
+class moBPStandingDiastolic(Audit):
+	mvBPStandingDiastolic = models.BigIntegerField(verbose_name="BP Diastolic (standing):", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvBPStandingDiastolic
+	class Meta:
+		get_latest_by = 'record'
+
+class moNeuroSignNone(Audit):
+	mvNeuroSignNone = models.BooleanField(verbose_name="None", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvNeuroSignNone
+	class Meta:
+		get_latest_by = 'record'
+
+class moNeuroSignGait(Audit):
+	mvNeuroSignGait = models.BooleanField(verbose_name="Gait disorder", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvNeuroSignGait
+	class Meta:
+		get_latest_by = 'record'
+
+class moNeuroSignFrontal(Audit):
+	mvNeuroSignFrontal = models.BooleanField(verbose_name="Signs of frontal dysfunction", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvNeuroSignFrontal
+	class Meta:
+		get_latest_by = 'record'
+
+class moNeuroSignParkinsonism(Audit):
+	mvNeuroSignParkinsonism = models.BooleanField(verbose_name="Parkinsonism", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvNeuroSignParkinsonism
+	class Meta:
+		get_latest_by = 'record'
+
+class moNeuroSignMotor(Audit):
+	mvNeuroSignMotor = models.BooleanField(verbose_name="Motor neuron signs", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvNeuroSignMotor
+	class Meta:
+		get_latest_by = 'record'
+
+class moNeuroSignNeuroOphtho(Audit):
+	mvNeuroSignNeuroOphtho = models.BooleanField(verbose_name="Neuro-opthalmologic signs", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvNeuroSignNeuroOphtho
+	class Meta:
+		get_latest_by = 'record'
+
+class moNeuroSignFocal(Audit):
+	mvNeuroSignFocal = models.BooleanField(verbose_name="Focal or lateralizing signs", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvNeuroSignFocal
+	class Meta:
+		get_latest_by = 'record'
+
+class moNeuroSignOther(Audit):
+	mvNeuroSignOther = models.BooleanField(verbose_name="Other", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvNeuroSignOther
+	class Meta:
+		get_latest_by = 'record'
+
+class moVisHearNone(Audit):
+	mvVisHearNone = models.BooleanField(verbose_name="No impairment that would confound exam ", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvVisHearNone
+	class Meta:
+		get_latest_by = 'record'
+
+class moVisHearVisImpair(Audit):
+	mvVisHearVisImpair = models.BooleanField(verbose_name="Vision impairment ", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvVisHearVisImpair
+	class Meta:
+		get_latest_by = 'record'
+
+class moVisHearHearImpair(Audit):
+	mvVisHearHearImpair = models.BooleanField(verbose_name="Hearing loss ", blank=True)
+	def __unicode__(self):
+		return "%s" % self.mvVisHearHearImpair
+	class Meta:
+		get_latest_by = 'record'
+
+class moDxImpMCISub(Audit):
+	mvDxImpMCISub = models.BigIntegerField(verbose_name="MCI Subtype", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvDxImpMCISub
+	class Meta:
+		get_latest_by = 'record'
+
+class moDxImpNone(Audit):
+	mvDxImpNone = models.BigIntegerField(verbose_name="No significant cognitive impairment", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvDxImpNone
+	class Meta:
+		get_latest_by = 'record'
+
+class moDxImpMCI(Audit):
+	mvDxImpMCI = models.BigIntegerField(verbose_name="Mild Cognitive Impairment (MCI)", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvDxImpMCI
+	class Meta:
+		get_latest_by = 'record'
+
+class moDxImpDementia(Audit):
+	mvDxImpDementia = models.BigIntegerField(verbose_name="Dementia (including caused by general medical conditions and head trauma) ", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvDxImpDementia
+	class Meta:
+		get_latest_by = 'record'
+
+class moDxImpCogPsych(Audit):
+	mvDxImpCogPsych = models.BigIntegerField(verbose_name="Cognitive impairment primarily caused by psychiatric condition (DSM-IV; not incl. Dep) ", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvDxImpCogPsych
+	class Meta:
+		get_latest_by = 'record'
+
+class moDxImpStatic(Audit):
+	mvDxImpStatic = models.BigIntegerField(verbose_name="Static encephalopathy (with no decline from previous level of ability or function) ", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvDxImpStatic
+	class Meta:
+		get_latest_by = 'record'
+
+class moDxImpCVD(Audit):
+	mvDxImpCVD = models.BigIntegerField(verbose_name="1. Is cerebrovascular disease (CVD) contributing to cognitive impairment", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvDxImpCVD
+	class Meta:
+		get_latest_by = 'record'
+
+class moDxImpStroke(Audit):
+	mvDxImpStroke = models.BigIntegerField(verbose_name="2. If stroke present, is there temporal relationship between stroke and onset of cognitive impairment?", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvDxImpStroke
+	class Meta:
+		get_latest_by = 'record'
+
+class moDxImpStrokeImage(Audit):
+	mvDxImpStrokeImage = models.BigIntegerField(verbose_name="3. If imaging available, is there imaging evidence which supports CVD is contributing to cognitive impairment?", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvDxImpStrokeImage
+	class Meta:
+		get_latest_by = 'record'
+
+class moDxImpAlzheimers(Audit):
+	mvDxImpAlzheimers = models.BigIntegerField(verbose_name="Alzheimers disease", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvDxImpAlzheimers
+	class Meta:
+		get_latest_by = 'record'
+
+class moDxImpVascular(Audit):
+	mvDxImpVascular = models.BigIntegerField(verbose_name="Vascular cognitive impairment/Vascular dementia", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvDxImpVascular
+	class Meta:
+		get_latest_by = 'record'
+
+class moDxImpAmyloid(Audit):
+	mvDxImpAmyloid = models.BigIntegerField(verbose_name="Cerebral amyloid angiopathy", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvDxImpAmyloid
+	class Meta:
+		get_latest_by = 'record'
+
+class moDxImpLewy(Audit):
+	mvDxImpLewy = models.BigIntegerField(verbose_name="Lewy body dementia", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvDxImpLewy
+	class Meta:
+		get_latest_by = 'record'
+
+class moDxImpFrontoTemp(Audit):
+	mvDxImpFrontoTemp = models.BigIntegerField(verbose_name="Behavioural variant Frontotemporal dementia", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvDxImpFrontoTemp
+	class Meta:
+		get_latest_by = 'record'
+
+class moDxImpNonfluent(Audit):
+	mvDxImpNonfluent = models.BigIntegerField(verbose_name="Nonfluent/Agrammatic Primary progressive aphasia", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvDxImpNonfluent
+	class Meta:
+		get_latest_by = 'record'
+
+class moDxImpSemantic(Audit):
+	mvDxImpSemantic = models.BigIntegerField(verbose_name="Semantic variant Primary progressive aphasia", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvDxImpSemantic
+	class Meta:
+		get_latest_by = 'record'
+
+class moDxImpLogopenic(Audit):
+	mvDxImpLogopenic = models.BigIntegerField(verbose_name="Logopenic variant Primary progressive aphasia", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvDxImpLogopenic
+	class Meta:
+		get_latest_by = 'record'
+
+class moDxImpParkinsonsDement(Audit):
+	mvDxImpParkinsonsDement = models.BigIntegerField(verbose_name="Parkinson's disease dementia", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvDxImpParkinsonsDement
+	class Meta:
+		get_latest_by = 'record'
+
+class moDxImpCorticobasal(Audit):
+	mvDxImpCorticobasal = models.BigIntegerField(verbose_name="Corticobasal ganglionic degeneration ", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvDxImpCorticobasal
+	class Meta:
+		get_latest_by = 'record'
+
+class moDxImpSupranuclear(Audit):
+	mvDxImpSupranuclear = models.BigIntegerField(verbose_name="Progressive supranuclear palsy", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvDxImpSupranuclear
+	class Meta:
+		get_latest_by = 'record'
+
+class moDxImpDepressCog(Audit):
+	mvDxImpDepressCog = models.BigIntegerField(verbose_name="Depressive symptoms contributing to cognitive complaints", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvDxImpDepressCog
+	class Meta:
+		get_latest_by = 'record'
+
+class moDxImpDepressCogDSM(Audit):
+	mvDxImpDepressCogDSM = models.BigIntegerField(verbose_name="If so, does patient have Major Depressive Disorder (DSM-IV criteria)", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvDxImpDepressCogDSM
+	class Meta:
+		get_latest_by = 'record'
+
+class moDxImpAnxCog(Audit):
+	mvDxImpAnxCog = models.BigIntegerField(verbose_name="Anxiety symptoms contributing to cognitive complaints", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvDxImpAnxCog
+	class Meta:
+		get_latest_by = 'record'
+
+class moDxImpAnxCogDSM(Audit):
+	mvDxImpAnxCogDSM = models.BigIntegerField(verbose_name="If so, does patient have Generalized Anxiety Disorder (DSM-IV criteria)", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvDxImpAnxCogDSM
+	class Meta:
+		get_latest_by = 'record'
+
+class moDxImpMixed(Audit):
+	mvDxImpMixed = models.BigIntegerField(verbose_name="Mixed dementia (also select contributing conditions above, or under Other)", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvDxImpMixed
+	class Meta:
+		get_latest_by = 'record'
+
+class moDxImpUnknown(Audit):
+	mvDxImpUnknown = models.BigIntegerField(verbose_name="Unknown cause of dementia", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvDxImpUnknown
+	class Meta:
+		get_latest_by = 'record'
+
+class moDxImpOther(Audit):
+	mvDxImpOther = models.BigIntegerField(verbose_name="Other", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvDxImpOther
+	class Meta:
+		get_latest_by = 'record'
+
+
+
+class moCVMedsOtherText(Audit):
+	mvCVMedsOtherText = models.CharField(verbose_name="Other Text:", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvCVMedsOtherText
+	class Meta:
+		get_latest_by = 'record'
+
+
+class moPsychoMedsOtherText(Audit):
+	mvPsychoMedsOtherText = models.CharField(verbose_name="Other Text:", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvPsychoMedsOtherText
+	class Meta:
+		get_latest_by = 'record'
+
+
+
+class moHeartRateSitting(Audit):
+	mvHeartRateSitting = models.CharField(verbose_name="Heart rate/rhythm - Sitting:", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvHeartRateSitting
+	class Meta:
+		get_latest_by = 'record'
+
+class moHeartRateStand(Audit):
+	mvHeartRateStand = models.CharField(verbose_name="Heart rate/rhythm - Standing:", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvHeartRateStand
+	class Meta:
+		get_latest_by = 'record'
+
+
+class moNeuroSignOtherText(Audit):
+	mvNeuroSignOtherText = models.CharField(verbose_name="Other Text:", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvNeuroSignOtherText
+	class Meta:
+		get_latest_by = 'record'
+
+
+class moDxImpOtherText(Audit):
+	mvDxImpOtherText = models.CharField(verbose_name="Other Text:", max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvDxImpOtherText
+	class Meta:
+		get_latest_by = 'record'
+
+class moMOCAVisuoExec(Audit):
+	mvMOCAVisuoExec = models.BigIntegerField(verbose_name="Visuospatial/Executive (/5):", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvMOCAVisuoExec
+	class Meta:
+		get_latest_by = 'record'
+
+class moMOCANaming(Audit):
+	mvMOCANaming = models.BigIntegerField(verbose_name="Naming (/3):", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvMOCANaming
+	class Meta:
+		get_latest_by = 'record'
+
+class moMOCAAttnDigitList(Audit):
+	mvMOCAAttnDigitList = models.BigIntegerField(verbose_name="Attention - List of Digits (/2):", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvMOCAAttnDigitList
+	class Meta:
+		get_latest_by = 'record'
+
+class moMOCAAttnLetterList(Audit):
+	mvMOCAAttnLetterList = models.BigIntegerField(verbose_name="Attention - List of Letters (/1):", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvMOCAAttnLetterList
+	class Meta:
+		get_latest_by = 'record'
+
+class moMOCAAttnSerialSeven(Audit):
+	mvMOCAAttnSerialSeven = models.BigIntegerField(verbose_name="Attention - Serial Seven (0/3):", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvMOCAAttnSerialSeven
+	class Meta:
+		get_latest_by = 'record'
+
+class moMOCALangRepeat(Audit):
+	mvMOCALangRepeat = models.BigIntegerField(verbose_name="Language - Repeat (/2):", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvMOCALangRepeat
+	class Meta:
+		get_latest_by = 'record'
+
+class moMOCALangFluency(Audit):
+	mvMOCALangFluency = models.BigIntegerField(verbose_name="Language - Fluency (/1):", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvMOCALangFluency
+	class Meta:
+		get_latest_by = 'record'
+
+class moMOCAAbstraction(Audit):
+	mvMOCAAbstraction = models.BigIntegerField(verbose_name="Abstraction (/2):", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvMOCAAbstraction
+	class Meta:
+		get_latest_by = 'record'
+
+class moMOCADelayRecall(Audit):
+	mvMOCADelayRecall = models.BigIntegerField(verbose_name="Delayed Recall (/5):", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvMOCADelayRecall
+	class Meta:
+		get_latest_by = 'record'
+
+class moMOCAOrientation(Audit):
+	mvMOCAOrientation = models.BigIntegerField(verbose_name="Orientation (/6):", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvMOCAOrientation
+	class Meta:
+		get_latest_by = 'record'
+
+class moMOCAComments(Audit):
+	mvMOCAComments = models.CharField(verbose_name="General Comments:", max_length=500, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvMOCAComments
+	class Meta:
+		get_latest_by = 'record'
+
+class moMOCATotal(Audit):
+	mvMOCATotal = models.BigIntegerField(verbose_name="Total MOCA Score", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvMOCATotal
+	class Meta:
+		get_latest_by = 'record'
+
+class moMMSEOrientDate(Audit):
+	mvMMSEOrientDate = models.BigIntegerField(verbose_name="1. What is the date? Year, season, month, date, day?", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvMMSEOrientDate
+	class Meta:
+		get_latest_by = 'record'
+
+class moMMSEOrientLocat(Audit):
+	mvMMSEOrientLocat = models.BigIntegerField(verbose_name="2. Where are we? Country, province, city, name of hospital or street, floor #", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvMMSEOrientLocat
+	class Meta:
+		get_latest_by = 'record'
+
+class moMMSERegObjects(Audit):
+	mvMMSERegObjects = models.BigIntegerField(verbose_name="3. Name 3 Objects (e.g. apple, penny, table) or alternates (ball, chair, tree). Then ask patient to name them. Score one point for each correct answer", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvMMSERegObjects
+	class Meta:
+		get_latest_by = 'record'
+
+class moMMSERegAttempts(Audit):
+	mvMMSERegAttempts = models.BigIntegerField(verbose_name="NOTE: You can repeat them up to 3 times until he/she registers perfectly all 3 but base the score on the first trial. Record number of trials:", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvMMSERegAttempts
+	class Meta:
+		get_latest_by = 'record'
+
+class moMMSEAttention(Audit):
+	mvMMSEAttention = models.BigIntegerField(verbose_name="(Administer both and count the higher of the two scores)", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvMMSEAttention
+	class Meta:
+		get_latest_by = 'record'
+
+class moMMSERecall(Audit):
+	mvMMSERecall = models.BigIntegerField(verbose_name="5. Ask for names of 3 objects given above ", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvMMSERecall
+	class Meta:
+		get_latest_by = 'record'
+
+class moMMSELangPoint(Audit):
+	mvMMSELangPoint = models.BigIntegerField(verbose_name="6. Point to two objects", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvMMSELangPoint
+	class Meta:
+		get_latest_by = 'record'
+
+class moMMSELangSpeech(Audit):
+	mvMMSELangSpeech = models.BigIntegerField(verbose_name="7. Ask patient to repeat 'NO IFS, ANDS OR BUTS'", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvMMSELangSpeech
+	class Meta:
+		get_latest_by = 'record'
+
+class moMSMELangCommand(Audit):
+	mvMSMELangCommand = models.BigIntegerField(verbose_name="8. Ask patient to follow a 3 stage command TAKE THE PAPER IN YOUR RIGHT HAND, FOLD THE PAPER IN HALF ONCE AND PUT THE PAPER DOWN ON THE FLOOR", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvMSMELangCommand
+	class Meta:
+		get_latest_by = 'record'
+
+class moMMSELangRead(Audit):
+	mvMMSELangRead = models.BigIntegerField(verbose_name="9. Ask patient to read CLOSE YOUR EYES and obey the instructions", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvMMSELangRead
+	class Meta:
+		get_latest_by = 'record'
+
+class moMMSELangWrite(Audit):
+	mvMMSELangWrite = models.BigIntegerField(verbose_name="10. Ask patient to write a sentence. Sentence must be sensible, must contain a subject and a verb and be written spontaneously. Ignore spelling errors.", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvMMSELangWrite
+	class Meta:
+		get_latest_by = 'record'
+
+class moMMSELangCopy(Audit):
+	mvMMSELangCopy = models.BigIntegerField(verbose_name="11. Ask patient a diagram of intersecting pentagons and ask him/her to copy intersecting pentagons. Score one point if all 10 angles are present and the overlap of pentagons is four sides.", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvMMSELangCopy
+	class Meta:
+		get_latest_by = 'record'
+
+class moMMSETotal(Audit):
+	mvMMSETotal = models.BigIntegerField(verbose_name="Total MMSE Score", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvMMSETotal
+	class Meta:
+		get_latest_by = 'record'
+
+
+class moMMSELOC(Audit):
+	mvMMSELOC = models.BigIntegerField(verbose_name="Level of Conciousness", blank=True, null=True)
+	def __unicode__(self):
+		return "%s" % self.mvMMSELOC
+	class Meta:
+		get_latest_by = 'record'
+
+class moMMSEDistraction(Audit):
+	mvMMSEDistraction = models.CharField(verbose_name="Note distractibility, frustration, exhaustion, and nature of cooperation. The patient's impression of his/her performance should also be noted.", max_length=500, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvMMSEDistraction
+	class Meta:
+		get_latest_by = 'record'
+
+class moMMSEComments(Audit):
+	mvMMSEComments = models.CharField(verbose_name="General Comments: Note any known or observed motor, sensory, or perceptual deficits that may affect test performance (e.g. impaired vision or auditory acuity, tremor, apraxia, dysarthria) or translation into the patients own language. Indicate first language if not English.", max_length=500, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvMMSEComments
+	class Meta:
+		get_latest_by = 'record'
+
+class moMMSEExaminer(Audit):
+	mvMMSEExaminer = models.CharField(verbose_name="Examiner", max_length=100, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvMMSEExaminer
+	class Meta:
+		get_latest_by = 'record'
+
+
+class moWithdraw(Audit):
+	mvWithdraw = models.CharField(verbose_name="Withdraw Consent",max_length=50, blank=True, null=True)
+	def __unicode__(self):
+		return self.mvWithdraw
+	class Meta:
+		get_latest_by = 'record'
+
+
+class moDate_Year_Season_Month_Day(Audit):
+	mvDate_Year_Season_Month_Day = models.BigIntegerField(verbose_name='Orientation-1. What is the date? Year, season, month, date, day?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvDate_Year_Season_Month_Day
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moLocation_Country_Province_City_Hospital(Audit):
+	mvLocation_Country_Province_City_Hospital = models.BigIntegerField(verbose_name='Orientation-2. Where are we? Country, province, city, name of hospital or street, floor #', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvLocation_Country_Province_City_Hospital
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moName3Objects_PatientRepeat(Audit):
+	mvName3Objects_PatientRepeat = models.BigIntegerField(verbose_name='Registration-3. Name 3 objects (e.g. apple, penny, table) or alternates (ball, chair, tree). Then ask patient to name them Score one point for each correct answer.', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvName3Objects_PatientRepeat
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRecord_Number_Of_Trials(Audit):
+	mvRecord_Number_Of_Trials = models.BigIntegerField(verbose_name='Registration-NOTE: You can repeat them up to 3 times until he/she registers perfectly all 3 but base the score on the first trial. Record Number of Trials:', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvRecord_Number_Of_Trials
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCount_Backwards(Audit):
+	mvCount_Backwards = models.BigIntegerField(verbose_name='Attention & Calculation-4. a) Serial 7\'s. Count backwards by 7\'s from 100. Stop at five answers (100-93-86-79-72-65)', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCount_Backwards
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSpell_WORLD_Backwards(Audit):
+	mvSpell_WORLD_Backwards = models.BigIntegerField(verbose_name='Attention & Calculation-4. b) Ask him/her to spell "WORLD" backwards. One point for each letter in correct sequence', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvSpell_WORLD_Backwards
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moName_3_Objects(Audit):
+	mvName_3_Objects = models.BigIntegerField(verbose_name='Recall-5. Ask for names of 3 objects given above', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvName_3_Objects
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moPoint_Two_Objects_NameObject(Audit):
+	mvPoint_Two_Objects_NameObject = models.BigIntegerField(verbose_name='Point to two objects e.g a pencil and a watch and ask for a name. Score one point for each correct answer', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvPoint_Two_Objects_NameObject
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRepeat_Phrase_NoIfsAndsButs(Audit):
+	mvRepeat_Phrase_NoIfsAndsButs = models.BigIntegerField(verbose_name='LANGUAGE TESTS-Ask patient to repeat  "NO IFS ANDS OR BUTS\'.', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvRepeat_Phrase_NoIfsAndsButs
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moFollow_3Stage_Command(Audit):
+	mvFollow_3Stage_Command = models.BigIntegerField(verbose_name='LANGUAGE TESTS-8. Ask patient to follow a 3 stage command. "TAKE THE PAPER IN YOUR RIGHT HAND, FOLD THE PAPER IN HALF ONCE AND PUT THE PAPER DOWN ON THE FLOOR".', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvFollow_3Stage_Command
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRead_Phrase_Obey_Instructions(Audit):
+	mvRead_Phrase_Obey_Instructions = models.BigIntegerField(verbose_name='LANGUAGE TESTS-9. Ask patient to read (CLOSE YOUR EYES) and obey the instructions.', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvRead_Phrase_Obey_Instructions
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWrite_Sentence(Audit):
+	mvWrite_Sentence = models.BigIntegerField(verbose_name='LANGUAGE TESTS-10. Ask patient to write sentence. Sentence must be sensible, must contain a subject and a vern and be written spontaneously. Ignore spelling errors.', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvWrite_Sentence
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCopy_PentagonDiagram(Audit):
+	mvCopy_PentagonDiagram = models.BigIntegerField(verbose_name='LANGUAGE TESTS-11. Show patient a diagram of intersecting pentagons and ask him/her to copy intersecting pentagons.', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCopy_PentagonDiagram
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moLevel_Consciousness(Audit):
+	mvLevel_Consciousness = models.BigIntegerField(verbose_name='Level of Consciousness', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvLevel_Consciousness
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moEducation_Attainment(Audit):
+	mvEducation_Attainment = models.CharField(verbose_name='Educational Attainment', blank=True, null=True, default=None, max_length=30)
+	def __unicode__(self):
+		return "%s" % self.mvEducation_Attainment
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moFluency_English(Audit):
+	mvFluency_English = models.BigIntegerField(verbose_name='Fluency in English', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvFluency_English
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNote_Distractibility(Audit):
+	mvNote_Distractibility = models.CharField(verbose_name='Note distractibility, frustration, exhaustion, and nature of cooperation. The patient\'s impression of his/her performance should also be noted', blank=True, null=True, default=None, max_length=50)
+	def __unicode__(self):
+		return "%s" % self.mvNote_Distractibility
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moGeneral_Comments(Audit):
+	mvGeneral_Comments = models.CharField(verbose_name='General Comments', blank=True, null=True, default=None, max_length=50)
+	def __unicode__(self):
+		return "%s" % self.mvGeneral_Comments
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moExaminer_Signature(Audit):
+	mvExaminer_Signature = models.CharField(verbose_name='Examiner\'s Signature', blank=True, null=True, default=None, max_length=30)
+	def __unicode__(self):
+		return "%s" % self.mvExaminer_Signature
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moExaminer_Signature_DateTime(Audit):
+	mvExaminer_Signature_DateTime = models.DateTimeField(verbose_name='Examiner\' Signature-Date and Time', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvExaminer_Signature_DateTime
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moVisuospatialExecutive(Audit):
+	mvVisuospatialExecutive = models.BigIntegerField(verbose_name='Visuospatial/Executive', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvVisuospatialExecutive
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moVisuospatialExecutive_CopyCube(Audit):
+	mvVisuospatialExecutive_CopyCube = models.BigIntegerField(verbose_name='Visuospatial/Executive-Copy Cube', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvVisuospatialExecutive_CopyCube
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moVisuoExecutive_DrawClock_Contour(Audit):
+	mvVisuoExecutive_DrawClock_Contour = models.BigIntegerField(verbose_name='Visuospatial/Executive-Draw CLOCK-Contour', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvVisuoExecutive_DrawClock_Contour
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moVisuoExecutive_DrawClock_Numbers(Audit):
+	mvVisuoExecutive_DrawClock_Numbers = models.BigIntegerField(verbose_name='Visuospatial/Executive-Draw CLOCK-Numbers', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvVisuoExecutive_DrawClock_Numbers
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moVisuoExecutive_DrawClock_Hands(Audit):
+	mvVisuoExecutive_DrawClock_Hands = models.BigIntegerField(verbose_name='Visuospatial/Executive-Draw CLOCK-Hands', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvVisuoExecutive_DrawClock_Hands
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNaming_Lion(Audit):
+	mvNaming_Lion = models.BigIntegerField(verbose_name='Naming-Lion', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNaming_Lion
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNaming_Rhinocerous(Audit):
+	mvNaming_Rhinocerous = models.BigIntegerField(verbose_name='Naming-Rhinocerous', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNaming_Rhinocerous
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNaming_Camel(Audit):
+	mvNaming_Camel = models.BigIntegerField(verbose_name='Naming-Camel', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNaming_Camel
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moMemory_1stTrial_Face(Audit):
+	mvMemory_1stTrial_Face = models.BigIntegerField(verbose_name='Memory 1st trial Face', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvMemory_1stTrial_Face
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moMemory_1stTrial_Velvet(Audit):
+	mvMemory_1stTrial_Velvet = models.BigIntegerField(verbose_name='MEMORY-1st trial-Velvet', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvMemory_1stTrial_Velvet
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moMemory_1stTrial_Church(Audit):
+	mvMemory_1stTrial_Church = models.BigIntegerField(verbose_name='MEMORY-1st trial-CHURCH', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvMemory_1stTrial_Church
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moMemory_1stTrial_Daisy(Audit):
+	mvMemory_1stTrial_Daisy = models.BigIntegerField(verbose_name='MEMORY-1st trial-Daisy', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvMemory_1stTrial_Daisy
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moMemory_1stTrial_Red(Audit):
+	mvMemory_1stTrial_Red = models.BigIntegerField(verbose_name='MEMORY-1st trial-Red', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvMemory_1stTrial_Red
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moMemory_2ndTrial_Face(Audit):
+	mvMemory_2ndTrial_Face = models.BigIntegerField(verbose_name='MEMORY-2nd trial-Face', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvMemory_2ndTrial_Face
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moMemory_2ndTrial_Velvet(Audit):
+	mvMemory_2ndTrial_Velvet = models.BigIntegerField(verbose_name='MEMORY-2nd trial-Velvet', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvMemory_2ndTrial_Velvet
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moMemory_2ndTrial_Church(Audit):
+	mvMemory_2ndTrial_Church = models.BigIntegerField(verbose_name='MEMORY-2nd trial-Church', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvMemory_2ndTrial_Church
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moMemory_2ndTrial_Daisy(Audit):
+	mvMemory_2ndTrial_Daisy = models.BigIntegerField(verbose_name='MEMORY-2nd trial-Daisy', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvMemory_2ndTrial_Daisy
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moMemory_2ndTrial_Red(Audit):
+	mvMemory_2ndTrial_Red = models.BigIntegerField(verbose_name='MEMORY-2nd trial-Red', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvMemory_2ndTrial_Red
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moAttention_RepeatForward_21854(Audit):
+	mvAttention_RepeatForward_21854 = models.BigIntegerField(verbose_name='ATTENTION-Repeat list of digits in the forward order 21854', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvAttention_RepeatForward_21854
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moAttention_RepeatBackward_742(Audit):
+	mvAttention_RepeatBackward_742 = models.BigIntegerField(verbose_name='ATTENTION-Repeat list of digits in the backward order 742', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvAttention_RepeatBackward_742
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moAttention_Read_List_Letters(Audit):
+	mvAttention_Read_List_Letters = models.BigIntegerField(verbose_name='ATTENTION-Read List of Letters FBACMNAAJKLBAFAKDEAAAJAMOFAAB', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvAttention_Read_List_Letters
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moAttention_Serial7Subtract_93(Audit):
+	mvAttention_Serial7Subtract_93 = models.BigIntegerField(verbose_name='ATTENTION-Serial 7 Subtraction Starting at 100-93', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvAttention_Serial7Subtract_93
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moAttention_Serial7Subtract_86(Audit):
+	mvAttention_Serial7Subtract_86 = models.BigIntegerField(verbose_name='ATTENTION-Serial 7 Subtraction Starting at 100-86', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvAttention_Serial7Subtract_86
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moAttention_Serial7Subtract_79(Audit):
+	mvAttention_Serial7Subtract_79 = models.BigIntegerField(verbose_name='ATTENTION-Serial 7 Subtraction Starting at 100-79', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvAttention_Serial7Subtract_79
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moAttention_Serial7Subtract_65(Audit):
+	mvAttention_Serial7Subtract_65 = models.BigIntegerField(verbose_name='ATTENTION-Serial 7 Subtraction Starting at 100-65', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvAttention_Serial7Subtract_65
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moLanguage_Repeat(Audit):
+	mvLanguage_Repeat = models.BigIntegerField(verbose_name='LANGUAGE-Repeat "I only know that John is the one to help today"', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvLanguage_Repeat
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moLanguage_Repeat_Phrase2(Audit):
+	mvLanguage_Repeat_Phrase2 = models.BigIntegerField(verbose_name='LANGUAGE-Repeat "The cat always hid under the couch when the dogs were in the room"', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvLanguage_Repeat_Phrase2
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moAbstraction_TrainBicycle(Audit):
+	mvAbstraction_TrainBicycle = models.BigIntegerField(verbose_name='ABSTRACTION-Train-bicycle', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvAbstraction_TrainBicycle
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moAbstraction_WatchRuler(Audit):
+	mvAbstraction_WatchRuler = models.BigIntegerField(verbose_name='ABSTRACTION-Watch-Ruler', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvAbstraction_WatchRuler
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moDelayedRecall_NoCue_Face(Audit):
+	mvDelayedRecall_NoCue_Face = models.BigIntegerField(verbose_name='DELAYED RECALL-No Cue-Face', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvDelayedRecall_NoCue_Face
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moDelayedRecall_NoCue_Velvet(Audit):
+	mvDelayedRecall_NoCue_Velvet = models.BigIntegerField(verbose_name='DELAYED RECALL-No Cue-Velvet', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvDelayedRecall_NoCue_Velvet
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moDelayedRecall_NoCue_Church(Audit):
+	mvDelayedRecall_NoCue_Church = models.BigIntegerField(verbose_name='DELAYED RECALL-No Cue-Church', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvDelayedRecall_NoCue_Church
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moDelayedRecall_NoCue_Daisy(Audit):
+	mvDelayedRecall_NoCue_Daisy = models.BigIntegerField(verbose_name='DELAYED RECALL-No Cue-Daisy', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvDelayedRecall_NoCue_Daisy
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moOrientation_Date(Audit):
+	mvOrientation_Date = models.BigIntegerField(verbose_name='ORIENTATION-Date', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvOrientation_Date
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moOrientation_Month(Audit):
+	mvOrientation_Month = models.BigIntegerField(verbose_name='ORIENTATION-Month', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvOrientation_Month
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moOrientation_Year(Audit):
+	mvOrientation_Year = models.BigIntegerField(verbose_name='ORIENTATION-Year', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvOrientation_Year
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moOrientation_Day(Audit):
+	mvOrientation_Day = models.BigIntegerField(verbose_name='ORIENTATION-Day', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvOrientation_Day
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moOrientation_Place(Audit):
+	mvOrientation_Place = models.BigIntegerField(verbose_name='ORIENTATION-Place', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvOrientation_Place
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moOrientation_City(Audit):
+	mvOrientation_City = models.BigIntegerField(verbose_name='ORIENTATION-City', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvOrientation_City
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCERAD_Name(Audit):
+	mvCERAD_Name = models.CharField(verbose_name='CERAD-Name', blank=True, null=True, default=None, max_length=30)
+	def __unicode__(self):
+		return "%s" % self.mvCERAD_Name
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCERAD_NIS(Audit):
+	mvCERAD_NIS = models.CharField(verbose_name='CERAD-NIS', blank=True, null=True, default=None, max_length=30)
+	def __unicode__(self):
+		return "%s" % self.mvCERAD_NIS
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCERAD_date(Audit):
+	mvCERAD_date = models.DateField(verbose_name='CERAD-Date', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCERAD_date
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCERAD_MiniMentalState(Audit):
+	mvCERAD_MiniMentalState = models.BigIntegerField(verbose_name='Mini Mental State (24-30)', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCERAD_MiniMentalState
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCERAD_VerbalFluency(Audit):
+	mvCERAD_VerbalFluency = models.BigIntegerField(verbose_name='Verbal Fluency (10-32)', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCERAD_VerbalFluency
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCERAD_BostonNamingTest(Audit):
+	mvCERAD_BostonNamingTest = models.BigIntegerField(verbose_name='Boston Naming Test (12-15)', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCERAD_BostonNamingTest
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCERAD_WordListMemory_Trial1(Audit):
+	mvCERAD_WordListMemory_Trial1 = models.BigIntegerField(verbose_name='Trial 1', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCERAD_WordListMemory_Trial1
+	class Meta:
+		get_latest_by = 'record'
+
+class moCERAD_WordListMemory_Trial2(Audit):
+	mvCERAD_WordListMemory_Trial2 = models.BigIntegerField(verbose_name='Trial 2', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCERAD_WordListMemory_Trial2
+	class Meta:
+		get_latest_by = 'record'
+
+class moCERAD_WordListMemory_Trial3(Audit):
+	mvCERAD_WordListMemory_Trial3 = models.BigIntegerField(verbose_name='Trial 3', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCERAD_WordListMemory_Trial3
+	class Meta:
+		get_latest_by = 'record'
+
+
+class moCERAD_WordListMemory(Audit):
+	mvCERAD_WordListMemory = models.BigIntegerField(verbose_name='Word List Memory  (14-30)', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCERAD_WordListMemory
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCERAD_Intrustions(Audit):
+	mvCERAD_Intrustions = models.BigIntegerField(verbose_name='Word List Memory Intrusions', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCERAD_Intrustions
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCERAD_ConstructionalPraxis(Audit):
+	mvCERAD_ConstructionalPraxis = models.BigIntegerField(verbose_name='Constructional Praxis (6-11)', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCERAD_ConstructionalPraxis
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCERAD_WordListRecall(Audit):
+	mvCERAD_WordListRecall = models.BigIntegerField(verbose_name='Word List Recall (4-10)', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCERAD_WordListRecall
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCERAD_intrusions(Audit):
+	mvCERAD_intrusions = models.BigIntegerField(verbose_name='Word List Intrusions', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCERAD_intrusions
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCERAD_WordListRecognitionYes(Audit):
+	mvCERAD_WordListRecognitionYes = models.BigIntegerField(verbose_name='Word List Recognition (6-10) Yes', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCERAD_WordListRecognitionYes
+	class Meta:
+		get_latest_by = 'record'
+
+class moCERAD_WordListRecognitionNo(Audit):
+	mvCERAD_WordListRecognitionNo = models.BigIntegerField(verbose_name='Word List Recognition (6-10) No', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCERAD_WordListRecognitionNo
+	class Meta:
+		get_latest_by = 'record'
+
+
+class moCERAD_TotalScore(Audit):
+	mvCERAD_TotalScore = models.BigIntegerField(verbose_name='Total Score', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCERAD_TotalScore
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moVerbFluency_NIS(Audit):
+	mvVerbFluency_NIS = models.CharField(verbose_name='Verbal Fluency Categories-NIS', blank=True, null=True, default=None, max_length=30)
+	def __unicode__(self):
+		return "%s" % self.mvVerbFluency_NIS
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moVerbFluency_Visit(Audit):
+	mvVerbFluency_Visit = models.BigIntegerField(verbose_name='Verbal Fluency Categories-Visit', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvVerbFluency_Visit
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moVerbFluency_Date(Audit):
+	mvVerbFluency_Date = models.DateField(verbose_name='Verbal Fluency Categories-Date', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvVerbFluency_Date
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moVerbFluency_ExaminerInit(Audit):
+	mvVerbFluency_ExaminerInit = models.CharField(verbose_name='Verbal Fluency Categories-Examiner\'s Initials', blank=True, null=True, default=None, max_length=3)
+	def __unicode__(self):
+		return "%s" % self.mvVerbFluency_ExaminerInit
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWordCount_015Seconds(Audit):
+	mvWordCount_015Seconds = models.BigIntegerField(verbose_name='Word Count 0-15 seconds', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvWordCount_015Seconds
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWordCount_1630Seconds(Audit):
+	mvWordCount_1630Seconds = models.BigIntegerField(verbose_name='Word Count 16-30 seconds', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvWordCount_1630Seconds
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWordCount_3145Seconds(Audit):
+	mvWordCount_3145Seconds = models.BigIntegerField(verbose_name='Word Count 31-45 seconds', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvWordCount_3145Seconds
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWordCount_4660Seconds(Audit):
+	mvWordCount_4660Seconds = models.BigIntegerField(verbose_name='Word Count 46-60 seconds', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvWordCount_4660Seconds
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moBNT_High_Tree(Audit):
+	mvBNT_High_Tree = models.BigIntegerField(verbose_name='BNT-HIGH-Tree', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvBNT_High_Tree
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moBNT_High_Bed(Audit):
+	mvBNT_High_Bed = models.BigIntegerField(verbose_name='BNT-HIGH-Bed', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvBNT_High_Bed
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moBNT_High_Whistle(Audit):
+	mvBNT_High_Whistle = models.BigIntegerField(verbose_name='BNT-HIGH-Whistle', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvBNT_High_Whistle
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moBNT_High_Flower(Audit):
+	mvBNT_High_Flower = models.BigIntegerField(verbose_name='BNT-HIGH-Flower', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvBNT_High_Flower
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moBNT_High_House(Audit):
+	mvBNT_High_House = models.BigIntegerField(verbose_name='BNT-HIGH-House', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvBNT_High_House
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moBNT_Medium_Canoe(Audit):
+	mvBNT_Medium_Canoe = models.BigIntegerField(verbose_name='BNT-Medium-Canoe', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvBNT_Medium_Canoe
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moBNT_Medium_ToothBrush(Audit):
+	mvBNT_Medium_ToothBrush = models.BigIntegerField(verbose_name='BNT-MEDIUM-Tooth Brush', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvBNT_Medium_ToothBrush
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moBNT_Medium_Vocano(Audit):
+	mvBNT_Medium_Vocano = models.BigIntegerField(verbose_name='BNT-MEDIUM-Volcano', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvBNT_Medium_Vocano
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moBNT_Medium_Mask(Audit):
+	mvBNT_Medium_Mask = models.BigIntegerField(verbose_name='BNT-MEDIUM-Mask', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvBNT_Medium_Mask
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moBNT_Medium_Camel(Audit):
+	mvBNT_Medium_Camel = models.BigIntegerField(verbose_name='BNT-MEDIUM-Camel', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvBNT_Medium_Camel
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moBNT_Low_Harmonica(Audit):
+	mvBNT_Low_Harmonica = models.BigIntegerField(verbose_name='BNT-LOW-Harmonica', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvBNT_Low_Harmonica
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moBNT_Low_Tongs(Audit):
+	mvBNT_Low_Tongs = models.BigIntegerField(verbose_name='BNT-LOW-Tongs', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvBNT_Low_Tongs
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moBNT_Low_Hammock(Audit):
+	mvBNT_Low_Hammock = models.BigIntegerField(verbose_name='BNT-LOW-Hammock', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvBNT_Low_Hammock
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moBNT_Low_Funnel(Audit):
+	mvBNT_Low_Funnel = models.BigIntegerField(verbose_name='BNT-LOW-Funnel', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvBNT_Low_Funnel
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moBNT_Low_Dominoes(Audit):
+	mvBNT_Low_Dominoes = models.BigIntegerField(verbose_name='BNT-LOW-Dominoes', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvBNT_Low_Dominoes
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moBNT_PicCorrect_High(Audit):
+	mvBNT_PicCorrect_High = models.BigIntegerField(verbose_name='BNT-Picture Correct-HIGH', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvBNT_PicCorrect_High
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moBNT_PicCorrect_Medium(Audit):
+	mvBNT_PicCorrect_Medium = models.BigIntegerField(verbose_name='BNT-Picture Correct-MEDIUM', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvBNT_PicCorrect_Medium
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moBNT_PicCorrect_Low(Audit):
+	mvBNT_PicCorrect_Low = models.BigIntegerField(verbose_name='BNT-Picture Correct-LOW', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvBNT_PicCorrect_Low
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moBNT_PicCorrect_Total(Audit):
+	mvBNT_PicCorrect_Total = models.BigIntegerField(verbose_name='BNT_Picture Correct-TOTAL', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvBNT_PicCorrect_Total
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLMT_Trial1_Butter(Audit):
+	mvWLMT_Trial1_Butter = models.BooleanField(verbose_name='WLMT-TRIAL 1-Butter')
+	def __unicode__(self):
+		return "%s" % self.mvWLMT_Trial1_Butter
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLMT_Trial1_Arm(Audit):
+	mvWLMT_Trial1_Arm = models.BooleanField(verbose_name='WLMT-TRIAL 1-Arm')
+	def __unicode__(self):
+		return "%s" % self.mvWLMT_Trial1_Arm
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLMT_Trial1_Shore(Audit):
+	mvWLMT_Trial1_Shore = models.BooleanField(verbose_name='WLMT-TRIAL 1-Shore')
+	def __unicode__(self):
+		return "%s" % self.mvWLMT_Trial1_Shore
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLMT_Trial1_Letter(Audit):
+	mvWLMT_Trial1_Letter = models.BooleanField(verbose_name='WLMT-TRIAL 1-Letter')
+	def __unicode__(self):
+		return "%s" % self.mvWLMT_Trial1_Letter
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLMT_Trial1_Queen(Audit):
+	mvWLMT_Trial1_Queen = models.BooleanField(verbose_name='WLMT-TRIAL 1-Queen')
+	def __unicode__(self):
+		return "%s" % self.mvWLMT_Trial1_Queen
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLMT_Trial1_Cabin(Audit):
+	mvWLMT_Trial1_Cabin = models.BooleanField(verbose_name='WLMT-TRIAL 1-Cabin')
+	def __unicode__(self):
+		return "%s" % self.mvWLMT_Trial1_Cabin
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLMT_Trial1_Pole(Audit):
+	mvWLMT_Trial1_Pole = models.BooleanField(verbose_name='WLMT-TRIAL 1-Pole')
+	def __unicode__(self):
+		return "%s" % self.mvWLMT_Trial1_Pole
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLMT_Trial1_Ticket(Audit):
+	mvWLMT_Trial1_Ticket = models.BooleanField(verbose_name='WLMT-TRIAL 1-Ticket')
+	def __unicode__(self):
+		return "%s" % self.mvWLMT_Trial1_Ticket
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLMT_Trial1_Grass(Audit):
+	mvWLMT_Trial1_Grass = models.BooleanField(verbose_name='WLMT-TRIAL 1-Grass')
+	def __unicode__(self):
+		return "%s" % self.mvWLMT_Trial1_Grass
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLMT_TRIAL2_Ticket(Audit):
+	mvWLMT_TRIAL2_Ticket = models.BooleanField(verbose_name='WLMT-TRIAL 2-Ticket')
+	def __unicode__(self):
+		return "%s" % self.mvWLMT_TRIAL2_Ticket
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLMT_TRIAL2_Cabin(Audit):
+	mvWLMT_TRIAL2_Cabin = models.BooleanField(verbose_name='WLMT-TRIAL 2-Cabin')
+	def __unicode__(self):
+		return "%s" % self.mvWLMT_TRIAL2_Cabin
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLMT_TRIAL2_Butter(Audit):
+	mvWLMT_TRIAL2_Butter = models.BooleanField(verbose_name='WLMT-TRIAL 2-Butter')
+	def __unicode__(self):
+		return "%s" % self.mvWLMT_TRIAL2_Butter
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLMT_Trial2_Shore(Audit):
+	mvWLMT_Trial2_Shore = models.BooleanField(verbose_name='WLMT-TRIAL 2-Shore')
+	def __unicode__(self):
+		return "%s" % self.mvWLMT_Trial2_Shore
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLMT_Trial2_Engine(Audit):
+	mvWLMT_Trial2_Engine = models.BooleanField(verbose_name='WLMT-TRIAL 2-Engine')
+	def __unicode__(self):
+		return "%s" % self.mvWLMT_Trial2_Engine
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLMT_Trial2_Arm(Audit):
+	mvWLMT_Trial2_Arm = models.BooleanField(verbose_name='WLMT-TRIAL 2-Arm')
+	def __unicode__(self):
+		return "%s" % self.mvWLMT_Trial2_Arm
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLMT_Trial2_Queen(Audit):
+	mvWLMT_Trial2_Queen = models.BooleanField(verbose_name='WLMT-TRIAL 2-Queen')
+	def __unicode__(self):
+		return "%s" % self.mvWLMT_Trial2_Queen
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLMT_Trial2_Letter(Audit):
+	mvWLMT_Trial2_Letter = models.BooleanField(verbose_name='WLMT-TRIAL 2-Letter')
+	def __unicode__(self):
+		return "%s" % self.mvWLMT_Trial2_Letter
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLMT_Trial2_Grass(Audit):
+	mvWLMT_Trial2_Grass = models.BooleanField(verbose_name='WLMT-TRIAL 2-Grass')
+	def __unicode__(self):
+		return "%s" % self.mvWLMT_Trial2_Grass
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLMT_Trial3_Queen(Audit):
+	mvWLMT_Trial3_Queen = models.BooleanField(verbose_name='WLMT_TRIAL3_Queen')
+	def __unicode__(self):
+		return "%s" % self.mvWLMT_Trial3_Queen
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLMT_Trial3_Grass(Audit):
+	mvWLMT_Trial3_Grass = models.BooleanField(verbose_name='WLMT_TRIAL3_Grass')
+	def __unicode__(self):
+		return "%s" % self.mvWLMT_Trial3_Grass
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLMT_Trial3_Arm(Audit):
+	mvWLMT_Trial3_Arm = models.BooleanField(verbose_name='WLMT_Trial3_Arm')
+	def __unicode__(self):
+		return "%s" % self.mvWLMT_Trial3_Arm
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLMT_TRIAL3_Cabin(Audit):
+	mvWLMT_TRIAL3_Cabin = models.BooleanField(verbose_name='WLMT-TRIAL 3-Cabin')
+	def __unicode__(self):
+		return "%s" % self.mvWLMT_TRIAL3_Cabin
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLMT_Trial3_Pole(Audit):
+	mvWLMT_Trial3_Pole = models.BooleanField(verbose_name='WLMT-TRIAL 3-Pole')
+	def __unicode__(self):
+		return "%s" % self.mvWLMT_Trial3_Pole
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLMT_Trial3_Shore(Audit):
+	mvWLMT_Trial3_Shore = models.BooleanField(verbose_name='WLMT-TRIAL 3-Shore')
+	def __unicode__(self):
+		return "%s" % self.mvWLMT_Trial3_Shore
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLMT_Trial3_Butter(Audit):
+	mvWLMT_Trial3_Butter = models.BooleanField(verbose_name='WLMT-TRIAL 3-Butter')
+	def __unicode__(self):
+		return "%s" % self.mvWLMT_Trial3_Butter
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLMT_Trial3_Engine(Audit):
+	mvWLMT_Trial3_Engine = models.BooleanField(verbose_name='WLMT-TRIAL 3-Engine')
+	def __unicode__(self):
+		return "%s" % self.mvWLMT_Trial3_Engine
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLMT_Trial3_Ticket(Audit):
+	mvWLMT_Trial3_Ticket = models.BooleanField(verbose_name='WLMT-TRIAL 3-Ticket')
+	def __unicode__(self):
+		return "%s" % self.mvWLMT_Trial3_Ticket
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLMT_Trial3_Letter(Audit):
+	mvWLMT_Trial3_Letter = models.BooleanField(verbose_name='WLMT-TRIAL 3-Letter')
+	def __unicode__(self):
+		return "%s" % self.mvWLMT_Trial3_Letter
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLMT_Trial1_Correct(Audit):
+	mvWLMT_Trial1_Correct = models.BigIntegerField(verbose_name='WLMT-Trial 1-Correct', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvWLMT_Trial1_Correct
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLMT_Trial2_Correct(Audit):
+	mvWLMT_Trial2_Correct = models.BigIntegerField(verbose_name='WLMT-Trial 2-Correct', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvWLMT_Trial2_Correct
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLMT_Trial3_Correct(Audit):
+	mvWLMT_Trial3_Correct = models.BigIntegerField(verbose_name='WLMT-Trial 3-Correct', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvWLMT_Trial3_Correct
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLMT_Trial1_Intrusions(Audit):
+	mvWLMT_Trial1_Intrusions = models.BigIntegerField(verbose_name='WLMT-Trial 1-Intrusions', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvWLMT_Trial1_Intrusions
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLMT_Trial2_Intrusions(Audit):
+	mvWLMT_Trial2_Intrusions = models.BigIntegerField(verbose_name='WLMT-Trial 2-Intrusions', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvWLMT_Trial2_Intrusions
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLMT_Trial3_Intrusions(Audit):
+	mvWLMT_Trial3_Intrusions = models.BigIntegerField(verbose_name='WLMT-Trial 3-Intrusions', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvWLMT_Trial3_Intrusions
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLMT_NIS(Audit):
+	mvWLMT_NIS = models.CharField(verbose_name='WLMT-NIS', blank=True, null=True, default=None, max_length=30)
+	def __unicode__(self):
+		return "%s" % self.mvWLMT_NIS
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCP_NIS(Audit):
+	mvCP_NIS = models.CharField(verbose_name='CP-NIS', blank=True, null=True, default=None, max_length=30)
+	def __unicode__(self):
+		return "%s" % self.mvCP_NIS
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCP_Visit(Audit):
+	mvCP_Visit = models.BigIntegerField(verbose_name='CP_Visit', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCP_Visit
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCP_Date(Audit):
+	mvCP_Date = models.DateField(verbose_name='CP-Date', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCP_Date
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCP_Item1_ClosedCircle(Audit):
+	mvCP_Item1_ClosedCircle = models.BigIntegerField(verbose_name='CP-Item 1-Circle a) Closed Circle', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCP_Item1_ClosedCircle
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCP_Item1_CircularShape(Audit):
+	mvCP_Item1_CircularShape = models.BigIntegerField(verbose_name='CP-Item 1-Circle b) Circular Shape', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCP_Item1_CircularShape
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCP_Item2Diamond_Draw4Sides(Audit):
+	mvCP_Item2Diamond_Draw4Sides = models.BigIntegerField(verbose_name='CP-Item 2-Diamond a) Draws 4 sides', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCP_Item2Diamond_Draw4Sides
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCP_Item2Diamond_Closes4Angles(Audit):
+	mvCP_Item2Diamond_Closes4Angles = models.BigIntegerField(verbose_name='CP-Item 2-Diamond b) Closes all 4 angles of figure', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCP_Item2Diamond_Closes4Angles
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCP_Item1Diamond_SidesEqualLength(Audit):
+	mvCP_Item1Diamond_SidesEqualLength = models.BigIntegerField(verbose_name='CP-Item 1-Diamond c) Sides of approximately equal length', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCP_Item1Diamond_SidesEqualLength
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCP_Item3Rectangle_FourSided(Audit):
+	mvCP_Item3Rectangle_FourSided = models.BigIntegerField(verbose_name='CP-Item 3-Rectangles a) Figures are 4 sided', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCP_Item3Rectangle_FourSided
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCP_Item3Rectangles_Overlap(Audit):
+	mvCP_Item3Rectangles_Overlap = models.BigIntegerField(verbose_name='CP-Item 3-Rectangles b) Overlap resembles original', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCP_Item3Rectangles_Overlap
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCP_Item4Cube_3D(Audit):
+	mvCP_Item4Cube_3D = models.BigIntegerField(verbose_name='CP-Item 4-Cube a) Figure is 3-dimensional', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCP_Item4Cube_3D
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCP_Item4Cube_FrontFaceOrientation(Audit):
+	mvCP_Item4Cube_FrontFaceOrientation = models.BigIntegerField(verbose_name='CP-Item 4-Cube b) Frontal face correctly oriented', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCP_Item4Cube_FrontFaceOrientation
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCP_Item4Cube_InternalLines(Audit):
+	mvCP_Item4Cube_InternalLines = models.BigIntegerField(verbose_name='CP-Item 4-Cube c) Internal lines correctly drawn', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCP_Item4Cube_InternalLines
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCP_Item4Cube_SidesParallel(Audit):
+	mvCP_Item4Cube_SidesParallel = models.BigIntegerField(verbose_name='CP-Item 4-Cube d) Opposite sides are parallel (within 10 degrees)', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCP_Item4Cube_SidesParallel
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCP_Total_Item1(Audit):
+	mvCP_Total_Item1 = models.BigIntegerField(verbose_name='CP-TOTAL-Item 1', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCP_Total_Item1
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCP_Total_Item2(Audit):
+	mvCP_Total_Item2 = models.BigIntegerField(verbose_name='CP-TOTAL-Item 2', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCP_Total_Item2
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCP_Total_Item3(Audit):
+	mvCP_Total_Item3 = models.BigIntegerField(verbose_name='CP-TOTAL-Item 3', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCP_Total_Item3
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCP_Total_Item4(Audit):
+	mvCP_Total_Item4 = models.BigIntegerField(verbose_name='CP-TOTAL-Item 4', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCP_Total_Item4
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLR_Church(Audit):
+	mvWLR_Church = models.BigIntegerField(verbose_name='WLR-Church', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvWLR_Church
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLR_Coffee(Audit):
+	mvWLR_Coffee = models.BigIntegerField(verbose_name='WLR-Coffee', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvWLR_Coffee
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLR_Butter(Audit):
+	mvWLR_Butter = models.BigIntegerField(verbose_name='WLR-Butter', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvWLR_Butter
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLR_Dollar(Audit):
+	mvWLR_Dollar = models.BigIntegerField(verbose_name='WLR-Dollar', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvWLR_Dollar
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLR_Arm(Audit):
+	mvWLR_Arm = models.BigIntegerField(verbose_name='WLR-Arm', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvWLR_Arm
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLR_Shore(Audit):
+	mvWLR_Shore = models.BigIntegerField(verbose_name='WLR-Shore', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvWLR_Shore
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLR_Five(Audit):
+	mvWLR_Five = models.BigIntegerField(verbose_name='WLR-Five', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvWLR_Five
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLR_Letter(Audit):
+	mvWLR_Letter = models.BigIntegerField(verbose_name='WLR-Letter', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvWLR_Letter
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLR_Hotel(Audit):
+	mvWLR_Hotel = models.BigIntegerField(verbose_name='WLR-Hotel', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvWLR_Hotel
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLR_Mountain(Audit):
+	mvWLR_Mountain = models.BigIntegerField(verbose_name='WLR-Mountain', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvWLR_Mountain
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLR_Queen(Audit):
+	mvWLR_Queen = models.BigIntegerField(verbose_name='WLR-Queen', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvWLR_Queen
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLR_Cabin(Audit):
+	mvWLR_Cabin = models.BigIntegerField(verbose_name='WLR-Cabin', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvWLR_Cabin
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLR_Slipper(Audit):
+	mvWLR_Slipper = models.BigIntegerField(verbose_name='WLR-Slipper', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvWLR_Slipper
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLR_Pole(Audit):
+	mvWLR_Pole = models.BigIntegerField(verbose_name='WLR-Pole', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvWLR_Pole
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLR_Village(Audit):
+	mvWLR_Village = models.BigIntegerField(verbose_name='WLR-Village', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvWLR_Village
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLR_String(Audit):
+	mvWLR_String = models.BigIntegerField(verbose_name='WLR-String', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvWLR_String
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLR_Ticket(Audit):
+	mvWLR_Ticket = models.BigIntegerField(verbose_name='WLR-Ticket', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvWLR_Ticket
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLR_Troops(Audit):
+	mvWLR_Troops = models.BigIntegerField(verbose_name='WLR-Troops', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvWLR_Troops
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLR_Grass(Audit):
+	mvWLR_Grass = models.BigIntegerField(verbose_name='WLR-Grass', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvWLR_Grass
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLR_Engine(Audit):
+	mvWLR_Engine = models.BigIntegerField(verbose_name='WLR-Engine', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvWLR_Engine
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLR_Total_Yes(Audit):
+	mvWLR_Total_Yes = models.BigIntegerField(verbose_name='WLR-TOTAL Yes', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvWLR_Total_Yes
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLR_Total_No(Audit):
+	mvWLR_Total_No = models.BigIntegerField(verbose_name='WLR-TOTAL No', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvWLR_Total_No
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLrecall_Butter(Audit):
+	mvWLrecall_Butter = models.BooleanField(verbose_name='WLRecall-Butter')
+	def __unicode__(self):
+		return "%s" % self.mvWLrecall_Butter
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLrecall_Arm(Audit):
+	mvWLrecall_Arm = models.BooleanField(verbose_name='WLRecall-Arm')
+	def __unicode__(self):
+		return "%s" % self.mvWLrecall_Arm
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLrecall_Shore(Audit):
+	mvWLrecall_Shore = models.BooleanField(verbose_name='WLRecall-Shore')
+	def __unicode__(self):
+		return "%s" % self.mvWLrecall_Shore
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLrecall_Letter(Audit):
+	mvWLrecall_Letter = models.BooleanField(verbose_name='WLRecall-Letter')
+	def __unicode__(self):
+		return "%s" % self.mvWLrecall_Letter
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLRecall_Queen(Audit):
+	mvWLRecall_Queen = models.BooleanField(verbose_name='WLRecall-Queen')
+	def __unicode__(self):
+		return "%s" % self.mvWLRecall_Queen
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLRecall_Cabin(Audit):
+	mvWLRecall_Cabin = models.BooleanField(verbose_name='WLRecall-Cabin')
+	def __unicode__(self):
+		return "%s" % self.mvWLRecall_Cabin
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLRecall_Pole(Audit):
+	mvWLRecall_Pole = models.BooleanField(verbose_name='WLRecall-Pole')
+	def __unicode__(self):
+		return "%s" % self.mvWLRecall_Pole
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLRecall_Ticket(Audit):
+	mvWLRecall_Ticket = models.BooleanField(verbose_name='WLRecall-Ticket')
+	def __unicode__(self):
+		return "%s" % self.mvWLRecall_Ticket
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLRecall_Grass(Audit):
+	mvWLRecall_Grass = models.BooleanField(verbose_name='WLRecall-Grass')
+	def __unicode__(self):
+		return "%s" % self.mvWLRecall_Grass
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLRecall_Engine(Audit):
+	mvWLRecall_Engine = models.BooleanField(verbose_name='WLRecall-Engine')
+	def __unicode__(self):
+		return "%s" % self.mvWLRecall_Engine
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLR_Intrusions(Audit):
+	mvWLR_Intrusions = models.CharField(verbose_name='WLR-Intrusions', blank=True, null=True, default=None, max_length=30)
+	def __unicode__(self):
+		return "%s" % self.mvWLR_Intrusions
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLRecall_Total_Correct(Audit):
+	mvWLRecall_Total_Correct = models.BigIntegerField(verbose_name='WLRecall-Total Correct', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvWLRecall_Total_Correct
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moWLRecall_Total_Intrusions(Audit):
+	mvWLRecall_Total_Intrusions = models.BigIntegerField(verbose_name='WLRecall-Total Intrusions', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvWLRecall_Total_Intrusions
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moIADL_Name(Audit):
+	mvIADL_Name = models.CharField(verbose_name='Name of Patient', blank=True, null=True, default=None, max_length=30)
+	def __unicode__(self):
+		return "%s" % self.mvIADL_Name
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moIADL_Date(Audit):
+	mvIADL_Date = models.DateField(verbose_name='IADL-Date', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvIADL_Date
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moIADL_Telephone(Audit):
+	mvIADL_Telephone = models.BigIntegerField(verbose_name='Using Telephone', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvIADL_Telephone
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moIADL_Travelling(Audit):
+	mvIADL_Travelling = models.BigIntegerField(verbose_name='Travelling', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvIADL_Travelling
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moIADL_Shopping(Audit):
+	mvIADL_Shopping = models.BigIntegerField(verbose_name='Shopping', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvIADL_Shopping
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moIADL_PrepMeals(Audit):
+	mvIADL_PrepMeals = models.BigIntegerField(verbose_name='Preparing Meals', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvIADL_PrepMeals
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moIADL_Housework(Audit):
+	mvIADL_Housework = models.BigIntegerField(verbose_name='Housework', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvIADL_Housework
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moIADL_Medicine(Audit):
+	mvIADL_Medicine = models.BigIntegerField(verbose_name='Taking Medicine', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvIADL_Medicine
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moIADL_ManagingMoney(Audit):
+	mvIADL_ManagingMoney = models.BigIntegerField(verbose_name='Managing Money', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvIADL_ManagingMoney
+	class Meta:
+		get_latest_by = 'record'
+
+
+class moIADL_PatientInformant(Audit):
+	mvIADL_PatientInformant = models.BigIntegerField(verbose_name='IADL Completed by Patient or Informant', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvIADL_PatientInformant
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moGDS_Hospital(Audit):
+	mvGDS_Hospital = models.BigIntegerField(verbose_name='GDS-Hospital Location', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvGDS_Hospital
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moGDS_SatisfiedLife(Audit):
+	mvGDS_SatisfiedLife = models.BigIntegerField(verbose_name='1. Are you basically satisfied with your life', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvGDS_SatisfiedLife
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moGDS_ActivityInterests(Audit):
+	mvGDS_ActivityInterests = models.BigIntegerField(verbose_name='2. Have you dropped many of your activities and interest', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvGDS_ActivityInterests
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moGDS_LifeEmpty(Audit):
+	mvGDS_LifeEmpty = models.BigIntegerField(verbose_name='3. Do you feel your life is empty', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvGDS_LifeEmpty
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moGDS_Boredom(Audit):
+	mvGDS_Boredom = models.BigIntegerField(verbose_name='4. Do you often get bored', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvGDS_Boredom
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moGDS_GoodSpirits(Audit):
+	mvGDS_GoodSpirits = models.BigIntegerField(verbose_name='5. Are you in good spirits most of the time', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvGDS_GoodSpirits
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moGDS_Fear(Audit):
+	mvGDS_Fear = models.BigIntegerField(verbose_name='6. Are you afraid that something bad is going to happen to you', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvGDS_Fear
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moGDS_Happiness(Audit):
+	mvGDS_Happiness = models.BigIntegerField(verbose_name='7. Do you feel happy most of the time', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvGDS_Happiness
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moGDS_Helplessness(Audit):
+	mvGDS_Helplessness = models.BigIntegerField(verbose_name='8. Do you often feel helpless', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvGDS_Helplessness
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moGDS_PreferStayHome(Audit):
+	mvGDS_PreferStayHome = models.BigIntegerField(verbose_name='9. Do you prefer to stay home, rather than going out and doing new things', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvGDS_PreferStayHome
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moGDS_Memory(Audit):
+	mvGDS_Memory = models.BigIntegerField(verbose_name='10. Do you feel you have more problems with memory than most', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvGDS_Memory
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moGDS_AttitiudeLiving(Audit):
+	mvGDS_AttitiudeLiving = models.BigIntegerField(verbose_name='11. Do you think it\'s wonderful to be alive now', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvGDS_AttitiudeLiving
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moGDS_Worthlessness(Audit):
+	mvGDS_Worthlessness = models.BigIntegerField(verbose_name='12. Do you feel pretty worthless the way you are now?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvGDS_Worthlessness
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moGDS_Energy(Audit):
+	mvGDS_Energy = models.BigIntegerField(verbose_name='13. Do you feel full of energy?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvGDS_Energy
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moGDS_SituationHopeless(Audit):
+	mvGDS_SituationHopeless = models.BigIntegerField(verbose_name='14. Do you feel that your situation is hopeless?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvGDS_SituationHopeless
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moGDS_BetterOff(Audit):
+	mvGDS_BetterOff = models.BigIntegerField(verbose_name='15. Do you think that most people are better off than you are?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvGDS_BetterOff
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moGDS_Signature(Audit):
+	mvGDS_Signature = models.CharField(verbose_name='GDS-Signature', blank=True, null=True, default=None, max_length=30)
+	def __unicode__(self):
+		return "%s" % self.mvGDS_Signature
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moGDS_Date(Audit):
+	mvGDS_Date = models.CharField(verbose_name='GDS-Date', blank=True, null=True, default=None, max_length=30)
+	def __unicode__(self):
+		return "%s" % self.mvGDS_Date
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moGDS_Total(Audit):
+	mvGDS_Total = models.BigIntegerField(verbose_name='GDS_TOTAL score', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvGDS_Total
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_PatientName(Audit):
+	mvSAGE_PatientName = models.CharField(verbose_name='SAGE-Patient Name', blank=True, null=True, default=None, max_length=30)
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_PatientName
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_Date(Audit):
+	mvSAGE_Date = models.DateField(verbose_name='SAGE-Date Completed', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_Date
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_CompletedBy(Audit):
+	mvSAGE_CompletedBy = models.BigIntegerField(verbose_name='SAGE_Completed by', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_CompletedBy
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_Other_Relationship(Audit):
+	mvSAGE_Other_Relationship = models.CharField(verbose_name='SAGE-Other person-relationship to participant', blank=True, null=True, default=None, max_length=30)
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_Other_Relationship
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_TelephoneAdministration(Audit):
+	mvSAGE_TelephoneAdministration = models.BigIntegerField(verbose_name='SAGE_Is this being administered via telephone?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_TelephoneAdministration
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_Lawton(Audit):
+	mvSAGE_Lawton = models.BigIntegerField(verbose_name='SAGE_Lawton IADL also administered?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_Lawton
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_SAGECompleted(Audit):
+	mvSAGE_SAGECompleted = models.BigIntegerField(verbose_name='SAGE-If also administered, then SAGE done:', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_SAGECompleted
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_Attention(Audit):
+	mvSAGE_Attention = models.BigIntegerField(verbose_name='1. Keeping your attention or "train of thought" during a conversation', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_Attention
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_Remembering(Audit):
+	mvSAGE_Remembering = models.BigIntegerField(verbose_name='2. Remembering things that happened a few days before? (e.g. conversation, people visiting)', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_Remembering
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_ConcentrationGameBook(Audit):
+	mvSAGE_ConcentrationGameBook = models.BigIntegerField(verbose_name='3. Playing a game or reading a book that requires concentration? (of games: crosswords, checkers, chess)', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_ConcentrationGameBook
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_Multitask(Audit):
+	mvSAGE_Multitask = models.BigIntegerField(verbose_name='4. Ability to switch between things that are happening at the same time? (e.g. making tea and talking to someone)', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_Multitask
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_FindWayBuilding(Audit):
+	mvSAGE_FindWayBuilding = models.BigIntegerField(verbose_name='5. Finding your way around a new building? (e.g. hospital/clinic)', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_FindWayBuilding
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_OrganizeSocial(Audit):
+	mvSAGE_OrganizeSocial = models.BigIntegerField(verbose_name='6. Organizing a trip or social activities', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_OrganizeSocial
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_FinanceShopping(Audit):
+	mvSAGE_FinanceShopping = models.BigIntegerField(verbose_name='7. Doing your own finances or shopping?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_FinanceShopping
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_OrganizeMeds(Audit):
+	mvSAGE_OrganizeMeds = models.BigIntegerField(verbose_name='8. Organizing and taking your medications', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_OrganizeMeds
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_MealsLaundry(Audit):
+	mvSAGE_MealsLaundry = models.BigIntegerField(verbose_name='9. Preparing a meal and/or doing laundry', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_MealsLaundry
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_Driving(Audit):
+	mvSAGE_Driving = models.BigIntegerField(verbose_name='10. a) Driving', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_Driving
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_PublicTrans(Audit):
+	mvSAGE_PublicTrans = models.BigIntegerField(verbose_name='10. b) Using public transportation', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_PublicTrans
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_Stairs(Audit):
+	mvSAGE_Stairs = models.BigIntegerField(verbose_name='11. Using stairs? (one flight)', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_Stairs
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_Stairs_Yes(Audit):
+	mvSAGE_Stairs_Yes = models.BigIntegerField(verbose_name='If yes, what method of help do you use?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_Stairs_Yes
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_StairsModerate_Help(Audit):
+	mvSAGE_StairsModerate_Help = models.BigIntegerField(verbose_name='Do you require help?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_StairsModerate_Help
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_WalkingDifficulty(Audit):
+	mvSAGE_WalkingDifficulty = models.BigIntegerField(verbose_name='12. Walking? (approx. 10m or 32ft or 14 steps)', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_WalkingDifficulty
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_WalkingModerate_Help(Audit):
+	mvSAGE_WalkingModerate_Help = models.BigIntegerField(verbose_name='Do you require help?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_WalkingModerate_Help
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_Walking_Yes(Audit):
+	mvSAGE_Walking_Yes = models.BigIntegerField(verbose_name='If yes, what method of help do you use?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_Walking_Yes
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_Dressing(Audit):
+	mvSAGE_Dressing = models.BigIntegerField(verbose_name='13. Dressing?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_Dressing
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_DressingModerate(Audit):
+	mvSAGE_DressingModerate = models.BigIntegerField(verbose_name='If mild, moderate or severe, do you require help from another person?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_DressingModerate
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_Transfer_BedToChair(Audit):
+	mvSAGE_Transfer_BedToChair = models.BigIntegerField(verbose_name='14. Transfer from bed to chair', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_Transfer_BedToChair
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_TransferModerate_Help(Audit):
+	mvSAGE_TransferModerate_Help = models.BigIntegerField(verbose_name='Do you require help from another person?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_TransferModerate_Help
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_BathingToileting(Audit):
+	mvSAGE_BathingToileting = models.BigIntegerField(verbose_name='15. Bathing and Toileting', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_BathingToileting
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_BathingToiletingModerate_Help(Audit):
+	mvSAGE_BathingToiletingModerate_Help = models.BigIntegerField(verbose_name='Do you require help from another person?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_BathingToiletingModerate_Help
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_Score(Audit):
+	mvSAGE_Score = models.BigIntegerField(verbose_name='Total Score', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_Score
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_ActivityPerf_MemoryProblems(Audit):
+	mvSAGE_ActivityPerf_MemoryProblems = models.BooleanField(verbose_name='Memory problems')
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_ActivityPerf_MemoryProblems
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_ActivityPerf_Arthritis(Audit):
+	mvSAGE_ActivityPerf_Arthritis = models.BooleanField(verbose_name='Arthritis')
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_ActivityPerf_Arthritis
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_ActivityPerf_ShortnessBreath(Audit):
+	mvSAGE_ActivityPerf_ShortnessBreath = models.BooleanField(verbose_name='Shortness of breath')
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_ActivityPerf_ShortnessBreath
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_ActivityPerf_ChestPain(Audit):
+	mvSAGE_ActivityPerf_ChestPain = models.BooleanField(verbose_name='Chest Pain')
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_ActivityPerf_ChestPain
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_ActivityPerf_PhysicalInjury(Audit):
+	mvSAGE_ActivityPerf_PhysicalInjury = models.BooleanField(verbose_name='Physical Injury')
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_ActivityPerf_PhysicalInjury
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_ActivityPerf_StrokeTIA(Audit):
+	mvSAGE_ActivityPerf_StrokeTIA = models.BooleanField(verbose_name='Stroke or TIA')
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_ActivityPerf_StrokeTIA
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_ActivityPerf_HeartFailure(Audit):
+	mvSAGE_ActivityPerf_HeartFailure = models.BooleanField(verbose_name='Heart Failure')
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_ActivityPerf_HeartFailure
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_ActivityPerf_VisionLoss(Audit):
+	mvSAGE_ActivityPerf_VisionLoss = models.BooleanField(verbose_name='Loss of Vision')
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_ActivityPerf_VisionLoss
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_ActivityPerf_Unsteadiness(Audit):
+	mvSAGE_ActivityPerf_Unsteadiness = models.BooleanField(verbose_name='Unsteadiness')
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_ActivityPerf_Unsteadiness
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_ActivityPerf_Other(Audit):
+	mvSAGE_ActivityPerf_Other = models.CharField(verbose_name='Other', blank=True, null=True, default=None, max_length=30)
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_ActivityPerf_Other
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_ActivityPerf_None(Audit):
+	mvSAGE_ActivityPerf_None = models.BooleanField(verbose_name='None of the Above')
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_ActivityPerf_None
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_ActivityPerf_NotSure(Audit):
+	mvSAGE_ActivityPerf_NotSure = models.BooleanField(verbose_name='Not sure')
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_ActivityPerf_NotSure
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_InvestigatorNurse_Signature(Audit):
+	mvSAGE_InvestigatorNurse_Signature = models.CharField(verbose_name='SAGE_Site Investigator/Nurse Signature', blank=True, null=True, default=None, max_length=30)
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_InvestigatorNurse_Signature
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_InvestigatorNurse_PrintName(Audit):
+	mvSAGE_InvestigatorNurse_PrintName = models.CharField(verbose_name='SAGE-Site Investigator/Nurse Printed Name', blank=True, null=True, default=None, max_length=30)
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_InvestigatorNurse_PrintName
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moSAGE_EndDate(Audit):
+	mvSAGE_EndDate = models.DateField(verbose_name='SAGE-End Date', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvSAGE_EndDate
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCBS_CaregiverName(Audit):
+	mvCBS_CaregiverName = models.CharField(verbose_name='CBS_Caregiver Name', blank=True, null=True, default=None, max_length=30)
+	def __unicode__(self):
+		return "%s" % self.mvCBS_CaregiverName
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCBS_Date(Audit):
+	mvCBS_Date = models.DateField(verbose_name='CBS-Date', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCBS_Date
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCBS_AsksMoreThanNeeds(Audit):
+	mvCBS_AsksMoreThanNeeds = models.BigIntegerField(verbose_name='1. Do you feel that your relative asks for more help than he or she needs?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCBS_AsksMoreThanNeeds
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCBS_NotEnoughTimeForSelf(Audit):
+	mvCBS_NotEnoughTimeForSelf = models.BigIntegerField(verbose_name='2. Do you feel that because of the time you spend with your relative, you do not have enough time for yourself?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCBS_NotEnoughTimeForSelf
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCBS_Stress_Overwhelmed(Audit):
+	mvCBS_Stress_Overwhelmed = models.BigIntegerField(verbose_name='3. Do you feel stressed between caring for your relative and trying to meet other responsibilities', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCBS_Stress_Overwhelmed
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCBS_Embarassment(Audit):
+	mvCBS_Embarassment = models.BigIntegerField(verbose_name='4. Do you feel embarrassed over your relatives behavior?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCBS_Embarassment
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCBS_Anger(Audit):
+	mvCBS_Anger = models.BigIntegerField(verbose_name='5. Do you feel angry when you are around your relative?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCBS_Anger
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCBS_Relative_NegativeEffectRelationship(Audit):
+	mvCBS_Relative_NegativeEffectRelationship = models.BigIntegerField(verbose_name='6. Do you feel that your relative currently affects your relationship with other family members or friends in a negative way?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCBS_Relative_NegativeEffectRelationship
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCBS_FearFutureRelative(Audit):
+	mvCBS_FearFutureRelative = models.BigIntegerField(verbose_name='7. Are you afraid about what the future holds for your relative?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCBS_FearFutureRelative
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCBS_RelativeDependent(Audit):
+	mvCBS_RelativeDependent = models.BigIntegerField(verbose_name='8. Do you feel your relative is dependent on you?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCBS_RelativeDependent
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCBS_Strained(Audit):
+	mvCBS_Strained = models.BigIntegerField(verbose_name='9. Do you feel strained when you are around your relative?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCBS_Strained
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCBS_HealthSuffered(Audit):
+	mvCBS_HealthSuffered = models.BigIntegerField(verbose_name='10. Do you feel your health has suffered because of your involvement with your relative?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCBS_HealthSuffered
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCBS_LackOfPrivacy(Audit):
+	mvCBS_LackOfPrivacy = models.BigIntegerField(verbose_name='11. Do you feel that you do not have as much privacy as you would like, because of your relative?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCBS_LackOfPrivacy
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCBS_SocialLifeSuffer(Audit):
+	mvCBS_SocialLifeSuffer = models.BigIntegerField(verbose_name='12. Do you feel that your social life has suffered because you are caring for your relative?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCBS_SocialLifeSuffer
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCBS_UncomfortableSocialSetting(Audit):
+	mvCBS_UncomfortableSocialSetting = models.BigIntegerField(verbose_name='13. Do you feel uncomfortable about having friends over, because of your relative?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCBS_UncomfortableSocialSetting
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCBS_RelativeDependentExclusively(Audit):
+	mvCBS_RelativeDependentExclusively = models.BigIntegerField(verbose_name='14. Do you feel that your relative seems to expect you to take care of him or her, as if you were the only one he or she could depend on?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCBS_RelativeDependentExclusively
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCBS_MoneyExpenses(Audit):
+	mvCBS_MoneyExpenses = models.BigIntegerField(verbose_name='15. Do you feel that you do not have enough money to care for your relative, in addition to the rest of your expenses?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCBS_MoneyExpenses
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCBS_UnableToCareMuchLonger(Audit):
+	mvCBS_UnableToCareMuchLonger = models.BigIntegerField(verbose_name='16. Do you feel that you will be unable to take care of your relative much longer?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCBS_UnableToCareMuchLonger
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCBS_LossControlLife(Audit):
+	mvCBS_LossControlLife = models.BigIntegerField(verbose_name='17. Do you feel you have lost control of your life since your relative\'s illness?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCBS_LossControlLife
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCBS_LeaveCareSomeoneElse(Audit):
+	mvCBS_LeaveCareSomeoneElse = models.BigIntegerField(verbose_name='18. Do you wish you could just leave the care of your relative to someone else?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCBS_LeaveCareSomeoneElse
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCBS_Uncertainty(Audit):
+	mvCBS_Uncertainty = models.BigIntegerField(verbose_name='19. Do you feel uncertain about what to do about your relative?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCBS_Uncertainty
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCBS_FeelsShouldDoMore(Audit):
+	mvCBS_FeelsShouldDoMore = models.BigIntegerField(verbose_name='20. Do you feel you should be doing more for your relative?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCBS_FeelsShouldDoMore
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCBS_BetterJob(Audit):
+	mvCBS_BetterJob = models.BigIntegerField(verbose_name='21. Do you feel you could do a better job in caring for your relative?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCBS_BetterJob
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCBS_Burdened(Audit):
+	mvCBS_Burdened = models.BigIntegerField(verbose_name='22. Overall, how burdened do you feel in caring for your relative?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCBS_Burdened
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moCBS_Total_Score(Audit):
+	mvCBS_Total_Score = models.BigIntegerField(verbose_name='Total Score', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvCBS_Total_Score
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moFBI_CaregiverName(Audit):
+	mvFBI_CaregiverName = models.CharField(verbose_name='Caregiver Name', blank=True, null=True, default=None, max_length=30)
+	def __unicode__(self):
+		return "%s" % self.mvFBI_CaregiverName
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moFBI_Relationship(Audit):
+	mvFBI_Relationship = models.CharField(verbose_name='Relationship', blank=True, null=True, default=None, max_length=30)
+	def __unicode__(self):
+		return "%s" % self.mvFBI_Relationship
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moFBI_Date(Audit):
+	mvFBI_Date = models.DateField(verbose_name='FBI_Date', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvFBI_Date
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moFBI_Apathy(Audit):
+	mvFBI_Apathy = models.BigIntegerField(verbose_name='1. Apathy: Has s/he lost interest in friends or daily activities', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvFBI_Apathy
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moFBI_Aspontaneity(Audit):
+	mvFBI_Aspontaneity = models.BigIntegerField(verbose_name='2. Apontaneity: Does s/he start things on his/her own, or does s/he have to be asked?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvFBI_Aspontaneity
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moFBI_Indifference_EmotionalFlatness(Audit):
+	mvFBI_Indifference_EmotionalFlatness = models.BigIntegerField(verbose_name='3. Indifference, Emotional Flatness: Does s/he respond to occasions of joy or sadness as much as ever, or has s/he lost emotional responsiveness?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvFBI_Indifference_EmotionalFlatness
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moFBI_Inflexibility(Audit):
+	mvFBI_Inflexibility = models.BigIntegerField(verbose_name='4. Inflexibility: Can s/he change his/her mind with reason or does s/he appear stubbor or rigid in thinking lately?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvFBI_Inflexibility
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moFBI_Concreteness(Audit):
+	mvFBI_Concreteness = models.BigIntegerField(verbose_name='5. Concreteness: Does s/he interpret what is being said appropriately or does s/he choose only the concrete meanings of what is being said?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvFBI_Concreteness
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moFBI_PersonalNeglect(Audit):
+	mvFBI_PersonalNeglect = models.BigIntegerField(verbose_name='6. Personal Neglect: Does s/he take as much care of his/her personal hygiene and appearance as usual?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvFBI_PersonalNeglect
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moFBI_Disorganization(Audit):
+	mvFBI_Disorganization = models.BigIntegerField(verbose_name='7. Disorganization: Can s/he plan and organize complex activity or is s/he easily distractible, impersistent, or unable to complete a job?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvFBI_Disorganization
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moFBI_Inattention(Audit):
+	mvFBI_Inattention = models.BigIntegerField(verbose_name='8. Inattention: Does s/he pay attention to what is going on or does s/he seem to loose track or not follow at all?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvFBI_Inattention
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moFBI_LossOfInsight(Audit):
+	mvFBI_LossOfInsight = models.BigIntegerField(verbose_name='9. Loss of Insight: Is s/he aware of any problems or changes, or does s/he seem unaware of them ro deny them when discussed?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvFBI_LossOfInsight
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moFBI_Logopenia(Audit):
+	mvFBI_Logopenia = models.BigIntegerField(verbose_name='10. Logopenia: Has s/he been talking clearly or has s/he been making errors in speech? Is there slurring or hesitation?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvFBI_Logopenia
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moFBI_VerbalApraxia(Audit):
+	mvFBI_VerbalApraxia = models.BigIntegerField(verbose_name='11. Verbal Apraxia: Has s/he been talking clearly or has s/he been making errors in speech? Is there slurring or hesitation?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvFBI_VerbalApraxia
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moFBI_Perseveration(Audit):
+	mvFBI_Perseveration = models.BigIntegerField(verbose_name='12. Perseveration: Does s/he repeat or persevate actions or remarks?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvFBI_Perseveration
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moFBI_Irritibility(Audit):
+	mvFBI_Irritibility = models.BigIntegerField(verbose_name='13. Irritibility: Has s/he been irritable, short-tempered, or is s/he reacting to stress or frustration as s/he always had', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvFBI_Irritibility
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moFBI_ExcessJocularity(Audit):
+	mvFBI_ExcessJocularity = models.BigIntegerField(verbose_name='14. Excessive Jocularity: Has s/he been making jokes excessivly or offensively or at the wrong time', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvFBI_ExcessJocularity
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moFBI_PoorJudgement(Audit):
+	mvFBI_PoorJudgement = models.BigIntegerField(verbose_name='15. Poor Judgement: Has s/he been using good judgement in decisions or in driving, or has s/he acted irresponsibly, neglectfully or in poor judgment?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvFBI_PoorJudgement
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moFBI_Impulsive(Audit):
+	mvFBI_Impulsive = models.BigIntegerField(verbose_name='17. Impulsivity: Has s/he acted or spoken without thinking about consequences, or on the spur of the moment?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvFBI_Impulsive
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moFBI_Restlessness(Audit):
+	mvFBI_Restlessness = models.BigIntegerField(verbose_name='18. Restlessness: Has s/he shown aggression, or shouted at anyone or hurt them physically?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvFBI_Restlessness
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moFBI_Agression(Audit):
+	mvFBI_Agression = models.BigIntegerField(verbose_name='19. Aggression: Has s/he shown aggression, or shouted at anyone or hurt them physically?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvFBI_Agression
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moFBI_Hyperporality(Audit):
+	mvFBI_Hyperporality = models.BigIntegerField(verbose_name='20. Hyperporality: Has s/he been drinking more than usual, eating excessively anything in sight, or even putting objects in his/her mouth?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvFBI_Hyperporality
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moFBI_Hypersexuality(Audit):
+	mvFBI_Hypersexuality = models.BigIntegerField(verbose_name='21. Hypersexuality: Has sexual behaviour been unusual or excessive?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvFBI_Hypersexuality
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moFBI_UtilizationBehaviour(Audit):
+	mvFBI_UtilizationBehaviour = models.BigIntegerField(verbose_name='22. Utilization Behaviour: Does s/he seem to need to touch, feel, examine, or pick up objects within reach and sight', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvFBI_UtilizationBehaviour
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moFBI_Incontinence(Audit):
+	mvFBI_Incontinence = models.BigIntegerField(verbose_name='23. Incontinence: Does s/he have any problem using a hanf, and does it interfere with the other hand?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvFBI_Incontinence
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moFBI_AlienHand(Audit):
+	mvFBI_AlienHand = models.BigIntegerField(verbose_name='24. Alien Hand-Does s/he have any problem using a hand, and does it interfere with the other hand? (excluding arthritis, trauma, paralysis etc.)', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvFBI_AlienHand
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moFBI_TotalScore(Audit):
+	mvFBI_TotalScore = models.BigIntegerField(verbose_name='Total Score', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvFBI_TotalScore
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moFAB_PatientClient_Name(Audit):
+	mvFAB_PatientClient_Name = models.CharField(verbose_name='Patient/Client Name', blank=True, null=True, default=None, max_length=30)
+	def __unicode__(self):
+		return "%s" % self.mvFAB_PatientClient_Name
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moFAB_Age(Audit):
+	mvFAB_Age = models.BigIntegerField(verbose_name='Age', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvFAB_Age
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moFAB_Date(Audit):
+	mvFAB_Date = models.DateField(verbose_name='Date', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvFAB_Date
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moFAB_ChartFile_Number(Audit):
+	mvFAB_ChartFile_Number = models.CharField(verbose_name='Chart/File Number', max_length=30, blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvFAB_ChartFile_Number
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moFAB_AssessedBy(Audit):
+	mvFAB_AssessedBy = models.CharField(verbose_name='Assessed By', blank=True, null=True, default=None, max_length=100)
+	def __unicode__(self):
+		return "%s" % self.mvFAB_AssessedBy
+	class Meta:
+		get_latest_by = 'record'
+
+
+class moFAB_SimilaritiesScore(Audit):
+	mvFAB_SimilaritiesScore = models.BigIntegerField(verbose_name='Similarities Score', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvFAB_SimilaritiesScore
+	class Meta:
+		get_latest_by = 'record'
+		
+
+class moFAB_LexicalScore(Audit):
+	mvFAB_LexicalScore = models.BigIntegerField(verbose_name='Lexical Fluency Score', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvFAB_LexicalScore
+	class Meta:
+		get_latest_by = 'record'
+		
+
+class moFAB_MotorScore(Audit):
+	mvFAB_MotorScore = models.BigIntegerField(verbose_name='Motor Series Programming Score', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvFAB_MotorScore
+	class Meta:
+		get_latest_by = 'record'
+
+
+class moFAB_ConflictingScore(Audit):
+	mvFAB_ConflictingScore = models.BigIntegerField(verbose_name='Conflicting Instructions Score', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvFAB_ConflictingScore
+	class Meta:
+		get_latest_by = 'record'
+
+class moFAB_InhibitoryScore(Audit):
+	mvFAB_InhibitoryScore = models.BigIntegerField(verbose_name='Go-No-Go (Inhibitory Control) Score', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvFAB_InhibitoryScore
+	class Meta:
+		get_latest_by = 'record'
+
+class moFAB_EnviromentalScore(Audit):
+	mvFAB_EnviromentalScore = models.BigIntegerField(verbose_name='Environmental Control Score', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvFAB_EnviromentalScore
+	class Meta:
+		get_latest_by = 'record'
+
+class moFAB_TotalScore(Audit):
+	mvFAB_TotalScore = models.BigIntegerField(verbose_name='Total Score', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvFAB_TotalScore
+	class Meta:
+		get_latest_by = 'record'
+
+		
+class moFAB_Comments(Audit):
+	mvFAB_Comments = models.TextField(verbose_name='Comments', blank=True, null=True, default=None, max_length=100)
+	def __unicode__(self):
+		return "%s" % self.mvFAB_Comments
+	class Meta:
+		get_latest_by = 'record'
+
+
+class moNPIMotorDisturbance(Audit):
+	mvNPIMotorDisturbance = models.BigIntegerField(verbose_name='Motor Disturbance', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPIMotorDisturbance
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPIIffLabDistress(Audit):
+	mvNPIIffLabDistress = models.BigIntegerField(verbose_name='Distress', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPIIffLabDistress
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPIIrrLabSeverity(Audit):
+	mvNPIIrrLabSeverity = models.BigIntegerField(verbose_name='Severity', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPIIrrLabSeverity
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPIIrritabilityLability(Audit):
+	mvNPIIrritabilityLability = models.BigIntegerField(verbose_name='Irritability and Lability', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPIIrritabilityLability
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPIDisDistress(Audit):
+	mvNPIDisDistress = models.BigIntegerField(verbose_name='Distress', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPIDisDistress
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPIDisSeverity(Audit):
+	mvNPIDisSeverity = models.BigIntegerField(verbose_name='Severity', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPIDisSeverity
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPIDisinhibition(Audit):
+	mvNPIDisinhibition = models.BigIntegerField(verbose_name='Disinhibition', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPIDisinhibition
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPIApaIndDistress(Audit):
+	mvNPIApaIndDistress = models.BigIntegerField(verbose_name='Distress', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPIApaIndDistress
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPIApaIndSeverity(Audit):
+	mvNPIApaIndSeverity = models.BigIntegerField(verbose_name='Severity', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPIApaIndSeverity
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPIApathyIndifference(Audit):
+	mvNPIApathyIndifference = models.BigIntegerField(verbose_name='Apathy and Indifference', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPIApathyIndifference
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPIElaEupDistress(Audit):
+	mvNPIElaEupDistress = models.BigIntegerField(verbose_name='Distress', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPIElaEupDistress
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPIElaEupSeverity(Audit):
+	mvNPIElaEupSeverity = models.BigIntegerField(verbose_name='Severity', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPIElaEupSeverity
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPIElationEuphoria(Audit):
+	mvNPIElationEuphoria = models.BigIntegerField(verbose_name='Elation and Euphoria', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPIElationEuphoria
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPIAnxDistress(Audit):
+	mvNPIAnxDistress = models.BigIntegerField(verbose_name='Distress', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPIAnxDistress
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPIAnxSeverity(Audit):
+	mvNPIAnxSeverity = models.BigIntegerField(verbose_name='Severity', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPIAnxSeverity
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPIAnxiety(Audit):
+	mvNPIAnxiety = models.BigIntegerField(verbose_name='Anxiety', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPIAnxiety
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPIDepDysDistress(Audit):
+	mvNPIDepDysDistress = models.BigIntegerField(verbose_name='Distress', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPIDepDysDistress
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPIDepDysSeverity(Audit):
+	mvNPIDepDysSeverity = models.BigIntegerField(verbose_name='Severity', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPIDepDysSeverity
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPIDepressionDysphoria(Audit):
+	mvNPIDepressionDysphoria = models.BigIntegerField(verbose_name='Depression and Dysphoria', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPIDepressionDysphoria
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPIAggDistress(Audit):
+	mvNPIAggDistress = models.BigIntegerField(verbose_name='Distress', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPIAggDistress
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPIAggSeverity(Audit):
+	mvNPIAggSeverity = models.BigIntegerField(verbose_name='Severity', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPIAggSeverity
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPIAggitationAggression(Audit):
+	mvNPIAggitationAggression = models.BigIntegerField(verbose_name='Aggitation and Aggression', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPIAggitationAggression
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPIHallDistress(Audit):
+	mvNPIHallDistress = models.BigIntegerField(verbose_name='Distress', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPIHallDistress
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPIHallSeverity(Audit):
+	mvNPIHallSeverity = models.BigIntegerField(verbose_name='Severity', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPIHallSeverity
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPIHallucinations(Audit):
+	mvNPIHallucinations = models.BigIntegerField(verbose_name='Hallucinations', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPIHallucinations
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPIDelDistress(Audit):
+	mvNPIDelDistress = models.BigIntegerField(verbose_name='Distress', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPIDelDistress
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPIDelSeverity(Audit):
+	mvNPIDelSeverity = models.BigIntegerField(verbose_name='Severity', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPIDelSeverity
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPIDelusions(Audit):
+	mvNPIDelusions = models.BigIntegerField(verbose_name='Delusions', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPIDelusions
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPIInformantOtherTxt(Audit):
+	mvNPIInformantOtherTxt = models.CharField(verbose_name='Informant Other Text', blank=True, null=True, default=None, max_length=50)
+	def __unicode__(self):
+		return "%s" % self.mvNPIInformantOtherTxt
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPIInformant(Audit):
+	mvNPIInformant = models.BigIntegerField(verbose_name='Informant', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPIInformant
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPIDate(Audit):
+	mvNPIDate = models.DateField(verbose_name='Date', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPIDate
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPIPtName(Audit):
+	mvNPIPtName = models.CharField(verbose_name='Name of patient', blank=True, null=True, default=None, max_length=50)
+	def __unicode__(self):
+		return "%s" % self.mvNPIPtName
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRUDASPtName(Audit):
+	mvRUDASPtName = models.CharField(verbose_name='Patient Name', blank=True, null=True, default=None, max_length=50)
+	def __unicode__(self):
+		return "%s" % self.mvRUDASPtName
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRUDASDate(Audit):
+	mvRUDASDate = models.DateField(verbose_name='Date', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvRUDASDate
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRUDASVSORightFoot(Audit):
+	mvRUDASVSORightFoot = models.BooleanField(verbose_name='Show me your right foot')
+	def __unicode__(self):
+		return "%s" % self.mvRUDASVSORightFoot
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRUDASVSOLeftHand(Audit):
+	mvRUDASVSOLeftHand = models.BooleanField(verbose_name='Show me your left hand')
+	def __unicode__(self):
+		return "%s" % self.mvRUDASVSOLeftHand
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRUDASVSORtHndLftShoul(Audit):
+	mvRUDASVSORtHndLftShoul = models.BooleanField(verbose_name='With your right hand touch your left shoulder')
+	def __unicode__(self):
+		return "%s" % self.mvRUDASVSORtHndLftShoul
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRUDASVSOLftHndRtEar(Audit):
+	mvRUDASVSOLftHndRtEar = models.BooleanField(verbose_name='With your left hand touch your right ear')
+	def __unicode__(self):
+		return "%s" % self.mvRUDASVSOLftHndRtEar
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRUDASVSOObsLftKnee(Audit):
+	mvRUDASVSOObsLftKnee = models.BooleanField(verbose_name='Which is (indicate/point to) my left knee')
+	def __unicode__(self):
+		return "%s" % self.mvRUDASVSOObsLftKnee
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRUDASVSOObsRtElbow(Audit):
+	mvRUDASVSOObsRtElbow = models.BooleanField(verbose_name='Which is (indicate/point to) my right elbow')
+	def __unicode__(self):
+		return "%s" % self.mvRUDASVSOObsRtElbow
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRUDASVSORtHandObsLftEye(Audit):
+	mvRUDASVSORtHandObsLftEye = models.BooleanField(verbose_name='With your right hand indicate/point to my left eye')
+	def __unicode__(self):
+		return "%s" % self.mvRUDASVSORtHandObsLftEye
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRUDASVSOLftHandObsLftFoot(Audit):
+	mvRUDASVSOLftHandObsLftFoot = models.BooleanField(verbose_name='With your left hand indicate/point to my left foot')
+	def __unicode__(self):
+		return "%s" % self.mvRUDASVSOLftHandObsLftFoot
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRUDASVSOLTotalScore(Audit):
+	mvRUDASVSOLTotalScore = models.BigIntegerField(verbose_name='Visuospatial Orientation Total Score', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvRUDASVSOLTotalScore
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRUDASPRAXTotalScore(Audit):
+	mvRUDASPRAXTotalScore = models.BigIntegerField(verbose_name='Select one option:', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvRUDASPRAXTotalScore
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRUDASVCONDSquareImg(Audit):
+	mvRUDASVCONDSquareImg = models.BooleanField(verbose_name='Has the person drawn a picture based on a square?')
+	def __unicode__(self):
+		return "%s" % self.mvRUDASVCONDSquareImg
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRUDASVCONDInternalLines(Audit):
+	mvRUDASVCONDInternalLines = models.BooleanField(verbose_name='Do all internal lines appear in person\'s drawing?')
+	def __unicode__(self):
+		return "%s" % self.mvRUDASVCONDInternalLines
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRUDASVCONDExternalLines(Audit):
+	mvRUDASVCONDExternalLines = models.BooleanField(verbose_name='Do all external lines appear in person\'s drawing?')
+	def __unicode__(self):
+		return "%s" % self.mvRUDASVCONDExternalLines
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRUDASVCONDTotalScore(Audit):
+	mvRUDASVCONDTotalScore = models.BigIntegerField(verbose_name='Visuoconstructional Drawing Total Score', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvRUDASVCONDTotalScore
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRUDASJudgementText(Audit):
+	mvRUDASJudgementText = models.TextField(verbose_name='Record exactly what patient says and underscore all parts of response which were prompted.', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvRUDASJudgementText
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRUDASJudgementTraffic(Audit):
+	mvRUDASJudgementTraffic = models.BigIntegerField(verbose_name='Did person indicate that they would look for traffic?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvRUDASJudgementTraffic
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRUDASJudgementAddSafety(Audit):
+	mvRUDASJudgementAddSafety = models.BigIntegerField(verbose_name='Did person make any additional safety proposals?', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvRUDASJudgementAddSafety
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRUDASJudgementTotalScore(Audit):
+	mvRUDASJudgementTotalScore = models.BigIntegerField(verbose_name='Judgement Total Score', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvRUDASJudgementTotalScore
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRUDASMemoryTea(Audit):
+	mvRUDASMemoryTea = models.BooleanField(verbose_name='Tea')
+	def __unicode__(self):
+		return "%s" % self.mvRUDASMemoryTea
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRUDASMemoryOil(Audit):
+	mvRUDASMemoryOil = models.BooleanField(verbose_name='Cooking Oil')
+	def __unicode__(self):
+		return "%s" % self.mvRUDASMemoryOil
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRUDASMemoryEggs(Audit):
+	mvRUDASMemoryEggs = models.BooleanField(verbose_name='Eggs')
+	def __unicode__(self):
+		return "%s" % self.mvRUDASMemoryEggs
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRUDASMemorySoap(Audit):
+	mvRUDASMemorySoap = models.BooleanField(verbose_name='Soap')
+	def __unicode__(self):
+		return "%s" % self.mvRUDASMemorySoap
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRUDASMemoryPrompted(Audit):
+	mvRUDASMemoryPrompted = models.BooleanField(verbose_name='Was a prompt given for tea?')
+	def __unicode__(self):
+		return "%s" % self.mvRUDASMemoryPrompted
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRUDASMemoryTotal(Audit):
+	mvRUDASMemoryTotal = models.BigIntegerField(verbose_name='Memory Total Score', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvRUDASMemoryTotal
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRUDASLangAnimal1(Audit):
+	mvRUDASLangAnimal1 = models.CharField(verbose_name='Animal 1', blank=True, null=True, default=None, max_length=50)
+	def __unicode__(self):
+		return "%s" % self.mvRUDASLangAnimal1
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRUDASLangAnimal2(Audit):
+	mvRUDASLangAnimal2 = models.CharField(verbose_name='Animal 2', blank=True, null=True, default=None, max_length=50)
+	def __unicode__(self):
+		return "%s" % self.mvRUDASLangAnimal2
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRUDASLangAnimal3(Audit):
+	mvRUDASLangAnimal3 = models.CharField(verbose_name='Animal 3', blank=True, null=True, default=None, max_length=50)
+	def __unicode__(self):
+		return "%s" % self.mvRUDASLangAnimal3
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRUDASLangAnimal4(Audit):
+	mvRUDASLangAnimal4 = models.CharField(verbose_name='Animal 4', blank=True, null=True, default=None, max_length=50)
+	def __unicode__(self):
+		return "%s" % self.mvRUDASLangAnimal4
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRUDASLangAnimal5(Audit):
+	mvRUDASLangAnimal5 = models.CharField(verbose_name='Animal 5', blank=True, null=True, default=None, max_length=50)
+	def __unicode__(self):
+		return "%s" % self.mvRUDASLangAnimal5
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRUDASLangAnimal6(Audit):
+	mvRUDASLangAnimal6 = models.CharField(verbose_name='Animal 6', blank=True, null=True, default=None, max_length=50)
+	def __unicode__(self):
+		return "%s" % self.mvRUDASLangAnimal6
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRUDASLangAnimal7(Audit):
+	mvRUDASLangAnimal7 = models.CharField(verbose_name='Animal 7', blank=True, null=True, default=None, max_length=50)
+	def __unicode__(self):
+		return "%s" % self.mvRUDASLangAnimal7
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRUDASLangAnimal8(Audit):
+	mvRUDASLangAnimal8 = models.CharField(verbose_name='Animal 8', blank=True, null=True, default=None, max_length=50)
+	def __unicode__(self):
+		return "%s" % self.mvRUDASLangAnimal8
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRUDASLangTotalScr(Audit):
+	mvRUDASLangTotalScr = models.BigIntegerField(verbose_name='Language Total Score', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvRUDASLangTotalScr
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moRUDASTotallScr8(Audit):
+	mvRUDASTotallScr8 = models.BigIntegerField(verbose_name='RUDAS Total Score', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvRUDASTotallScr8
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPIMotSeverity(Audit):
+	mvNPIMotSeverity = models.BigIntegerField(verbose_name='Severity', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPIMotSeverity
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPIMotDistress(Audit):
+	mvNPIMotDistress = models.BigIntegerField(verbose_name='Distress', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPIMotDistress
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPINightTimeBehaviours(Audit):
+	mvNPINightTimeBehaviours = models.BigIntegerField(verbose_name='Nighttime Behaviours', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPINightTimeBehaviours
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPINigBehSeverity(Audit):
+	mvNPINigBehSeverity = models.BigIntegerField(verbose_name='Severity', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPINigBehSeverity
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPINigBehDistress(Audit):
+	mvNPINigBehDistress = models.BigIntegerField(verbose_name='Distress', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPINigBehDistress
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPIAppetiteEating(Audit):
+	mvNPIAppetiteEating = models.BigIntegerField(verbose_name='Appetite and Eating', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPIAppetiteEating
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPIAppEatSeverity(Audit):
+	mvNPIAppEatSeverity = models.BigIntegerField(verbose_name='Severity', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPIAppEatSeverity
+	class Meta:
+		get_latest_by = 'record'
+		
+
+
+class moNPIAppEatDistress(Audit):
+	mvNPIAppEatDistress = models.BigIntegerField(verbose_name='Distress', blank=True, null=True, default=None)
+	def __unicode__(self):
+		return "%s" % self.mvNPIAppEatDistress
+	class Meta:
+		get_latest_by = 'record'
+		
