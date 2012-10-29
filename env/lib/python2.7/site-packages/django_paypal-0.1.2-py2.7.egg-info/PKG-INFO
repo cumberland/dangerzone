@@ -1,0 +1,15 @@
+Metadata-Version: 1.0
+Name: django-paypal
+Version: 0.1.2
+Summary: A pluggable Django application for integrating PayPal Payments Standard or Payments Pro
+Home-page: http://github.com/johnboxall/django-paypal
+Author: David Cramer
+Author-email: dcramer@gmail.com
+License: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: Framework :: Django
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: System Administrators
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Software Development

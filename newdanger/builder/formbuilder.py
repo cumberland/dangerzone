@@ -64,9 +64,7 @@ class mf%s(ModelForm):
 			if variable.FieldType == "RadioButton":
 				formWriter.write("\n\t\t'%s': RadioSelect(choices=%s_%s)," % (variable.VarName.strip(), form.FormName.strip(), variable.VarName.strip()))
 		formWriter.write("""}
-	def __init__(self, request, *args, **kwargs):
-		self.request = request
-		super(mf%s, self).__init__(*args, **kwargs)\n\n""" % form.FormName.strip())
+			""")
 
 
 def writeOptions(Project):

@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import simplejson
 from builder.formbuilder import writeModels, writeForms, writeOptions, writeAdmins
+from builder.templatebuilder import writeTemplates
 from django.core.urlresolvers import reverse
 
 
@@ -509,7 +510,7 @@ def projectprinter(request):
 def templateprinter(request):
 	renderDict = {}
 	# ProjectID = int(request.POST['ProjectID'])
-	# writeModels(Form.objects.filter(ProjectID=ProjectID))
+	writeTemplates(Form.objects.get(FormName="CT"))
 	# writeOptions(Form.objects.filter(ProjectID=ProjectID))
 	# writeForms(Form.objects.filter(ProjectID=ProjectID))
 	# writeAdmins(Form.objects.filter(ProjectID=ProjectID))
